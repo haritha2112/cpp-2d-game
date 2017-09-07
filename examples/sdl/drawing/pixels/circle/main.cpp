@@ -5,8 +5,12 @@ const double PI = 3.1415926535897;
 const double RAD2DEG = (180/PI);
 const double DEG2RAD = (PI/180);
 
-#define DegToRad(x) ((x)*DEG2RAD)
-#define RadToDeg(x) ((x)*RAD2DEG)
+double DegToRad(double x) {
+  return x*DEG2RAD;
+}
+double RadToDeg(double x) {
+  return x*RAD2DEG;
+}
 
 const int WINDOW_WIDTH = 600;
 
