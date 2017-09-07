@@ -4,6 +4,7 @@ const int NO_OF_POINTS = 360;
 const double PI = 3.1415926535897;
 const double RAD2DEG = (180/PI);
 const double DEG2RAD = (PI/180);
+const int WINDOW_WIDTH = 600;
 
 double DegToRad(double x) {
   return x*DEG2RAD;
@@ -11,8 +12,6 @@ double DegToRad(double x) {
 double RadToDeg(double x) {
   return x*RAD2DEG;
 }
-
-const int WINDOW_WIDTH = 600;
 
 int main(void) {
   SDL_Renderer *renderer;
