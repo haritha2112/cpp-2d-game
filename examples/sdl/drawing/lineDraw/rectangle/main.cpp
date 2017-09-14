@@ -24,27 +24,26 @@ int main (int , char*[]) {
   );
 
   // Set render color to red ( background will be rendered in this color )
-  SDL_SetRenderDrawColor( renderer, 208, 209, 210, 255 );
+  SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
 
   // Clear window
   SDL_RenderClear( renderer );
 
-  SDL_Rect r;
-  r.x = 150;
-  r.y = 150;
-  r.w = 250;
-  r.h = 150;
+  SDL_Rect q = {200, 200, 100, 100};
+
+  SDL_Rect r = {150, 150, 250, 150};
+  SDL_SetRenderDrawColor( renderer, 0, 0, 255, 255 );
+  SDL_RenderFillRect( renderer, &q );
 
   // First set the blend mode so that alpha blending will work;
   // the default blend mode is SDL_BLENDMODE_NONE!
   SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-  SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255/2 );
+  SDL_SetRenderDrawColor( renderer, 0, 255, 0, 255/2 );
 
   // Render rect
   SDL_RenderFillRect( renderer, &r );
-
   // To set opacity to half: 255/2
-  SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255/2 );
+  SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 );
   SDL_RenderDrawRect( renderer, &r );
 
   // Render the rect to the screen
