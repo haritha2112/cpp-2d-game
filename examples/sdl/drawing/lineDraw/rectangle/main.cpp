@@ -12,7 +12,8 @@ int main (int , char*[]) {
     return EXIT_FAILURE;
   }
   SDL_Window* window = SDL_CreateWindow(
-      TITLE.c_str(), SDL_WINDOWPOS_UNDEFINED,
+      TITLE.c_str(), 
+      SDL_WINDOWPOS_UNDEFINED,
       SDL_WINDOWPOS_UNDEFINED,
       WIDTH,
       HEIGHT,
@@ -62,6 +63,7 @@ int main (int , char*[]) {
     }
   }
 
+  SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
   SDL_Quit();
 
