@@ -3,10 +3,6 @@
 # This file is based on a post that focused on
 # this method. The post can be found at:
 # http://make.mad-scientist.net/papers/advanced-auto-dependency-generation/
-<<<<<<< HEAD
-=======
-# Adapted by Zachary Sullivan, CpSc 4160, Fall, 2017
->>>>>>> ac30c1233afdd6b7496dea0ed772ffe1f754dd69
 
 CXX = clang++
 
