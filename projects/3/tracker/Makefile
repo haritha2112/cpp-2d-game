@@ -3,8 +3,7 @@
 # This file is based on a post that focused on
 # this method. The post can be found at:
 # http://make.mad-scientist.net/papers/advanced-auto-dependency-generation/
-# Modifications to the original Makefile are contributed by
-#  Zachary Sullivan, Fall 2017
+# Modified by Zack Sullivan
 
 CXX = clang++
 
