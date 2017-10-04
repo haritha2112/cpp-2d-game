@@ -3,3 +3,5 @@ patterns/
 materials/
 oldqt/
 slides/
+
+*.o
