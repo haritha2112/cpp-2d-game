@@ -36,13 +36,14 @@ Engine::Engine() :
 void Engine::draw() const {
   std::stringstream strm;
   strm << "Fps: " << clock.getFps();
+  SDL_Color my_color = {102,0,102,0};
   
   world.draw();
 
   star->draw();
   spinningStar->draw();
   IOmod::getInstance().writeText(strm.str(), 30, 60);
-  IOmod::getInstance().writeText("Haritha Rathinakumar", 30, 410);
+  IOmod::getInstance().writeText("Haritha Rathinakumar",my_color, 30, 410);
 
   viewport.draw();
   SDL_RenderPresent(renderer);
