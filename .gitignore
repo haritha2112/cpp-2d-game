@@ -3,5 +3,7 @@ patterns/
 materials/
 oldqt/
 slides/
+run
+.deps/
 
 *.o
