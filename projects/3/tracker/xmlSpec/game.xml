@@ -8,24 +8,41 @@
 <frameCapOn>true</frameCapOn>
 <period>17</period>
 
-<maxFrames>300</maxFrames>
+<maxFrames>700</maxFrames>
 <username>malloy</username>
 
+<window>
+  <width>800</width>
+  <height>300</height>
+</window>
+
 <view>
-  <width>854</width>
-  <height>480</height>
+  <width>800</width>
+  <height>400</height>
 </view>
 
 <world>
-  <width>2000</width>
-  <height>800</height>
+  <width>5000</width>
+  <height>405</height>
 </world>
 
-<back>
-  <file>assets/checkerboard.bmp</file>
+<sky-back>
+  <file>assets/sky.png</file>
+  <factor>3</factor>
+  <transparency>true</transparency>
+</sky-back>
+
+<mountain-back>
+  <file>assets/mountains.png</file>
+  <factor>2</factor>
+  <transparency>true</transparency>
+</mountain-back>
+
+<ground-back>
+  <file>assets/ground.png</file>
   <factor>1</factor>
-  <transparency>false</transparency>
-</back>
+  <transparency>true</transparency>
+</ground-back>
 
 <font name="font">
   <file>fonts/arial.ttf</file>

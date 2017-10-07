@@ -19,7 +19,9 @@ private:
   Clock& clock;
 
   SDL_Renderer * const renderer;
-  World world;
+  World sky;
+  World mountains;
+  World ground;
   Viewport& viewport;
 
   Drawable* star;

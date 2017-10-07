@@ -21,7 +21,9 @@ Engine::Engine() :
   io( IOmod::getInstance() ),
   clock( Clock::getInstance() ),
   renderer( rc->getRenderer() ),
-  world("back", Gamedata::getInstance().getXmlInt("back/factor") ),
+  sky("sky-back", Gamedata::getInstance().getXmlInt("sky-back/factor") ),
+  mountains("mountain-back", Gamedata::getInstance().getXmlInt("mountain-back/factor") ),
+  ground("ground-back", Gamedata::getInstance().getXmlInt("ground-back/factor") ),
   viewport( Viewport::getInstance() ),
   star(new Sprite("YellowStar")),
   spinningStar(new MultiSprite("SpinningStar")),
@@ -38,7 +40,9 @@ void Engine::draw() const {
   strm << "Fps: " << clock.getFps();
   SDL_Color my_color = {102,0,102,0};
   
-  world.draw();
+  sky.draw();
+  mountains.draw();
+  ground.draw();
 
   star->draw();
   spinningStar->draw();
@@ -50,9 +54,11 @@ void Engine::draw() const {
 }
 
 void Engine::update(Uint32 ticks) {
+  sky.update();
+  mountains.update();
+  ground.update();
   star->update(ticks);
   spinningStar->update(ticks);
-  world.update();
   viewport.update(); // always update viewport last
 }
 
