@@ -14,6 +14,9 @@ public:
   Image* getImage(const std::string&);
   std::vector<Image*> getImages(const std::string&);
 
+  ImageFactory(const ImageFactory&) = delete;
+  ImageFactory& operator=(const ImageFactory&) = delete;
+
 private:
   const Gamedata& gdata;
 
@@ -34,6 +37,5 @@ private:
     multiTextures(),
     multiImages()
   {}
-  ImageFactory(const ImageFactory&);
-  ImageFactory& operator=(const ImageFactory&);
+  
 };
