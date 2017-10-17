@@ -11,7 +11,7 @@
 #include "frameGenerator.h"
 
 Engine::~Engine() { 
-  delete star;
+  delete egg;
   delete spinningStar;
   std::cout << "Terminating program" << std::endl;
 }
@@ -25,13 +25,13 @@ Engine::Engine() :
   mountains("mountain-back", Gamedata::getInstance().getXmlInt("mountain-back/factor") ),
   ground("ground-back", Gamedata::getInstance().getXmlInt("ground-back/factor") ),
   viewport( Viewport::getInstance() ),
-  star(new Sprite("YellowStar")),
+  egg(new Sprite("Egg")),
   spinningStar(new MultiSprite("SpinningStar")),
   currentSprite(0),
   makeVideo( false )
 {
   
-  Viewport::getInstance().setObjectToTrack(star);
+  Viewport::getInstance().setObjectToTrack(egg);
   std::cout << "Loading complete" << std::endl;
 }
 
@@ -44,7 +44,7 @@ void Engine::draw() const {
   mountains.draw();
   ground.draw();
 
-  star->draw();
+  egg->draw();
   spinningStar->draw();
   IOmod::getInstance().writeText(strm.str(), 30, 60);
   IOmod::getInstance().writeText("Haritha Rathinakumar",my_color, 30, 410);
@@ -57,7 +57,7 @@ void Engine::update(Uint32 ticks) {
   sky.update();
   mountains.update();
   ground.update();
-  star->update(ticks);
+  egg->update(ticks);
   spinningStar->update(ticks);
   viewport.update(); // always update viewport last
 }
@@ -69,7 +69,7 @@ void Engine::switchSprite(){
     Viewport::getInstance().setObjectToTrack(spinningStar);
   }
   else {
-    Viewport::getInstance().setObjectToTrack(star);
+    Viewport::getInstance().setObjectToTrack(egg);
   }
 }
 

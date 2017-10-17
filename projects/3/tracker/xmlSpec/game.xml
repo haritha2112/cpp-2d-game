@@ -54,7 +54,7 @@
 </font>
 
 <SpinningStar>
-  <file>assets/flappybird.png</file>
+  <file>assets/flappybird_right.png</file>
   <startLoc x="50" y="140"/>
   <frames>4</frames>
   <imageWidth>32</imageWidth>
@@ -65,24 +65,12 @@
   <transparency>false</transparency>
 </SpinningStar>
 
-<YellowStar>
-  <file>assets/yellowstar32.png</file>
+<Egg>
+  <file>assets/egg.png</file>
   <startLoc x="227" y="240"/>
   <speedX>300</speedX>
   <speedY>300</speedY>
   <transparency>false</transparency>
-</YellowStar>
-
-<!-- <YellowStar>
-  <file>assets/flappybird.png</file>
-  <startLoc x="50" y="140"/>
-  <frames>4</frames>
-  <imageWidth>32</imageWidth>
-  <imageHeight>32</imageHeight>
-  <frameInterval>50</frameInterval>
-  <speedX>200</speedX>
-  <speedY>200</speedY>
-  <transparency>true</transparency>
-</YellowStar> -->
+</Egg>
 
 </GameData>

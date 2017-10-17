@@ -26,7 +26,7 @@ private:
   World ground;
   Viewport& viewport;
 
-  Drawable* star;
+  Drawable* egg;
   Drawable* spinningStar;
   int currentSprite;
 
