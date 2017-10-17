@@ -23,13 +23,13 @@
 
 <world>
   <width>5000</width>
-  <height>405</height>
+  <height>425</height>
 </world>
 
 <sky-back>
   <file>assets/sky.png</file>
   <factor>3</factor>
-  <transparency>true</transparency>
+  <transparency>false</transparency>
 </sky-back>
 
 <mountain-back>
@@ -54,7 +54,7 @@
 </font>
 
 <SpinningStar>
-  <file>assets/spinstar.png</file>
+  <file>assets/flappybird.png</file>
   <startLoc x="50" y="140"/>
   <frames>4</frames>
   <imageWidth>32</imageWidth>
@@ -72,5 +72,17 @@
   <speedY>300</speedY>
   <transparency>false</transparency>
 </YellowStar>
+
+<!-- <YellowStar>
+  <file>assets/flappybird.png</file>
+  <startLoc x="50" y="140"/>
+  <frames>4</frames>
+  <imageWidth>32</imageWidth>
+  <imageHeight>32</imageHeight>
+  <frameInterval>50</frameInterval>
+  <speedX>200</speedX>
+  <speedY>200</speedY>
+  <transparency>true</transparency>
+</YellowStar> -->
 
 </GameData>
