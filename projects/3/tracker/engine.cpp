@@ -12,7 +12,7 @@
 
 Engine::~Engine() { 
   delete egg;
-  delete spinningStar;
+  delete birdRight;
   std::cout << "Terminating program" << std::endl;
 }
 
@@ -26,7 +26,7 @@ Engine::Engine() :
   ground("ground-back", Gamedata::getInstance().getXmlInt("ground-back/factor") ),
   viewport( Viewport::getInstance() ),
   egg(new Sprite("Egg")),
-  spinningStar(new MultiSprite("SpinningStar")),
+  birdRight(new MultiSprite("BirdRight")),
   currentSprite(0),
   makeVideo( false )
 {
@@ -45,7 +45,7 @@ void Engine::draw() const {
   ground.draw();
 
   egg->draw();
-  spinningStar->draw();
+  birdRight->draw();
   IOmod::getInstance().writeText(strm.str(), 30, 60);
   IOmod::getInstance().writeText("Haritha Rathinakumar",my_color, 30, 410);
 
@@ -58,7 +58,7 @@ void Engine::update(Uint32 ticks) {
   mountains.update();
   ground.update();
   egg->update(ticks);
-  spinningStar->update(ticks);
+  birdRight->update(ticks);
   viewport.update(); // always update viewport last
 }
 
@@ -66,7 +66,7 @@ void Engine::switchSprite(){
   ++currentSprite;
   currentSprite = currentSprite % 2;
   if ( currentSprite ) {
-    Viewport::getInstance().setObjectToTrack(spinningStar);
+    Viewport::getInstance().setObjectToTrack(birdRight);
   }
   else {
     Viewport::getInstance().setObjectToTrack(egg);

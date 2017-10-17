@@ -27,7 +27,7 @@ private:
   Viewport& viewport;
 
   Drawable* egg;
-  Drawable* spinningStar;
+  Drawable* birdRight;
   int currentSprite;
 
   bool makeVideo;

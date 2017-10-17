@@ -53,7 +53,7 @@
   <alpha>0</alpha>
 </font>
 
-<SpinningStar>
+<BirdRight>
   <file>assets/flappybird_right.png</file>
   <startLoc x="50" y="140"/>
   <frames>4</frames>
@@ -63,7 +63,7 @@
   <speedX>200</speedX>
   <speedY>200</speedY>
   <transparency>false</transparency>
-</SpinningStar>
+</BirdRight>
 
 <Egg>
   <file>assets/egg.png</file>
