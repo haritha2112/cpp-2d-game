@@ -6,6 +6,7 @@
 #include <iomanip>
 #include "sprite.h"
 #include "multisprite.h"
+#include "twowaySprite.h"
 #include "gamedata.h"
 #include "engine.h"
 #include "frameGenerator.h"
@@ -13,6 +14,7 @@
 Engine::~Engine() { 
   delete egg;
   delete birdRight;
+  //delete bird;
   std::cout << "Terminating program" << std::endl;
 }
 
@@ -23,10 +25,11 @@ Engine::Engine() :
   renderer( rc->getRenderer() ),
   sky("sky-back", Gamedata::getInstance().getXmlInt("sky-back/factor") ),
   mountains("mountain-back", Gamedata::getInstance().getXmlInt("mountain-back/factor") ),
-  ground("ground-back", Gamedata::getInstance().getXmlInt("ground-back/factor") ),
+  clouds("cloud-back", Gamedata::getInstance().getXmlInt("cloud-back/factor") ),
   viewport( Viewport::getInstance() ),
   egg(new Sprite("Egg")),
   birdRight(new MultiSprite("BirdRight")),
+  //bird(new TwoWaySprite("BirdRight")),
   currentSprite(0),
   makeVideo( false )
 {
@@ -42,10 +45,11 @@ void Engine::draw() const {
   
   sky.draw();
   mountains.draw();
-  ground.draw();
+  clouds.draw();
 
   egg->draw();
   birdRight->draw();
+  //bird->draw();
   IOmod::getInstance().writeText(strm.str(), 30, 60);
   IOmod::getInstance().writeText("Haritha Rathinakumar",my_color, 30, 410);
 
