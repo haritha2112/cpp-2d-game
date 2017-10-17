@@ -60,9 +60,10 @@ void Engine::draw() const {
 void Engine::update(Uint32 ticks) {
   sky.update();
   mountains.update();
-  ground.update();
+  clouds.update();
   egg->update(ticks);
   birdRight->update(ticks);
+  //bird->update(ticks);
   viewport.update(); // always update viewport last
 }
 

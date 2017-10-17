@@ -32,17 +32,17 @@
   <transparency>false</transparency>
 </sky-back>
 
-<mountain-back>
-  <file>assets/mountains.png</file>
+<cloud-back>
+  <file>assets/clouds.png</file>
   <factor>2</factor>
   <transparency>true</transparency>
-</mountain-back>
+</cloud-back>
 
-<ground-back>
-  <file>assets/ground.png</file>
+<mountain-back>
+  <file>assets/mountains.png</file>
   <factor>1</factor>
   <transparency>true</transparency>
-</ground-back>
+</mountain-back>
 
 <font name="font">
   <file>fonts/arial.ttf</file>

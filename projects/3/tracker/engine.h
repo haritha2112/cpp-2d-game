@@ -23,11 +23,12 @@ private:
   SDL_Renderer * const renderer;
   World sky;
   World mountains;
-  World ground;
+  World clouds;
   Viewport& viewport;
 
   Drawable* egg;
   Drawable* birdRight;
+  //Drawable* bird;
   int currentSprite;
 
   bool makeVideo;
