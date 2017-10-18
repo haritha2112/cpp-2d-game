@@ -57,8 +57,8 @@
   <file>assets/flappybird_right.png</file>
   <startLoc x="50" y="140"/>
   <frames>4</frames>
-  <imageWidth>32</imageWidth>
-  <imageHeight>32</imageHeight>
+  <imageWidth>96</imageWidth>
+  <imageHeight>96</imageHeight>
   <frameInterval>50</frameInterval>
   <speedX>200</speedX>
   <speedY>200</speedY>
