@@ -84,12 +84,17 @@ void Engine::update(Uint32 ticks) {
 
 void Engine::switchSprite(){
   ++currentSprite;
-  currentSprite = currentSprite % 2;
-  if ( currentSprite ) {
-    Viewport::getInstance().setObjectToTrack(sprites[currentSprite]);
-  }
-  else {
-    Viewport::getInstance().setObjectToTrack(sprites[currentSprite]);
+  currentSprite = currentSprite % 3;
+  switch(currentSprite) {
+    case 0:
+      Viewport::getInstance().setObjectToTrack(sprites[currentSprite]);
+      break;
+    case 1:
+      Viewport::getInstance().setObjectToTrack(sprites[currentSprite]);
+      break;
+    case 2:
+      Viewport::getInstance().setObjectToTrack(sprites[currentSprite]);
+      break;
   }
 }
 
