@@ -9,7 +9,7 @@
 <period>17</period>
 
 <maxFrames>700</maxFrames>
-<username>malloy</username>
+<username>hrathin</username>
 
 <window>
   <width>800</width>
@@ -28,21 +28,27 @@
 
 <sky-back>
   <file>assets/sky.png</file>
-  <factor>3</factor>
+  <factor>9</factor>
   <transparency>false</transparency>
 </sky-back>
 
 <cloud-back>
   <file>assets/clouds.png</file>
-  <factor>2</factor>
-  <transparency>true</transparency>
+  <factor>9</factor>
+  <transparency>false</transparency>
 </cloud-back>
 
 <mountain-back>
   <file>assets/mountains.png</file>
-  <factor>1</factor>
+  <factor>5</factor>
   <transparency>true</transparency>
 </mountain-back>
+
+<ground-back>
+  <file>assets/ground.png</file>
+  <factor>1</factor>
+  <transparency>true</transparency>
+</ground-back>
 
 <font name="font">
   <file>fonts/arial.ttf</file>
@@ -65,6 +71,18 @@
   <transparency>false</transparency>
 </BirdRight>
 
+<BirdLeft>
+  <file>assets/flappybird_left.png</file>
+  <startLoc x="50" y="140"/>
+  <frames>4</frames>
+  <imageWidth>96</imageWidth>
+  <imageHeight>96</imageHeight>
+  <frameInterval>50</frameInterval>
+  <speedX>200</speedX>
+  <speedY>200</speedY>
+  <transparency>false</transparency>
+</BirdLeft>
+
 <Egg>
   <file>assets/egg.png</file>
   <startLoc x="227" y="240"/>
@@ -72,5 +90,17 @@
   <speedY>300</speedY>
   <transparency>false</transparency>
 </Egg>
+
+<EvilFlower>
+  <file>assets/evil_flower.png</file>
+  <startLoc x="380" y="380"/>
+  <frames>2</frames>
+  <imageWidth>80</imageWidth>
+  <imageHeight>80</imageHeight>
+  <frameInterval>50</frameInterval>
+  <speedX>0</speedX>
+  <speedY>0</speedY>
+  <transparency>false</transparency>
+</EvilFlower>
 
 </GameData>

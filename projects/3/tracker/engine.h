@@ -5,7 +5,6 @@
 #include "clock.h"
 #include "world.h"
 #include "viewport.h"
-#include "drawable.h"
 #include <vector>
 
 class Engine {
@@ -24,8 +23,9 @@ private:
 
   SDL_Renderer * const renderer;
   World sky;
-  World mountains;
   World clouds;
+  World mountains;
+  World ground;
   Viewport& viewport;
 
   std::vector<Drawable* > sprites;

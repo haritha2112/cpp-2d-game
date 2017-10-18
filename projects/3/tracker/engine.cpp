@@ -25,8 +25,9 @@ Engine::Engine() :
   clock( Clock::getInstance() ),
   renderer( rc->getRenderer() ),
   sky("sky-back", Gamedata::getInstance().getXmlInt("sky-back/factor") ),
-  mountains("mountain-back", Gamedata::getInstance().getXmlInt("mountain-back/factor") ),
   clouds("cloud-back", Gamedata::getInstance().getXmlInt("cloud-back/factor") ),
+  mountains("mountain-back", Gamedata::getInstance().getXmlInt("mountain-back/factor") ),
+  ground("ground-back", Gamedata::getInstance().getXmlInt("ground-back/factor") ),
   viewport( Viewport::getInstance() ),
   //egg(new Sprite("Egg")),
   //birdRight(new MultiSprite("BirdRight")),
@@ -48,8 +49,9 @@ void Engine::draw() const {
   SDL_Color my_color = {102,0,102,0};
   
   sky.draw();
-  mountains.draw();
   clouds.draw();
+  mountains.draw();
+  ground.draw();
 
   for(auto sprite : sprites) {
     sprite->draw();
@@ -67,8 +69,9 @@ void Engine::draw() const {
 
 void Engine::update(Uint32 ticks) {
   sky.update();
-  mountains.update();
   clouds.update();
+  mountains.update();
+  ground.update();
 
   for(auto sprite : sprites) {
     sprite->update(ticks);
