@@ -37,8 +37,8 @@ Engine::Engine() :
   makeVideo(false)
 {
   sprites.push_back(new Sprite("Egg"));
-  sprites.push_back(new MultiSprite("BirdRight"));
-  sprites.push_back(new TwoWaySprite("BirdRight"));
+  sprites.push_back(new MultiSprite("EvilFlower"));
+  sprites.push_back(new TwoWaySprite("BirdRight","BirdLeft"));
   Viewport::getInstance().setObjectToTrack(sprites[0]);
   std::cout << "Loading complete" << std::endl;
 }

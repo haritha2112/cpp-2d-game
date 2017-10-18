@@ -3,31 +3,29 @@
 #include "renderContext.h"
 
 void TwoWaySprite::advanceFrame(Uint32 ticks) {
-	timeSinceLastFrame += ticks;
-	if (timeSinceLastFrame > frameInterval) {
+  timeSinceLastFrame += ticks;
+  if (timeSinceLastFrame > frameInterval) {
     currentFrame = (currentFrame+1) % numberOfFrames;
-		timeSinceLastFrame = 0;
-	}
+    timeSinceLastFrame = 0;
+  }
 }
 
-TwoWaySprite::TwoWaySprite( const std::string& name) :
-  Drawable(name, 
-           Vector2f(Gamedata::getInstance().getXmlInt(name+"/startLoc/x"), 
-                    Gamedata::getInstance().getXmlInt(name+"/startLoc/y")), 
-           Vector2f(Gamedata::getInstance().getXmlInt(name+"/speedX"),
-                    Gamedata::getInstance().getXmlInt(name+"/speedY"))
+TwoWaySprite::TwoWaySprite(const std::string& right, const std::string& left) :
+  Drawable(right, 
+           Vector2f(Gamedata::getInstance().getXmlInt(right+"/startLoc/x"), 
+                    Gamedata::getInstance().getXmlInt(right+"/startLoc/y")), 
+           Vector2f(Gamedata::getInstance().getXmlInt(right+"/speedX"),
+                    Gamedata::getInstance().getXmlInt(right+"/speedY"))
            ),
-  images( RenderContext::getInstance()->getImages(name) ),
-
+  images( RenderContext::getInstance()->getImages(right) ),
   currentFrame(0),
-  numberOfFrames( Gamedata::getInstance().getXmlInt(name+"/frames") ),
-  frameInterval( Gamedata::getInstance().getXmlInt(name+"/frameInterval")),
+  numberOfFrames( Gamedata::getInstance().getXmlInt(right+"/frames") ),
+  frameInterval( Gamedata::getInstance().getXmlInt(right+"/frameInterval")),
   timeSinceLastFrame( 0 ),
   worldWidth(Gamedata::getInstance().getXmlInt("world/width")),
   worldHeight(Gamedata::getInstance().getXmlInt("world/height")),
-  frameWidth(images[0]->getWidth()),
-  frameHeight(images[0]->getHeight()),
-  timeToFlip(false)
+  rightsprite(right),
+  leftsprite(left)
 { }
 
 TwoWaySprite::TwoWaySprite(const TwoWaySprite& s) :
@@ -39,13 +37,26 @@ TwoWaySprite::TwoWaySprite(const TwoWaySprite& s) :
   timeSinceLastFrame( s.timeSinceLastFrame ),
   worldWidth( s.worldWidth ),
   worldHeight( s.worldHeight ),
-  frameWidth( s.frameWidth ),
-  frameHeight( s.frameHeight ),
-  timeToFlip(s.timeToFlip)
+  rightsprite(s.rightsprite),
+  leftsprite(s.leftsprite)
   { }
 
+TwoWaySprite& TwoWaySprite::operator=(const TwoWaySprite& s) {
+  Drawable::operator=(s);
+  images = (s.images);
+  currentFrame = (s.currentFrame);
+  numberOfFrames = ( s.numberOfFrames );
+  frameInterval = ( s.frameInterval );
+  timeSinceLastFrame = ( s.timeSinceLastFrame );
+  worldWidth = ( s.worldWidth );
+  worldHeight = ( s.worldHeight );
+  rightsprite = (s.rightsprite);
+  leftsprite = (s.leftsprite);
+  return *this;
+}
+
 void TwoWaySprite::draw() const { 
-  images[currentFrame]->draw(getX(), getY(),timeToFlip);
+  images[currentFrame]->draw(getX(), getY(), getScale());
 }
 
 void TwoWaySprite::update(Uint32 ticks) { 
@@ -57,20 +68,19 @@ void TwoWaySprite::update(Uint32 ticks) {
   if ( getY() < 0) {
     setVelocityY( fabs( getVelocityY() ) );
   }
-  if ( getY() > worldHeight-frameHeight) {
+  if ( getY() > worldHeight-getScaledHeight()) {
     setVelocityY( -fabs( getVelocityY() ) );
   }
 
   if ( getX() < 0) {
     setVelocityX( fabs( getVelocityX() ) );
-    timeToFlip=false;
-   // std::cout << "should flip back" << std::endl;
+    setName(rightsprite);
+    setImages( RenderContext::getInstance()->getImages(rightsprite) );
   }
-  if ( getX() > worldWidth-frameWidth) {
+  if ( getX() > worldWidth-getScaledWidth()) {
     setVelocityX( -fabs( getVelocityX() ) );
-    timeToFlip=true;
-     // std::cout << "should flip" << std::endl;
-
+    setName(leftsprite);
+    setImages( RenderContext::getInstance()->getImages(leftsprite) );
   }  
 
 }

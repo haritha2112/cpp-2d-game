@@ -7,15 +7,15 @@
 
 class TwoWaySprite : public Drawable {
 public:
-  TwoWaySprite(const std::string&);
+  TwoWaySprite(const std::string&, const std::string&);
   TwoWaySprite(const TwoWaySprite&);
 
   virtual void draw() const;
   virtual void update(Uint32 ticks);
+
   virtual const Image* getImage() const { 
     return images[currentFrame]; 
   }
-
   int getScaledWidth()  const { 
     return getScale()*images[currentFrame]->getWidth(); 
   } 
@@ -26,8 +26,13 @@ public:
     return images[currentFrame]->getSurface();
   }
 
+  void setImages(std::vector<Image *> newImages) {
+    //maybe memory leak
+    images = newImages;
+  }
+
 protected:
-  const std::vector<Image *> images;
+  std::vector<Image *> images;
 
   unsigned currentFrame;
   unsigned numberOfFrames;
@@ -35,10 +40,11 @@ protected:
   float timeSinceLastFrame;
   int worldWidth;
   int worldHeight;
-  int frameWidth;
-  int frameHeight;
-  bool timeToFlip;
+
+  std::string rightsprite;
+  std::string leftsprite;
 
   void advanceFrame(Uint32 ticks);
+  TwoWaySprite& operator=(const TwoWaySprite&);
 };
 #endif
