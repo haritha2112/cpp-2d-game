@@ -5,6 +5,8 @@
 #include "clock.h"
 #include "world.h"
 #include "viewport.h"
+#include "drawable.h"
+#include <vector>
 
 class Engine {
 public:
@@ -26,8 +28,9 @@ private:
   World clouds;
   Viewport& viewport;
 
-  Drawable* egg;
-  Drawable* birdRight;
+  std::vector<Drawable* > sprites;
+  //Drawable* egg;
+  //Drawable* birdRight;
   //Drawable* bird;
   int currentSprite;
 

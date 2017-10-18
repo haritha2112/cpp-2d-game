@@ -12,9 +12,10 @@
 #include "frameGenerator.h"
 
 Engine::~Engine() { 
-  delete egg;
-  delete birdRight;
+  //delete egg;
+  //delete birdRight;
   //delete bird;
+  for(auto& s : sprites) delete s;
   std::cout << "Terminating program" << std::endl;
 }
 
@@ -27,14 +28,17 @@ Engine::Engine() :
   mountains("mountain-back", Gamedata::getInstance().getXmlInt("mountain-back/factor") ),
   clouds("cloud-back", Gamedata::getInstance().getXmlInt("cloud-back/factor") ),
   viewport( Viewport::getInstance() ),
-  egg(new Sprite("Egg")),
-  birdRight(new MultiSprite("BirdRight")),
+  //egg(new Sprite("Egg")),
+  //birdRight(new MultiSprite("BirdRight")),
   //bird(new TwoWaySprite("BirdRight")),
+  sprites(),
   currentSprite(0),
-  makeVideo( false )
+  makeVideo(false)
 {
-  
-  Viewport::getInstance().setObjectToTrack(egg);
+  sprites.push_back(new Sprite("Egg"));
+  sprites.push_back(new MultiSprite("BirdRight"));
+  sprites.push_back(new TwoWaySprite("BirdRight"));
+  Viewport::getInstance().setObjectToTrack(sprites[0]);
   std::cout << "Loading complete" << std::endl;
 }
 
@@ -47,8 +51,12 @@ void Engine::draw() const {
   mountains.draw();
   clouds.draw();
 
-  egg->draw();
-  birdRight->draw();
+  for(auto sprite : sprites) {
+    sprite->draw();
+  }
+
+  //egg->draw();
+  //birdRight->draw();
   //bird->draw();
   IOmod::getInstance().writeText(strm.str(), 30, 60);
   IOmod::getInstance().writeText("Haritha Rathinakumar",my_color, 30, 410);
@@ -61,8 +69,12 @@ void Engine::update(Uint32 ticks) {
   sky.update();
   mountains.update();
   clouds.update();
-  egg->update(ticks);
-  birdRight->update(ticks);
+
+  for(auto sprite : sprites) {
+    sprite->update(ticks);
+  }
+  //egg->update(ticks);
+  //birdRight->update(ticks);
   //bird->update(ticks);
   viewport.update(); // always update viewport last
 }
@@ -71,10 +83,10 @@ void Engine::switchSprite(){
   ++currentSprite;
   currentSprite = currentSprite % 2;
   if ( currentSprite ) {
-    Viewport::getInstance().setObjectToTrack(birdRight);
+    Viewport::getInstance().setObjectToTrack(sprites[currentSprite]);
   }
   else {
-    Viewport::getInstance().setObjectToTrack(egg);
+    Viewport::getInstance().setObjectToTrack(sprites[currentSprite]);
   }
 }
 
