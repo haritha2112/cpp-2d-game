@@ -27,7 +27,6 @@ public:
   }
 
   void setImages(std::vector<Image *> newImages) {
-    //maybe memory leak
     images = newImages;
   }
 
