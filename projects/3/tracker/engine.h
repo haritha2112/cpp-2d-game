@@ -29,9 +29,6 @@ private:
   Viewport& viewport;
 
   std::vector<Drawable* > sprites;
-  //Drawable* egg;
-  //Drawable* birdRight;
-  //Drawable* bird;
   int currentSprite;
 
   bool makeVideo;

@@ -12,9 +12,6 @@
 #include "frameGenerator.h"
 
 Engine::~Engine() { 
-  //delete egg;
-  //delete birdRight;
-  //delete bird;
   for(auto& s : sprites) delete s;
   std::cout << "Terminating program" << std::endl;
 }
@@ -29,9 +26,6 @@ Engine::Engine() :
   mountains("mountain-back", Gamedata::getInstance().getXmlInt("mountain-back/factor") ),
   ground("ground-back", Gamedata::getInstance().getXmlInt("ground-back/factor") ),
   viewport( Viewport::getInstance() ),
-  //egg(new Sprite("Egg")),
-  //birdRight(new MultiSprite("BirdRight")),
-  //bird(new TwoWaySprite("BirdRight")),
   sprites(),
   currentSprite(0),
   makeVideo(false)
@@ -57,9 +51,6 @@ void Engine::draw() const {
     sprite->draw();
   }
 
-  //egg->draw();
-  //birdRight->draw();
-  //bird->draw();
   IOmod::getInstance().writeText(strm.str(), 30, 60);
   IOmod::getInstance().writeText("Haritha Rathinakumar",my_color, 30, 410);
 
@@ -76,9 +67,6 @@ void Engine::update(Uint32 ticks) {
   for(auto sprite : sprites) {
     sprite->update(ticks);
   }
-  //egg->update(ticks);
-  //birdRight->update(ticks);
-  //bird->update(ticks);
   viewport.update(); // always update viewport last
 }
 
