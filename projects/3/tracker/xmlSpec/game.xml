@@ -86,8 +86,8 @@
 <Egg>
   <file>assets/egg.png</file>
   <startLoc x="227" y="240"/>
-  <speedX>300</speedX>
-  <speedY>300</speedY>
+  <speedX>0</speedX>
+  <speedY>0</speedY>
   <transparency>false</transparency>
 </Egg>
 
