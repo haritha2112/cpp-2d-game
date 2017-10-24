@@ -7,12 +7,16 @@
 #include "sprite.h"
 #include "multisprite.h"
 #include "twowaySprite.h"
+#include "player.h"
 #include "gamedata.h"
 #include "engine.h"
 #include "frameGenerator.h"
 
 Engine::~Engine() { 
-  for(auto& s : sprites) delete s;
+  delete player;
+  for ( Drawable* sprite : sprites ) {
+    delete sprite;
+  }
   std::cout << "Terminating program" << std::endl;
 }
 
@@ -26,14 +30,15 @@ Engine::Engine() :
   mountains("mountain-back", Gamedata::getInstance().getXmlInt("mountain-back/factor") ),
   ground("ground-back", Gamedata::getInstance().getXmlInt("ground-back/factor") ),
   viewport( Viewport::getInstance() ),
+  player(new Player("BirdRight")),
   sprites(),
   currentSprite(0),
   makeVideo(false)
 {
   sprites.push_back(new Sprite("Egg"));
   sprites.push_back(new MultiSprite("EvilFlower"));
-  sprites.push_back(new TwoWaySprite("BirdRight","BirdLeft"));
-  Viewport::getInstance().setObjectToTrack(sprites[0]);
+  //sprites.push_back(new TwoWaySprite("BirdRight","BirdLeft"));
+  Viewport::getInstance().setObjectToTrack(player);
   std::cout << "Loading complete" << std::endl;
 }
 
@@ -47,9 +52,10 @@ void Engine::draw() const {
   mountains.draw();
   ground.draw();
 
-  for(auto sprite : sprites) {
+  for(const Drawable* sprite : sprites) {
     sprite->draw();
   }
+  player->draw();
 
   IOmod::getInstance().writeText(strm.str(), 30, 60);
   IOmod::getInstance().writeText("Haritha Rathinakumar",my_color, 30, 410);
@@ -63,14 +69,14 @@ void Engine::update(Uint32 ticks) {
   clouds.update();
   mountains.update();
   ground.update();
-
-  for(auto sprite : sprites) {
+  player->update(ticks);
+  for(Drawable* sprite : sprites) {
     sprite->update(ticks);
   }
   viewport.update(); // always update viewport last
 }
 
-void Engine::switchSprite(){
+/*void Engine::switchSprite(){
   ++currentSprite;
   currentSprite = currentSprite % 3;
   switch(currentSprite) {
@@ -84,7 +90,7 @@ void Engine::switchSprite(){
       Viewport::getInstance().setObjectToTrack(sprites[currentSprite]);
       break;
   }
-}
+}*/
 
 void Engine::play() {
   SDL_Event event;
@@ -107,9 +113,9 @@ void Engine::play() {
           if ( clock.isPaused() ) clock.unpause();
           else clock.pause();
         }
-        if ( keystate[SDL_SCANCODE_T] ) {
+/*        if ( keystate[SDL_SCANCODE_T] ) {
           switchSprite();
-        }
+        }*/
         if (keystate[SDL_SCANCODE_F4] && !makeVideo) {
           std::cout << "Initiating frame capture" << std::endl;
           makeVideo = true;
@@ -123,9 +129,22 @@ void Engine::play() {
 
     // In this section of the event loop we allow key bounce:
 
+    // In this section of the event loop we allow key bounce:
     ticks = clock.getElapsedTicks();
     if ( ticks > 0 ) {
       clock.incrFrame();
+      if (keystate[SDL_SCANCODE_A]) {
+        player->left();
+      }
+      if (keystate[SDL_SCANCODE_D]) {
+        player->right();
+      }
+      if (keystate[SDL_SCANCODE_W]) {
+        player->up();
+      }
+      if (keystate[SDL_SCANCODE_S]) {
+        player->down();
+      }
       draw();
       update(ticks);
       if ( makeVideo ) {

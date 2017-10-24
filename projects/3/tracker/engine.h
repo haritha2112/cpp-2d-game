@@ -7,12 +7,15 @@
 #include "viewport.h"
 #include <vector>
 
+class Player;
+
 class Engine {
 public:
   Engine ();
   ~Engine ();
   void play();
-  void switchSprite();
+
+  //void switchSprite();
   Engine(const Engine&) = delete;
   Engine& operator=(const Engine&) = delete;
 
@@ -28,6 +31,7 @@ private:
   World ground;
   Viewport& viewport;
 
+  Player* player;
   std::vector<Drawable* > sprites;
   int currentSprite;
 
