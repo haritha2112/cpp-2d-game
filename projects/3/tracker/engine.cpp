@@ -11,11 +11,15 @@
 #include "gamedata.h"
 #include "engine.h"
 #include "frameGenerator.h"
+#include "collisionStrategy.h"
 
 Engine::~Engine() { 
   delete player;
   for ( Drawable* sprite : sprites ) {
     delete sprite;
+  }
+  for ( CollisionStrategy* strategy : strategies ) {
+    delete strategy;
   }
   std::cout << "Terminating program" << std::endl;
 }
@@ -32,11 +36,17 @@ Engine::Engine() :
   viewport( Viewport::getInstance() ),
   player(new Player("BirdRight")),
   sprites(),
-  currentSprite(0),
+  strategies(),
+  currentStrategy(0),
   makeVideo(false)
 {
   sprites.push_back(new Sprite("Egg"));
   sprites.push_back(new MultiSprite("EvilFlower"));
+  
+  strategies.push_back( new RectangularCollisionStrategy );
+  strategies.push_back( new PerPixelCollisionStrategy );
+  strategies.push_back( new MidPointCollisionStrategy );
+
   Viewport::getInstance().setObjectToTrack(player);
   std::cout << "Loading complete" << std::endl;
 }
@@ -59,11 +69,37 @@ void Engine::draw() const {
   IOmod::getInstance().writeText(strm.str(), 30, 60);
   IOmod::getInstance().writeText("Haritha Rathinakumar",my_color, 30, 410);
 
+  IOmod::getInstance().writeText("Press m to change strategy", 500, 60);
+  for ( const Drawable* sprite : sprites ) {
+    sprite->draw();
+  }
+  strategies[currentStrategy]->draw();
+  if ( collision ) {
+    IOmod::getInstance().writeText("Oops: Collision", 500, 90);
+  }
+
   viewport.draw();
   SDL_RenderPresent(renderer);
 }
 
+void Engine::checkForCollisions() {
+  collision = false;
+  for ( const Drawable* d : sprites ) {
+    if ( strategies[currentStrategy]->execute(*player, *d) ) {
+      collision = true;
+    }
+  }
+  if ( collision ) {
+    player->collided();
+  }
+  else {
+    player->missed();
+    collision = false;
+  }
+}
+
 void Engine::update(Uint32 ticks) {
+  checkForCollisions();
   sky.update();
   clouds.update();
   mountains.update();

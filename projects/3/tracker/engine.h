@@ -8,6 +8,7 @@
 #include <vector>
 
 class Player;
+class CollisionStrategy;
 
 class Engine {
 public:
@@ -33,7 +34,10 @@ private:
 
   Player* player;
   std::vector<Drawable* > sprites;
+  std::vector<CollisionStrategy*> strategies;
   int currentSprite;
+  int currentStrategy;
+  bool collision;
 
   bool makeVideo;
 
