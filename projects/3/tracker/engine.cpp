@@ -37,7 +37,6 @@ Engine::Engine() :
 {
   sprites.push_back(new Sprite("Egg"));
   sprites.push_back(new MultiSprite("EvilFlower"));
-  //sprites.push_back(new TwoWaySprite("BirdRight","BirdLeft"));
   Viewport::getInstance().setObjectToTrack(player);
   std::cout << "Loading complete" << std::endl;
 }
@@ -76,22 +75,6 @@ void Engine::update(Uint32 ticks) {
   viewport.update(); // always update viewport last
 }
 
-/*void Engine::switchSprite(){
-  ++currentSprite;
-  currentSprite = currentSprite % 3;
-  switch(currentSprite) {
-    case 0:
-      Viewport::getInstance().setObjectToTrack(sprites[currentSprite]);
-      break;
-    case 1:
-      Viewport::getInstance().setObjectToTrack(sprites[currentSprite]);
-      break;
-    case 2:
-      Viewport::getInstance().setObjectToTrack(sprites[currentSprite]);
-      break;
-  }
-}*/
-
 void Engine::play() {
   SDL_Event event;
   const Uint8* keystate;
@@ -113,9 +96,6 @@ void Engine::play() {
           if ( clock.isPaused() ) clock.unpause();
           else clock.pause();
         }
-/*        if ( keystate[SDL_SCANCODE_T] ) {
-          switchSprite();
-        }*/
         if (keystate[SDL_SCANCODE_F4] && !makeVideo) {
           std::cout << "Initiating frame capture" << std::endl;
           makeVideo = true;
