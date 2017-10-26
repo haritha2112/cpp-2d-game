@@ -26,9 +26,11 @@ Engine::~Engine() {
 
 Engine::Engine() :
   rc( RenderContext::getInstance() ),
+  hud( Hud::getInstance() ),
   io( IOmod::getInstance() ),
   clock( Clock::getInstance() ),
   renderer( rc->getRenderer() ),
+  hudTime(Gamedata::getInstance().getXmlInt("hud/time")),
   sky("sky-back", Gamedata::getInstance().getXmlInt("sky-back/factor") ),
   clouds("cloud-back", Gamedata::getInstance().getXmlInt("cloud-back/factor") ),
   mountains("mountain-back", Gamedata::getInstance().getXmlInt("mountain-back/factor") ),
@@ -76,6 +78,10 @@ void Engine::draw() const {
   strategies[currentStrategy]->draw();
   if ( collision ) {
     IOmod::getInstance().writeText("Oops: Collision", 500, 90);
+  }
+
+  if(clock.getSeconds() < hudTime) {
+    hud.displayHud();
   }
 
   viewport.draw();

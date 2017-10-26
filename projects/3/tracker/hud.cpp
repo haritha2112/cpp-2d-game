@@ -7,6 +7,11 @@
 #include "renderContext.h"
 #include <sstream>
 
+Hud& Hud::getInstance(){
+    static Hud instance;
+    return instance;
+}
+
 Hud::~Hud()
 {}
 
@@ -36,15 +41,15 @@ int Hud::fontSize()const{
 
 void Hud::displayHud() const{
     int fSize = fontSize();
-    std::stringstream fps;
-    fps << "Fps: " << clock.getFps();
+    //std::stringstream fps;
+    //fps << "Fps: " << clock.getFps();
     
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
     SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255/2 );
     SDL_RenderFillRect( renderer, &hudRect );
     SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 );
     SDL_RenderDrawRect( renderer, &hudRect );
-    IOmod::getInstance().writeText(fps.str(), hudx+15, hudy+15, textFontColor, fSize);
+    //IOmod::getInstance().writeText(fps.str(), hudx+15, hudy+15, textFontColor, fSize);
     IOmod::getInstance().writeText("Press: ", hudx+15, hudy+140,textFontColor, fSize);
     IOmod::getInstance().writeText("a: Move Left ", hudx+15, hudy+165,textFontColor, fSize);
     IOmod::getInstance().writeText("d: Move Right", hudx+15, hudy+190,textFontColor, fSize);

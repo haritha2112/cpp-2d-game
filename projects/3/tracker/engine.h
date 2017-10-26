@@ -5,6 +5,7 @@
 #include "clock.h"
 #include "world.h"
 #include "viewport.h"
+#include "hud.h"
 #include <vector>
 
 class Player;
@@ -24,6 +25,9 @@ private:
   const RenderContext* rc;
   const IOmod& io;
   Clock& clock;
+
+  Hud& hud;
+  unsigned int hudTime;
 
   SDL_Renderer * const renderer;
   World sky;
