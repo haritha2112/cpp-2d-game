@@ -26,9 +26,9 @@ Engine::~Engine() {
 
 Engine::Engine() :
   rc( RenderContext::getInstance() ),
-  hud( Hud::getInstance() ),
   io( IOmod::getInstance() ),
   clock( Clock::getInstance() ),
+  hud( Hud::getInstance() ),
   renderer( rc->getRenderer() ),
   hudTime(Gamedata::getInstance().getXmlInt("hud/time")),
   sky("sky-back", Gamedata::getInstance().getXmlInt("sky-back/factor") ),

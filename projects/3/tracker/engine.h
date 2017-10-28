@@ -27,9 +27,9 @@ private:
   Clock& clock;
 
   Hud& hud;
-  unsigned int hudTime;
 
   SDL_Renderer * const renderer;
+  unsigned int hudTime;
   World sky;
   World clouds;
   World mountains;
