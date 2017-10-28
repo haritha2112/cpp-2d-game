@@ -68,11 +68,11 @@
 </font>
 
 <BirdRight>
-  <file>assets/flappybird_right.png</file>
+  <file>assets/flappydragon.png</file>
   <startLoc x="50" y="140"/>
   <frames>4</frames>
-  <imageWidth>96</imageWidth>
-  <imageHeight>96</imageHeight>
+  <imageWidth>100</imageWidth>
+  <imageHeight>72</imageHeight>
   <frameInterval>50</frameInterval>
   <speedX>200</speedX>
   <speedY>200</speedY>
