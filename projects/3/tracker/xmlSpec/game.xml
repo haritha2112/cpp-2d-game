@@ -68,16 +68,76 @@
 </font>
 
 <BirdRight>
-  <file>assets/flappydragon.png</file>
+  <file>assets/flappybird_right.png</file>
   <startLoc x="50" y="140"/>
-  <frames>4</frames>
-  <imageWidth>100</imageWidth>
-  <imageHeight>72</imageHeight>
+  <frames>8</frames>
+  <imageWidth>102</imageWidth>
+  <imageHeight>70</imageHeight>
   <frameInterval>50</frameInterval>
   <speedX>200</speedX>
   <speedY>200</speedY>
   <transparency>false</transparency>
 </BirdRight>
+
+<GreenEnemy>
+  <file>assets/green_enemy.png</file>
+  <startLoc x="220" y="140"/>
+  <frames>4</frames>
+  <imageWidth>60</imageWidth>
+  <imageHeight>47</imageHeight>
+  <frameInterval>50</frameInterval>
+  <speedX>0</speedX>
+  <speedY>0</speedY>
+  <transparency>false</transparency>
+</GreenEnemy>
+
+<DeadGreenEnemy>
+  <file>assets/dead_green_enemy.png</file>
+  <startLoc x="220" y="240"/>
+  <frames>2</frames>
+  <imageWidth>60</imageWidth>
+  <imageHeight>45</imageHeight>
+  <frameInterval>50</frameInterval>
+  <speedX>0</speedX>
+  <speedY>0</speedY>
+  <transparency>false</transparency>
+</DeadGreenEnemy>
+
+<RedEnemy>
+  <file>assets/red_enemy.png</file>
+  <startLoc x="320" y="140"/>
+  <frames>2</frames>
+  <imageWidth>60</imageWidth>
+  <imageHeight>44</imageHeight>
+  <frameInterval>50</frameInterval>
+  <speedX>0</speedX>
+  <speedY>0</speedY>
+  <transparency>false</transparency>
+</RedEnemy>
+
+<DeadRedEnemy>
+  <file>assets/dead_red_enemy.png</file>
+  <startLoc x="320" y="240"/>
+  <frames>2</frames>
+  <imageWidth>60</imageWidth>
+  <imageHeight>50</imageHeight>
+  <frameInterval>50</frameInterval>
+  <speedX>0</speedX>
+  <speedY>0</speedY>
+  <transparency>false</transparency>
+</DeadRedEnemy>
+
+<BigEnemy>
+  <file>assets/big_enemy.png</file>
+  <startLoc x="520" y="240"/>
+  <frames>6</frames>
+  <imageWidth>200</imageWidth>
+  <imageHeight>152</imageHeight>
+  <frameInterval>50</frameInterval>
+  <speedX>0</speedX>
+  <speedY>0</speedY>
+  <transparency>false</transparency>
+</BigEnemy>
 
 <BirdLeft>
   <file>assets/flappybird_left.png</file>

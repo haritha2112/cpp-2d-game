@@ -43,7 +43,12 @@ Engine::Engine() :
   makeVideo(false)
 {
   sprites.push_back(new Sprite("Egg"));
-  sprites.push_back(new MultiSprite("EvilFlower"));
+  sprites.push_back(new MultiSprite("GreenEnemy"));
+  sprites.push_back(new MultiSprite("DeadGreenEnemy"));
+  sprites.push_back(new MultiSprite("RedEnemy"));
+  sprites.push_back(new MultiSprite("DeadRedEnemy"));
+  sprites.push_back(new MultiSprite("BigEnemy"));
+  
   
   //strategies.push_back( new RectangularCollisionStrategy );
   strategies.push_back( new PerPixelCollisionStrategy );
