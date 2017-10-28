@@ -45,9 +45,9 @@ Engine::Engine() :
   sprites.push_back(new Sprite("Egg"));
   sprites.push_back(new MultiSprite("EvilFlower"));
   
-  strategies.push_back( new RectangularCollisionStrategy );
+  //strategies.push_back( new RectangularCollisionStrategy );
   strategies.push_back( new PerPixelCollisionStrategy );
-  strategies.push_back( new MidPointCollisionStrategy );
+  //strategies.push_back( new MidPointCollisionStrategy );
 
   Viewport::getInstance().setObjectToTrack(player);
   std::cout << "Loading complete" << std::endl;
