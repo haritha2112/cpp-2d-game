@@ -18,6 +18,9 @@ Engine::~Engine() {
   for ( Drawable* sprite : sprites ) {
     delete sprite;
   }
+  for ( Drawable* enemy : enemies ) {
+    delete enemy;
+  }
   for ( CollisionStrategy* strategy : strategies ) {
     delete strategy;
   }
@@ -71,6 +74,9 @@ void Engine::draw() const {
   for(const Drawable* sprite : sprites) {
     sprite->draw();
   }
+  for(const Drawable* enemy : enemies) {
+    enemy->draw();
+  }
   player->draw();
 
   IOmod::getInstance().writeText(strm.str(), 30, 60);
@@ -79,6 +85,9 @@ void Engine::draw() const {
   IOmod::getInstance().writeText("Press m to change strategy", 500, 60);
   for ( const Drawable* sprite : sprites ) {
     sprite->draw();
+  }
+  for ( const Drawable* enemy : enemies ) {
+    enemy->draw();
   }
   strategies[currentStrategy]->draw();
   if ( collision ) {
@@ -118,6 +127,9 @@ void Engine::update(Uint32 ticks) {
   player->update(ticks);
   for(Drawable* sprite : sprites) {
     sprite->update(ticks);
+  }
+  for(Drawable* enemy : enemies) {
+    enemy->update(ticks);
   }
   viewport.update(); // always update viewport last
 }

@@ -38,6 +38,7 @@ private:
 
   Player* player;
   std::vector<Drawable* > sprites;
+  std::vector<Drawable* > enemies;
   std::vector<CollisionStrategy*> strategies;
   int currentSprite;
   int currentStrategy;
