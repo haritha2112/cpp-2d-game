@@ -93,7 +93,7 @@
 
 <GreenEnemy>
   <file>assets/green_enemy.png</file>
-  <startLoc x="80" y="140"/>
+  <startLoc x="150" y="140"/>
   <count> 4 </count>
   <frames>4</frames>
   <imageWidth>60</imageWidth>
@@ -118,7 +118,7 @@
 
 <RedEnemy>
   <file>assets/red_enemy.png</file>
-  <startLoc x="80" y="140"/>
+  <startLoc x="250" y="140"/>
   <count> 4 </count>
   <frames>2</frames>
   <imageWidth>60</imageWidth>
