@@ -41,21 +41,21 @@ Engine::Engine() :
   viewport( Viewport::getInstance() ),
   player(new Player("BirdRight")),
   sprites(),
+  enemies(),
   strategies(),
   currentStrategy(0),
   makeVideo(false)
 {
   sprites.push_back(new Sprite("Egg"));
-  sprites.push_back(new MultiSprite("GreenEnemy"));
-  sprites.push_back(new MultiSprite("DeadGreenEnemy"));
-  sprites.push_back(new MultiSprite("RedEnemy"));
-  sprites.push_back(new MultiSprite("DeadRedEnemy"));
-  sprites.push_back(new MultiSprite("BigEnemy"));
-  
-  
-  //strategies.push_back( new RectangularCollisionStrategy );
+  int redenemyCount = Gamedata::getInstance().getXmlInt("RedEnemy/count");
+  for(int index=0; index < redenemyCount; index++) {
+    enemies.push_back(new MultiSprite("RedEnemy"));
+  }
+  int greenenemyCount = Gamedata::getInstance().getXmlInt("GreenEnemy/count");
+  for(int index=0; index < greenenemyCount; index++) {
+    enemies.push_back(new MultiSprite("GreenEnemy"));
+  }
   strategies.push_back( new PerPixelCollisionStrategy );
-  //strategies.push_back( new MidPointCollisionStrategy );
 
   Viewport::getInstance().setObjectToTrack(player);
   std::cout << "Loading complete" << std::endl;
