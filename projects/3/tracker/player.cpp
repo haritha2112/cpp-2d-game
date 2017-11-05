@@ -3,19 +3,22 @@
 Player::Player( const std::string& name) :
   MultiSprite(name),
   collision(false),
-  initialVelocity(getVelocity())
+  initialVelocity(getVelocity()),
+  observers()
 { }
 
 Player::Player(const Player& s) :
   MultiSprite(s), 
   collision(s.collision),
-  initialVelocity(s.getVelocity())
+  initialVelocity(s.getVelocity()),
+  observers( s.observers )
   { }
 
 Player& Player::operator=(const Player& s) {
   MultiSprite::operator=(s);
   collision = s.collision;
   initialVelocity = s.initialVelocity;
+  observers = s.observers;
   return *this;
 }
 
@@ -49,7 +52,24 @@ void Player::update(Uint32 ticks) {
 
   Vector2f incr = getVelocity() * static_cast<float>(ticks) * 0.001;
   setPosition(getPosition() + incr);
+  
+  std::list<SmartSprite*>::iterator ptr = observers.begin();
+  while ( ptr != observers.end() ) {
+    (*ptr)->setPlayerPos( getPosition() );
+    ++ptr;
+  }
 
   stop();
+}
+
+void Player::detach( SmartSprite* o ) {
+  std::list<SmartSprite*>::iterator ptr = observers.begin();
+  while ( ptr != observers.end() ) {
+    if ( *ptr == o ) {
+      ptr = observers.erase(ptr);
+      return;
+    }
+    ++ptr;
+  }
 }
 
