@@ -69,7 +69,7 @@
 
 <BirdRight>
   <file>assets/flappybird_right.png</file>
-  <startLoc x="50" y="140"/>
+  <startLoc x="120" y="180"/>
   <frames>8</frames>
   <imageWidth>102</imageWidth>
   <imageHeight>70</imageHeight>
@@ -93,13 +93,13 @@
 
 <GreenEnemy>
   <file>assets/green_enemy.png</file>
-  <startLoc x="150" y="140"/>
+  <startLoc x="80" y="50"/>
   <count> 4 </count>
   <frames>4</frames>
   <imageWidth>60</imageWidth>
   <imageHeight>47</imageHeight>
   <frameInterval>50</frameInterval>
-  <speedX>0</speedX>
+  <speedX>-200</speedX>
   <speedY>0</speedY>
   <transparency>false</transparency>
 </GreenEnemy>
@@ -118,13 +118,13 @@
 
 <RedEnemy>
   <file>assets/red_enemy.png</file>
-  <startLoc x="250" y="140"/>
+  <startLoc x="80" y="50"/>
   <count> 4 </count>
   <frames>2</frames>
   <imageWidth>60</imageWidth>
   <imageHeight>44</imageHeight>
   <frameInterval>50</frameInterval>
-  <speedX>0</speedX>
+  <speedX>-200</speedX>
   <speedY>0</speedY>
   <transparency>false</transparency>
 </RedEnemy>
