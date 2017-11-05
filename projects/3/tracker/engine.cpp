@@ -8,6 +8,7 @@
 #include "multisprite.h"
 #include "twowaySprite.h"
 #include "player.h"
+#include "greenEnemy.h"
 #include "gamedata.h"
 #include "engine.h"
 #include "frameGenerator.h"
@@ -48,14 +49,10 @@ Engine::Engine() :
   makeVideo(false)
 {
   sprites.push_back(new Sprite("Egg"));
-  int redenemyCount = Gamedata::getInstance().getXmlInt("RedEnemy/count");
-  for(int index=0; index < redenemyCount; index++) {
-    enemies.push_back(new MultiSprite("RedEnemy"));
-  }
-  int greenenemyCount = Gamedata::getInstance().getXmlInt("GreenEnemy/count");
-  int x = 4;
-  for(int index=0; index < x; index++) {
-    enemies.push_back(new MultiSprite("GreenEnemy"));
+
+  int greenEnemyCount = Gamedata::getInstance().getXmlInt("GreenEnemy/count");
+  for(int index=0; index < greenEnemyCount; index++) {
+    enemies.push_back(new GreenEnemy("GreenEnemy"));
   }
   strategies.push_back( new PerPixelCollisionStrategy );
 
@@ -75,12 +72,6 @@ void Engine::draw() const {
 
   for(const Drawable* sprite : sprites) {
     sprite->draw();
-  }
-
-  int greenenemyCount = Gamedata::getInstance().getXmlInt("GreenEnemy/count");
-  int x = 4;
-  for(int i=0; i < x; i++) {
-    enemies[i]->draw();
   }
 
   player->draw();
