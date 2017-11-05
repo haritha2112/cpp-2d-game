@@ -44,6 +44,7 @@ Engine::Engine() :
   enemies(),
   strategies(),
   currentStrategy(0),
+  showHud(false),
   makeVideo(false)
 {
   sprites.push_back(new Sprite("Egg"));
@@ -99,7 +100,7 @@ void Engine::draw() const {
     IOmod::getInstance().writeText("Oops: Collision", 500, 90);
   }
 
-  if(clock.getSeconds() < hudTime) {
+  if(clock.getSeconds() < hudTime || showHud) {
     hud.displayHud();
   }
 
@@ -159,6 +160,12 @@ void Engine::play() {
         if ( keystate[SDL_SCANCODE_P] ) {
           if ( clock.isPaused() ) clock.unpause();
           else clock.pause();
+        }
+        if ( keystate[SDL_SCANCODE_F1] && !showHud) {
+          showHud = true;
+        }
+        else if ( keystate[SDL_SCANCODE_F1] && showHud) {
+          showHud = false;
         }
         if (keystate[SDL_SCANCODE_F4] && !makeVideo) {
           std::cout << "Initiating frame capture" << std::endl;

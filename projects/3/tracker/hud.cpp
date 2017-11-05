@@ -50,7 +50,8 @@ void Hud::displayHud() const{
     SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 );
     SDL_RenderDrawRect( renderer, &hudRect );
     //IOmod::getInstance().writeText(fps.str(), hudx+15, hudy+15, textFontColor, fSize);
-    IOmod::getInstance().writeText("Press: ", hudx+15, hudy+140,textFontColor, fSize);
+    IOmod::getInstance().writeText("Press: ", hudx+15, hudy+105,textFontColor, fSize);
+    IOmod::getInstance().writeText("F1 to toggle Help", hudx+15, hudy+140,textFontColor, fSize);
     IOmod::getInstance().writeText("a: Move Left ", hudx+15, hudy+165,textFontColor, fSize);
     IOmod::getInstance().writeText("d: Move Right", hudx+15, hudy+190,textFontColor, fSize);
     IOmod::getInstance().writeText("w: Move up", hudx+15, hudy+215,textFontColor, fSize);

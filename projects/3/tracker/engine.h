@@ -43,6 +43,7 @@ private:
   int currentSprite;
   int currentStrategy;
   bool collision;
+  bool showHud;
 
   bool makeVideo;
 
