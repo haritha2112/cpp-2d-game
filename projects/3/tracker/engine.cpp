@@ -52,7 +52,8 @@ Engine::Engine() :
     enemies.push_back(new MultiSprite("RedEnemy"));
   }
   int greenenemyCount = Gamedata::getInstance().getXmlInt("GreenEnemy/count");
-  for(int index=0; index < greenenemyCount; index++) {
+  int x = 4;
+  for(int index=0; index < x; index++) {
     enemies.push_back(new MultiSprite("GreenEnemy"));
   }
   strategies.push_back( new PerPixelCollisionStrategy );
@@ -74,9 +75,13 @@ void Engine::draw() const {
   for(const Drawable* sprite : sprites) {
     sprite->draw();
   }
-  for(const Drawable* enemy : enemies) {
-    enemy->draw();
+
+  int greenenemyCount = Gamedata::getInstance().getXmlInt("GreenEnemy/count");
+  int x = 4;
+  for(int i=0; i < x; i++) {
+    enemies[i]->draw();
   }
+
   player->draw();
 
   IOmod::getInstance().writeText(strm.str(), 30, 60);
