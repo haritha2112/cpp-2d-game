@@ -50,9 +50,13 @@ Engine::Engine() :
 {
   sprites.push_back(new Sprite("Egg"));
 
+  Vector2f pos = player->getPosition();
+  int w = player->getScaledWidth();
+  int h = player->getScaledHeight();
   int greenEnemyCount = Gamedata::getInstance().getXmlInt("GreenEnemy/count");
   for(int index=0; index < greenEnemyCount; index++) {
-    enemies.push_back(new GreenEnemy("GreenEnemy"));
+    enemies.push_back(new GreenEnemy("GreenEnemy", pos, w, h));
+    player->attach( enemies[index] );
   }
   strategies.push_back( new PerPixelCollisionStrategy );
 

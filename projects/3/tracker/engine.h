@@ -6,6 +6,7 @@
 #include "world.h"
 #include "viewport.h"
 #include "hud.h"
+#include "greenEnemy.h"
 #include <vector>
 
 class Player;
@@ -38,7 +39,7 @@ private:
 
   Player* player;
   std::vector<Drawable* > sprites;
-  std::vector<Drawable* > enemies;
+  std::vector<GreenEnemy* > enemies;
   std::vector<CollisionStrategy*> strategies;
   int currentSprite;
   int currentStrategy;

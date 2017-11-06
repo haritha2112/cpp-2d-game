@@ -5,9 +5,9 @@
 #include <list>
 #include <cmath>
 #include "multisprite.h"
-#include "smartSprite.h"
+#include "greenEnemy.h"
 
-class SmartSprite;
+class GreenEnemy;
 
 class Player : public MultiSprite {
 public:
@@ -24,13 +24,13 @@ public:
   void down();
 
   void update(Uint32 ticks);
-  void attach( SmartSprite* o ) { observers.push_back(o); } 
-  void detach( SmartSprite* o );
+  void attach( GreenEnemy* o ) { observers.push_back(o); } 
+  void detach( GreenEnemy* o );
 
   void stop();
 private:
   bool collision;
   Vector2f initialVelocity;
-  std::list<SmartSprite*> observers;
+  std::list<GreenEnemy*> observers;
 };
 #endif

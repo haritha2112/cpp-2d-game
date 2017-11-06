@@ -99,8 +99,9 @@
   <imageWidth>60</imageWidth>
   <imageHeight>47</imageHeight>
   <frameInterval>50</frameInterval>
-  <speedX>-200</speedX>
-  <speedY>0</speedY>
+  <speedX>-100</speedX>
+  <speedY>50</speedY>
+  <safeDistance> 300 </safeDistance>
   <transparency>false</transparency>
 </GreenEnemy>
 

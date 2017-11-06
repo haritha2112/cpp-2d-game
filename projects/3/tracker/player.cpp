@@ -53,7 +53,7 @@ void Player::update(Uint32 ticks) {
   Vector2f incr = getVelocity() * static_cast<float>(ticks) * 0.001;
   setPosition(getPosition() + incr);
   
-  std::list<SmartSprite*>::iterator ptr = observers.begin();
+  std::list<GreenEnemy*>::iterator ptr = observers.begin();
   while ( ptr != observers.end() ) {
     (*ptr)->setPlayerPos( getPosition() );
     ++ptr;
@@ -62,8 +62,8 @@ void Player::update(Uint32 ticks) {
   stop();
 }
 
-void Player::detach( SmartSprite* o ) {
-  std::list<SmartSprite*>::iterator ptr = observers.begin();
+void Player::detach( GreenEnemy* o ) {
+  std::list<GreenEnemy*>::iterator ptr = observers.begin();
   while ( ptr != observers.end() ) {
     if ( *ptr == o ) {
       ptr = observers.erase(ptr);
