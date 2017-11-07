@@ -22,7 +22,6 @@ private:
   Hud();
   Hud(const Hud&);
   Hud& operator=(const Hud&);
-  Clock& clock;
   const IOmod& io;
   SDL_Color textFontColor;
   int fontSize()const;

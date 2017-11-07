@@ -22,34 +22,30 @@ Hud::Hud():
     hudy(Gamedata::getInstance().getXmlInt("hud/start/y")),
     hudRect({hudx,hudy,width,height}),
     renderer( RenderContext::getInstance()->getRenderer() ),
-    clock(Clock::getInstance()),
     io( IOmod::getInstance() ),
     textFontColor({0, 0, 0, 255})
 {}
 
 int Hud::fontSize()const{
-	float fWsize = width * 0.09;
-	float fHsize = height * 0.09;
-	if(fWsize < fHsize)
+	float fontWidthsize = width * 0.09;
+	float fontHeightsize = height * 0.09;
+	if(fontWidthsize < fontHeightsize)
 	{
-		return (int)fWsize;
+		return (int)fontWidthsize;
 	}
 	
-	return (int)fHsize;
+	return (int)fontHeightsize;
 }
 
 
-void Hud::displayHud() const{
+void Hud::displayHud() const {
     int fSize = fontSize();
-    //std::stringstream fps;
-    //fps << "Fps: " << clock.getFps();
     
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
     SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255/2 );
     SDL_RenderFillRect( renderer, &hudRect );
     SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 );
     SDL_RenderDrawRect( renderer, &hudRect );
-    //IOmod::getInstance().writeText(fps.str(), hudx+15, hudy+15, textFontColor, fSize);
     IOmod::getInstance().writeText("Press: ", hudx+15, hudy+105,textFontColor, fSize);
     IOmod::getInstance().writeText("F1 to toggle Help", hudx+15, hudy+140,textFontColor, fSize);
     IOmod::getInstance().writeText("a: Move Left ", hudx+15, hudy+165,textFontColor, fSize);
