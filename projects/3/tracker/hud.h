@@ -11,8 +11,6 @@ public:
   static Hud& getInstance();  
   ~Hud();
   void displayHud() const;
-  void displayLoose() const;
-  void displayWin() const;
 
 private:
   const int width;
