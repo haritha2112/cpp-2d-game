@@ -109,6 +109,14 @@ void Engine::checkForCollisions() {
       collision = true;
     }
   }
+  for ( const Drawable* e : enemies ) {
+    auto it = enemies.begin();
+    if ( strategies[currentStrategy]->execute(*player, *e) ) {
+      collision = true;
+      GreenEnemy* doa = *it;
+      player->detach(doa);
+    }
+  }
   if ( collision ) {
     player->collided();
   }
