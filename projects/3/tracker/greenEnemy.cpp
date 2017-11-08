@@ -59,7 +59,7 @@ void GreenEnemy::update(Uint32 ticks) {
   float y= getY()+getImage()->getHeight()/2;
   float px= playerPos[0]+playerWidth/2;
   float py= playerPos[1]+playerHeight/2;
-  float distanceToEnemy = abs(x-px);
+  float distanceToEnemy = std::abs(x-px);
 
   if  ( currentMode == NORMAL ) {
     if(distanceToEnemy < safeDistance) currentMode = PURSUE;
