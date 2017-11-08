@@ -80,10 +80,9 @@ void Engine::draw() const {
 
   player->draw();
 
-  IOmod::getInstance().writeText(strm.str(), 30, 60);
+  IOmod::getInstance().writeText(strm.str(), 500, 60);
   IOmod::getInstance().writeText("Haritha Rathinakumar",my_color, 30, 410);
 
-  IOmod::getInstance().writeText("Press m to change strategy", 500, 60);
   for ( const Drawable* sprite : sprites ) {
     sprite->draw();
   }
