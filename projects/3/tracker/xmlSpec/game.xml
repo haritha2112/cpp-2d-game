@@ -19,6 +19,7 @@
 <view>
   <width>800</width>
   <height>400</height>
+  <enemyRange> 50 </enemyRange>
 </view>
 
 <world>

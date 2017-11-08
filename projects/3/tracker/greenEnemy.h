@@ -18,6 +18,11 @@ private:
 	int playerHeight;
 	MODE currentMode;
 	float safeDistance;
+	int viewWidth;
+	int viewHeight;
+	int worldWidth;
+	int enemyWidth;
+	int enemyRange;
 
 	void goUp(Uint32 ticks);
 	void goDown(Uint32 ticks);

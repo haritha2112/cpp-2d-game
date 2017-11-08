@@ -8,10 +8,15 @@ GreenEnemy::GreenEnemy( const std::string& name, const Vector2f& pos, int w, int
   playerWidth(w),
   playerHeight(h),
   currentMode(NORMAL),
-  safeDistance(Gamedata::getInstance().getXmlFloat(name+"/safeDistance"))
+  safeDistance(Gamedata::getInstance().getXmlFloat(name+"/safeDistance")),
+  viewWidth(Gamedata::getInstance().getXmlFloat("view/width")),
+  viewHeight(Gamedata::getInstance().getXmlFloat("view/height")),
+  worldWidth(Gamedata::getInstance().getXmlFloat("world/width")),
+  enemyWidth(Gamedata::getInstance().getXmlFloat("GreenEnemy/imageWidth")),
+  enemyRange(Gamedata::getInstance().getXmlFloat("view/enemyRange"))
 { 
-  setX(rand()%(5000-800)+800);
-  setY(rand()%351);
+  setX(rand()%(worldWidth-viewWidth)+viewWidth);
+  setY(rand()%(viewHeight-enemyRange)+1);
 }
 
 GreenEnemy::GreenEnemy(const GreenEnemy& s) :
@@ -20,7 +25,12 @@ GreenEnemy::GreenEnemy(const GreenEnemy& s) :
   playerWidth(s.playerWidth),
   playerHeight(s.playerHeight),
   currentMode(s.currentMode),
-  safeDistance(s.safeDistance)
+  safeDistance(s.safeDistance),
+  viewWidth(s.viewWidth),
+  viewHeight(s.viewHeight),
+  worldWidth(s.worldWidth),
+  enemyWidth(s.enemyWidth),
+  enemyRange(s.enemyRange)
   { }
 
 GreenEnemy& GreenEnemy::operator=(const GreenEnemy& s) {
@@ -30,6 +40,11 @@ GreenEnemy& GreenEnemy::operator=(const GreenEnemy& s) {
   playerHeight = s.playerHeight;
   currentMode = s.currentMode;
   safeDistance = s.safeDistance;
+  viewWidth = s.viewWidth;
+  viewHeight = s.viewHeight;
+  worldWidth = s.worldWidth;
+  enemyWidth = s.enemyWidth;
+  enemyRange = s.enemyRange;
   return *this;
 }
 
@@ -50,9 +65,9 @@ void GreenEnemy::update(Uint32 ticks) {
   Vector2f currentPos = getPosition();
   setX(currentPos[0]+incr[0]);
 
-  if ( getX() < -60 ) {
+  if ( getX() < -(enemyWidth) ) {
     setX(worldWidth);
-    setY(rand()%351);
+    setY(rand()%(viewHeight-enemyRange+1));
   }
 
   float x= getX()+getImage()->getWidth()/2;
