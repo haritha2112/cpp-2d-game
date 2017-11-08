@@ -23,7 +23,7 @@ Hud::Hud():
     hudRect({hudx,hudy,width,height}),
     renderer( RenderContext::getInstance()->getRenderer() ),
     io( IOmod::getInstance() ),
-    textFontColor({0, 0, 0, 255})
+    textFontColor({0, 0, 0, 0})
 {}
 
 int Hud::fontSize()const{
@@ -44,13 +44,13 @@ void Hud::displayHud() const {
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
     SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255/2 );
     SDL_RenderFillRect( renderer, &hudRect );
-    SDL_SetRenderDrawColor( renderer, 255, 0, 0, 255 );
+    SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
     SDL_RenderDrawRect( renderer, &hudRect );
-    IOmod::getInstance().writeText("Press: ", hudx+15, hudy+105,textFontColor, fSize);
-    IOmod::getInstance().writeText("F1 to toggle Help", hudx+15, hudy+140,textFontColor, fSize);
-    IOmod::getInstance().writeText("a: Move Left ", hudx+15, hudy+165,textFontColor, fSize);
-    IOmod::getInstance().writeText("d: Move Right", hudx+15, hudy+190,textFontColor, fSize);
-    IOmod::getInstance().writeText("w: Move up", hudx+15, hudy+215,textFontColor, fSize);
-    IOmod::getInstance().writeText("s: Move down: ", hudx+15, hudy+240, textFontColor, fSize);
+    IOmod::getInstance().writeText("Press: ", hudx+15, hudy+20,textFontColor, fSize);
+    IOmod::getInstance().writeText("F1 to toggle Help", hudx+15, hudy+50,textFontColor, fSize);
+    IOmod::getInstance().writeText("a: Move Left ", hudx+15, hudy+80,textFontColor, fSize);
+    IOmod::getInstance().writeText("d: Move Right", hudx+15, hudy+110,textFontColor, fSize);
+    IOmod::getInstance().writeText("w: Move up", hudx+15, hudy+140,textFontColor, fSize);
+    IOmod::getInstance().writeText("s: Move down ", hudx+15, hudy+170, textFontColor, fSize);
 }
 

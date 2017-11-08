@@ -28,7 +28,7 @@
 
 <hud>
   <width>200</width>
-  <height>350</height>
+  <height>200</height>
   <start x="30" y="20"/>
   <color red="255" green="255" blue="0"/>
   <time>5</time>
