@@ -44,7 +44,9 @@ Engine::Engine() :
   sprites(),
   enemies(),
   strategies(),
+  currentSprite(0),
   currentStrategy(0),
+  collision(),
   showHud(false),
   makeVideo(false)
 {

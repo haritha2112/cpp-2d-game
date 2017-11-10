@@ -18,7 +18,6 @@ public:
   ~Engine ();
   void play();
 
-  //void switchSprite();
   Engine(const Engine&) = delete;
   Engine& operator=(const Engine&) = delete;
 
