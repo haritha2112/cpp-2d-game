@@ -14,7 +14,7 @@
 #include "frameGenerator.h"
 #include "collisionStrategy.h"
 
-Engine::~Engine() { 
+Engine::~Engine() {
   delete player;
   for ( Drawable* sprite : sprites ) {
     delete sprite;
@@ -40,7 +40,7 @@ Engine::Engine() :
   mountains("mountain-back", Gamedata::getInstance().getXmlInt("mountain-back/factor") ),
   ground("ground-back", Gamedata::getInstance().getXmlInt("ground-back/factor") ),
   viewport( Viewport::getInstance() ),
-  player(new Player("BirdRight")),
+  player(new Player("BirdRight", "BirdLeft")),
   sprites(),
   enemies(),
   strategies(),
@@ -70,7 +70,7 @@ void Engine::draw() const {
   std::stringstream strm;
   strm << "Fps: " << clock.getFps();
   SDL_Color my_color = {102,0,102,0};
-  
+
   sky.draw();
   clouds.draw();
   mountains.draw();

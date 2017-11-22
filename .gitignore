@@ -7,3 +7,5 @@ run
 .deps/
 
 *.o
+run.dSYM/
+

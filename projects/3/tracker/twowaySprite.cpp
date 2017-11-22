@@ -11,9 +11,9 @@ void TwoWaySprite::advanceFrame(Uint32 ticks) {
 }
 
 TwoWaySprite::TwoWaySprite(const std::string& right, const std::string& left) :
-  Drawable(right, 
-           Vector2f(Gamedata::getInstance().getXmlInt(right+"/startLoc/x"), 
-                    Gamedata::getInstance().getXmlInt(right+"/startLoc/y")), 
+  Drawable(right,
+           Vector2f(Gamedata::getInstance().getXmlInt(right+"/startLoc/x"),
+                    Gamedata::getInstance().getXmlInt(right+"/startLoc/y")),
            Vector2f(Gamedata::getInstance().getXmlInt(right+"/speedX"),
                     Gamedata::getInstance().getXmlInt(right+"/speedY"))
            ),
@@ -29,7 +29,7 @@ TwoWaySprite::TwoWaySprite(const std::string& right, const std::string& left) :
 { }
 
 TwoWaySprite::TwoWaySprite(const TwoWaySprite& s) :
-  Drawable(s), 
+  Drawable(s),
   images(s.images),
   currentFrame(s.currentFrame),
   numberOfFrames( s.numberOfFrames ),
@@ -55,11 +55,11 @@ TwoWaySprite& TwoWaySprite::operator=(const TwoWaySprite& s) {
   return *this;
 }
 
-void TwoWaySprite::draw() const { 
+void TwoWaySprite::draw() const {
   images[currentFrame]->draw(getX(), getY(), getScale());
 }
 
-void TwoWaySprite::update(Uint32 ticks) { 
+void TwoWaySprite::update(Uint32 ticks) {
   advanceFrame(ticks);
 
   Vector2f incr = getVelocity() * static_cast<float>(ticks) * 0.001;
@@ -81,6 +81,6 @@ void TwoWaySprite::update(Uint32 ticks) {
     setVelocityX( -fabs( getVelocityX() ) );
     setName(leftsprite);
     setImages( RenderContext::getInstance()->getImages(leftsprite) );
-  }  
+  }
 
 }
