@@ -61,26 +61,6 @@ void TwoWaySprite::draw() const {
 
 void TwoWaySprite::update(Uint32 ticks) {
   advanceFrame(ticks);
-
   Vector2f incr = getVelocity() * static_cast<float>(ticks) * 0.001;
   setPosition(getPosition() + incr);
-
-  if ( getY() < 0) {
-    setVelocityY( fabs( getVelocityY() ) );
-  }
-  if ( getY() > worldHeight-getScaledHeight()) {
-    setVelocityY( -fabs( getVelocityY() ) );
-  }
-
-  if ( getX() < 0) {
-    setVelocityX( fabs( getVelocityX() ) );
-    setName(rightsprite);
-    setImages( RenderContext::getInstance()->getImages(rightsprite) );
-  }
-  if ( getX() > worldWidth-getScaledWidth()) {
-    setVelocityX( -fabs( getVelocityX() ) );
-    setName(leftsprite);
-    setImages( RenderContext::getInstance()->getImages(leftsprite) );
-  }
-
 }

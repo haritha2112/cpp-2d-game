@@ -40,7 +40,7 @@ Engine::Engine() :
   mountains("mountain-back", Gamedata::getInstance().getXmlInt("mountain-back/factor") ),
   ground("ground-back", Gamedata::getInstance().getXmlInt("ground-back/factor") ),
   viewport( Viewport::getInstance() ),
-  player(new Player("BirdRight", "BirdLeft")),
+  player(new Player("BirdRight", "BirdLeft", "BlueBullet")),
   sprites(),
   enemies(),
   strategies(),
@@ -164,6 +164,9 @@ void Engine::play() {
         if ( keystate[SDL_SCANCODE_P] ) {
           if ( clock.isPaused() ) clock.unpause();
           else clock.pause();
+        }
+        if ( keystate[SDL_SCANCODE_SPACE] ) {
+          player->shoot();
         }
         if ( keystate[SDL_SCANCODE_F1] && !showHud) {
           showHud = true;
