@@ -50,15 +50,13 @@ Engine::Engine() :
   showHud(false),
   makeVideo(false)
 {
-  sprites.push_back(new Sprite("Egg"));
-
   Vector2f pos = player->getPosition();
   int w = player->getScaledWidth();
   int h = player->getScaledHeight();
   int greenEnemyCount = Gamedata::getInstance().getXmlInt("GreenEnemy/count");
   for(int index=0; index < greenEnemyCount; index++) {
     enemies.push_back(new GreenEnemy("GreenEnemy", pos, w, h));
-    player->attach( enemies[index] );
+    player->attach( static_cast<GreenEnemy*>(enemies[index]) );
   }
   strategies.push_back( new PerPixelCollisionStrategy );
 
@@ -111,12 +109,11 @@ void Engine::checkForCollisions() {
       collision = true;
     }
   }
-  for ( const Drawable* e : enemies ) {
-    auto it = enemies.begin();
+  for ( Drawable* e : enemies ) {
     if ( strategies[currentStrategy]->execute(*player, *e) ) {
       collision = true;
-      GreenEnemy* doa = *it;
-      player->detach(doa);
+      GreenEnemy* enemy = static_cast<GreenEnemy*>(e);
+      player->detach(enemy);
     }
   }
   if ( collision ) {
