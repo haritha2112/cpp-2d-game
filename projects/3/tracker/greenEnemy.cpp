@@ -14,7 +14,7 @@ GreenEnemy::GreenEnemy( const std::string& name, const Vector2f& pos, int w, int
   worldWidth(Gamedata::getInstance().getXmlFloat("world/width")),
   enemyWidth(Gamedata::getInstance().getXmlFloat("GreenEnemy/imageWidth")),
   enemyRange(Gamedata::getInstance().getXmlFloat("view/enemyRange"))
-{ 
+{
   setX(rand()%(worldWidth-viewWidth)+viewWidth);
   setY(rand()%(viewHeight-enemyRange)+1);
 }
@@ -48,24 +48,25 @@ GreenEnemy& GreenEnemy::operator=(const GreenEnemy& s) {
   return *this;
 }
 
-void GreenEnemy::goUp(Uint32 ticks) { 
+void GreenEnemy::goUp(Uint32 ticks) {
   float incr = getVelocityY() * static_cast<float>(ticks) * 0.001;
-  setY( getY()-incr ); 
-}
-void GreenEnemy::goDown(Uint32 ticks) { 
-  float incr = getVelocityY() * static_cast<float>(ticks) * 0.001;
-  setY( getY()+incr ); 
+  setY( getY()-incr );
 }
 
+void GreenEnemy::goDown(Uint32 ticks) {
+  float incr = getVelocityY() * static_cast<float>(ticks) * 0.001;
+  setY( getY()+incr );
+}
 
 void GreenEnemy::update(Uint32 ticks) {
-  advanceFrame(ticks);
+  MultiSprite::update(ticks);
 
+  advanceFrame(ticks);
   Vector2f incr = getVelocity() * static_cast<float>(ticks) * 0.001;
   Vector2f currentPos = getPosition();
   setX(currentPos[0]+incr[0]);
 
-  if ( getX() < -(enemyWidth) ) {
+  if (explosion || (getX() < -(enemyWidth))) {
     setX(worldWidth);
     setY(rand()%(viewHeight-enemyRange+1));
   }
@@ -88,4 +89,3 @@ void GreenEnemy::update(Uint32 ticks) {
   }
 
 }
-

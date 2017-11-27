@@ -34,6 +34,9 @@ void Bullet::reset() {
 void Bullet::update(Uint32 ticks) {
   Vector2f pos = getPosition();
   MultiSprite::update(ticks);
+  advanceFrame(ticks);
+  Vector2f incr = getVelocity() * static_cast<float>(ticks) * 0.001;
+  setPosition(getPosition() + incr);
 
   if ( getY() < 0 || getY() + getScaledHeight() > worldHeight ) {
     tooFar = true;

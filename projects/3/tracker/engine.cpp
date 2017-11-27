@@ -114,6 +114,11 @@ void Engine::checkForCollisions() {
       collision = true;
       GreenEnemy* enemy = static_cast<GreenEnemy*>(e);
       player->detach(enemy);
+      // player->explode();
+      enemy->explode();
+    }
+    else {
+      player->destroyIfShot(e);
     }
   }
   if ( collision ) {

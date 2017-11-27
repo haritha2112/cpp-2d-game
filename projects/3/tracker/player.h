@@ -33,6 +33,7 @@ public:
   void update(Uint32 ticks);
   void attach( GreenEnemy* o ) { observers.push_back(o); }
   void detach( GreenEnemy* o );
+  void destroyIfShot( Drawable* o );
 
   void stop();
 private:

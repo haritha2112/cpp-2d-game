@@ -104,6 +104,10 @@
   <speedY>50</speedY>
   <safeDistance> 300 </safeDistance>
   <transparency>false</transparency>
+  <chunk>
+    <size>9</size>
+    <distance>200</distance>
+  </chunk>
 </GreenEnemy>
 
 <DeadGreenEnemy>

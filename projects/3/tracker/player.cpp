@@ -81,6 +81,13 @@ void Player::down()  {
   }
 }
 
+void Player::destroyIfShot( Drawable* o ) {
+  if ( bullets.collided(o) ) {
+    GreenEnemy* enemy = static_cast<GreenEnemy*>(o);
+    enemy->explode();
+  }
+}
+
 void Player::shoot() {
   if (timeSinceLastBullet > bulletInterval) {
     Vector2f bulletPosition = getPosition();

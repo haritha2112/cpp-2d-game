@@ -50,8 +50,6 @@ BulletPool& BulletPool::operator=(const BulletPool& b) {
 }
 
 void BulletPool::shoot(const Vector2f& pos, const Vector2f& objVel) {
-  std::cout << "Bullet Count: " << bulletCount() << std::endl;
-  std::cout << "Free Count: " << freeCount() << std::endl;
   if ( freeList.empty() ) {
     Bullet b( name, pos, objVel );
     bulletList.push_back( b );
