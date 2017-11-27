@@ -79,7 +79,7 @@
   <speedY>200</speedY>
   <transparency>false</transparency>
   <chunk>
-    <size>9</size>
+    <size>15</size>
     <distance>300</distance>
   </chunk>
 </BirdRight>
@@ -95,7 +95,7 @@
   <speedY>200</speedY>
   <transparency>false</transparency>
   <chunk>
-    <size>9</size>
+    <size>15</size>
     <distance>300</distance>
   </chunk>
 </BirdLeft>
@@ -133,7 +133,7 @@
   <transparency>false</transparency>
   <bulletsToDie>2</bulletsToDie>
   <chunk>
-    <size>7</size>
+    <size>10</size>
     <distance>200</distance>
   </chunk>
 </RedEnemy>

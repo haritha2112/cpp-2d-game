@@ -74,7 +74,8 @@ void MultiSprite::draw() const {
 
 void MultiSprite::explode() {
   if ( !explosion ) {
-    Sprite sprite(getName(), getPosition(), getVelocity(), images[currentFrame]);
+		Vector2f velocity(100, 100);
+    Sprite sprite(getName(), getPosition(), velocity, images[currentFrame]);
     explosion = new ExplodingSprite(sprite);
   }
 }
