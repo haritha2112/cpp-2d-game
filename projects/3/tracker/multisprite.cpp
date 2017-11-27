@@ -56,20 +56,20 @@ MultiSprite::MultiSprite(const MultiSprite& s) :
 
 MultiSprite& MultiSprite::operator=(const MultiSprite& s) {
   Drawable::operator=(s);
-  images = (s.images);
+  images = s.images;
 	explosion = s.explosion;
-  currentFrame = (s.currentFrame);
-  numberOfFrames = ( s.numberOfFrames );
-  frameInterval = ( s.frameInterval );
-  timeSinceLastFrame = ( s.timeSinceLastFrame );
-  worldWidth = ( s.worldWidth );
-  worldHeight = ( s.worldHeight );
+  currentFrame = s.currentFrame;
+  numberOfFrames = s.numberOfFrames;
+  frameInterval = s.frameInterval;
+  timeSinceLastFrame = s.timeSinceLastFrame;
+  worldWidth = s.worldWidth;
+  worldHeight = s.worldHeight;
   return *this;
 }
 
 void MultiSprite::draw() const {
 	if ( explosion ) explosion->draw();
-  images[currentFrame]->draw(getX(), getY(), getScale());
+  else images[currentFrame]->draw(getX(), getY(), getScale());
 }
 
 void MultiSprite::explode() {
@@ -79,13 +79,19 @@ void MultiSprite::explode() {
   }
 }
 
+void MultiSprite::reset() {
+	delete explosion;
+  explosion = NULL;
+}
+
+bool MultiSprite::explosionDone() {
+	return explosion && explosion->chunkCount() == 0;
+}
+
 void MultiSprite::update(Uint32 ticks) {
 	if ( explosion ) {
     explosion->update(ticks);
-    if ( explosion->chunkCount() == 0 ) {
-      delete explosion;
-      explosion = NULL;
-    }
+		this->reset();
     return;
   }
 }

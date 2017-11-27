@@ -30,7 +30,9 @@ public:
     return images[currentFrame]->getSurface();
   }
 
+  bool explosionDone();
   virtual void explode();
+  virtual void reset();
 
 protected:
   std::vector<Image *> images;

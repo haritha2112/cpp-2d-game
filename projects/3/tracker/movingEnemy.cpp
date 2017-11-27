@@ -64,6 +64,16 @@ void MovingEnemy::goDown(Uint32 ticks) {
   setY( getY()+incr );
 }
 
+void MovingEnemy::reset() {
+  setPosition(Vector2f(worldWidth + enemyWidth + 1000, 1000));
+  if ( explosionDone() ) {
+    MultiSprite::reset();
+    bulletsHit = 0;
+    setX(worldWidth + enemyWidth + 10);
+    setY(rand()%(viewHeight-enemyRange+1));
+  }
+}
+
 void MovingEnemy::update(Uint32 ticks) {
   MultiSprite::update(ticks);
 
@@ -72,8 +82,7 @@ void MovingEnemy::update(Uint32 ticks) {
   Vector2f currentPos = getPosition();
   setX(currentPos[0]+incr[0]);
 
-  if (explosion || (getX() < -(enemyWidth))) {
-    bulletsHit = 0;
+  if ( getX() < -(enemyWidth) ) {
     setX(worldWidth + enemyWidth + 10);
     setY(rand()%(viewHeight-enemyRange+1));
   }

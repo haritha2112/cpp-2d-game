@@ -20,6 +20,7 @@ public:
   void collided() { collision = true; }
   void missed() { collision = false; }
   virtual void draw() const;
+  virtual void reset();
 
   void right();
   void left();

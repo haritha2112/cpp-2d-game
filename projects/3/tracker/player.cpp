@@ -112,6 +112,15 @@ void Player::shoot() {
   }
 }
 
+void Player::reset() {
+  setPosition(Vector2f(getX(), -1000));
+  if ( explosionDone() ) {
+    TwoWaySprite::reset();
+    setPosition(Vector2f(Gamedata::getInstance().getXmlInt(rightsprite+"/startLoc/x"),
+                         Gamedata::getInstance().getXmlInt(rightsprite+"/startLoc/y")));
+  }
+}
+
 void Player::update(Uint32 ticks) {
   TwoWaySprite::update(ticks);
 

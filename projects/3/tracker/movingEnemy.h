@@ -10,6 +10,7 @@ public:
 	MovingEnemy& operator=(const MovingEnemy&);
 
 	virtual void update(Uint32 ticks);
+	virtual void reset();
 	void setPlayerPos(const Vector2f& p) { playerPos = p; }
 
 	void gotShot() { ++bulletsHit; }
