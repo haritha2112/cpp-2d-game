@@ -16,10 +16,11 @@ MovingEnemy::MovingEnemy( const std::string& name, const Vector2f& pos, int w, i
   enemyWidth(Gamedata::getInstance().getXmlFloat(name+"/imageWidth")),
   enemyRange(Gamedata::getInstance().getXmlFloat("view/enemyRange")),
   bulletsToDie(Gamedata::getInstance().getXmlFloat(name+"/bulletsToDie")),
-  bulletsHit(0)
+  bulletsHit(0),
+  initialPosition(Vector2f(rand()%(worldWidth-viewWidth)+viewWidth,
+                           rand()%(viewHeight-enemyRange)+1))
 {
-  setX(rand()%(worldWidth-viewWidth)+viewWidth);
-  setY(rand()%(viewHeight-enemyRange)+1);
+  setPosition(initialPosition);
 }
 
 MovingEnemy::MovingEnemy(const MovingEnemy& s) :
@@ -36,7 +37,8 @@ MovingEnemy::MovingEnemy(const MovingEnemy& s) :
   enemyWidth(s.enemyWidth),
   enemyRange(s.enemyRange),
   bulletsToDie(s.bulletsToDie),
-  bulletsHit(s.bulletsHit)
+  bulletsHit(s.bulletsHit),
+  initialPosition(s.initialPosition)
   { }
 
 MovingEnemy& MovingEnemy::operator=(const MovingEnemy& s) {
@@ -54,6 +56,7 @@ MovingEnemy& MovingEnemy::operator=(const MovingEnemy& s) {
   enemyRange = s.enemyRange;
   bulletsToDie = s.bulletsToDie;
   bulletsHit = s.bulletsHit;
+  initialPosition = s.initialPosition;
   return *this;
 }
 

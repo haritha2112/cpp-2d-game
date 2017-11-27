@@ -116,6 +116,11 @@ void Player::reset() {
   setPosition(Vector2f(getX(), -1000));
   if ( explosionDone() ) {
     TwoWaySprite::reset();
+    std::list<MovingEnemy*>::iterator ptr = observers.begin();
+    while ( ptr != observers.end() ) {
+      (*ptr)->moveToInitialPosition();
+      ++ptr;
+    }
     setPosition(Vector2f(Gamedata::getInstance().getXmlInt(rightsprite+"/startLoc/x"),
                          Gamedata::getInstance().getXmlInt(rightsprite+"/startLoc/y")));
   }

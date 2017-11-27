@@ -12,6 +12,7 @@ public:
 	virtual void update(Uint32 ticks);
 	virtual void reset();
 	void setPlayerPos(const Vector2f& p) { playerPos = p; }
+	void moveToInitialPosition() { setPosition(initialPosition); }
 
 	void gotShot() { ++bulletsHit; }
 	bool canDie() { return bulletsToDie == bulletsHit; }
@@ -30,6 +31,7 @@ private:
 	int enemyRange;
 	unsigned int bulletsToDie;
 	unsigned int bulletsHit;
+	Vector2f initialPosition;
 
 	void goUp(Uint32 ticks);
 	void goDown(Uint32 ticks);
