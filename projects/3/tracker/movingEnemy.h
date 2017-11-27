@@ -8,9 +8,12 @@ public:
 	MovingEnemy( const std::string& name, const Vector2f& pos, int w, int h );
 	MovingEnemy(const MovingEnemy&);
 	MovingEnemy& operator=(const MovingEnemy&);
-	
+
 	virtual void update(Uint32 ticks);
 	void setPlayerPos(const Vector2f& p) { playerPos = p; }
+
+	void gotShot() { ++bulletsHit; }
+	bool canDie() { return bulletsToDie == bulletsHit; }
 private:
 	enum MODE {NORMAL, PURSUE};
 	Vector2f playerPos;
@@ -23,6 +26,8 @@ private:
 	int worldWidth;
 	int enemyWidth;
 	int enemyRange;
+	unsigned int bulletsToDie;
+	unsigned int bulletsHit;
 
 	void goUp(Uint32 ticks);
 	void goDown(Uint32 ticks);

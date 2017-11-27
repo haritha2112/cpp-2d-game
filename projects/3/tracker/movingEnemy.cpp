@@ -13,7 +13,9 @@ MovingEnemy::MovingEnemy( const std::string& name, const Vector2f& pos, int w, i
   viewHeight(Gamedata::getInstance().getXmlFloat("view/height")),
   worldWidth(Gamedata::getInstance().getXmlFloat("world/width")),
   enemyWidth(Gamedata::getInstance().getXmlFloat(name+"/imageWidth")),
-  enemyRange(Gamedata::getInstance().getXmlFloat("view/enemyRange"))
+  enemyRange(Gamedata::getInstance().getXmlFloat("view/enemyRange")),
+  bulletsToDie(Gamedata::getInstance().getXmlFloat(name+"/bulletsToDie")),
+  bulletsHit(0)
 {
   setX(rand()%(worldWidth-viewWidth)+viewWidth);
   setY(rand()%(viewHeight-enemyRange)+1);
@@ -30,7 +32,9 @@ MovingEnemy::MovingEnemy(const MovingEnemy& s) :
   viewHeight(s.viewHeight),
   worldWidth(s.worldWidth),
   enemyWidth(s.enemyWidth),
-  enemyRange(s.enemyRange)
+  enemyRange(s.enemyRange),
+  bulletsToDie(s.bulletsToDie),
+  bulletsHit(s.bulletsHit)
   { }
 
 MovingEnemy& MovingEnemy::operator=(const MovingEnemy& s) {
@@ -45,6 +49,8 @@ MovingEnemy& MovingEnemy::operator=(const MovingEnemy& s) {
   worldWidth = s.worldWidth;
   enemyWidth = s.enemyWidth;
   enemyRange = s.enemyRange;
+  bulletsToDie = s.bulletsToDie;
+  bulletsHit = s.bulletsHit;
   return *this;
 }
 
@@ -67,6 +73,7 @@ void MovingEnemy::update(Uint32 ticks) {
   setX(currentPos[0]+incr[0]);
 
   if (explosion || (getX() < -(enemyWidth))) {
+    bulletsHit = 0;
     setX(worldWidth + enemyWidth + 10);
     setY(rand()%(viewHeight-enemyRange+1));
   }

@@ -104,6 +104,7 @@
   <speedY>50</speedY>
   <safeDistance> 300 </safeDistance>
   <transparency>false</transparency>
+  <bulletsToDie>1</bulletsToDie>
   <chunk>
     <size>15</size>
     <distance>100</distance>
@@ -118,10 +119,11 @@
   <imageWidth>60</imageWidth>
   <imageHeight>44</imageHeight>
   <frameInterval>50</frameInterval>
-  <speedX>-200</speedX>
+  <speedX>-150</speedX>
   <speedY>100</speedY>
   <safeDistance> 300 </safeDistance>
   <transparency>false</transparency>
+  <bulletsToDie>2</bulletsToDie>
   <chunk>
     <size>7</size>
     <distance>300</distance>
