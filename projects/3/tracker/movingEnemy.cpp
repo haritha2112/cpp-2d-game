@@ -12,6 +12,7 @@ MovingEnemy::MovingEnemy( const std::string& name, const Vector2f& pos, int w, i
   viewWidth(Gamedata::getInstance().getXmlFloat("view/width")),
   viewHeight(Gamedata::getInstance().getXmlFloat("view/height")),
   worldWidth(Gamedata::getInstance().getXmlFloat("world/width")),
+  worldHeight(Gamedata::getInstance().getXmlFloat("world/height")),
   enemyWidth(Gamedata::getInstance().getXmlFloat(name+"/imageWidth")),
   enemyRange(Gamedata::getInstance().getXmlFloat("view/enemyRange")),
   bulletsToDie(Gamedata::getInstance().getXmlFloat(name+"/bulletsToDie")),
@@ -31,6 +32,7 @@ MovingEnemy::MovingEnemy(const MovingEnemy& s) :
   viewWidth(s.viewWidth),
   viewHeight(s.viewHeight),
   worldWidth(s.worldWidth),
+  worldHeight(s.worldHeight),
   enemyWidth(s.enemyWidth),
   enemyRange(s.enemyRange),
   bulletsToDie(s.bulletsToDie),
@@ -47,6 +49,7 @@ MovingEnemy& MovingEnemy::operator=(const MovingEnemy& s) {
   viewWidth = s.viewWidth;
   viewHeight = s.viewHeight;
   worldWidth = s.worldWidth;
+  worldHeight = s.worldHeight;
   enemyWidth = s.enemyWidth;
   enemyRange = s.enemyRange;
   bulletsToDie = s.bulletsToDie;
@@ -98,7 +101,7 @@ void MovingEnemy::update(Uint32 ticks) {
   }
   else if  ( currentMode == PURSUE ) {
     if(distanceToEnemy > safeDistance) currentMode=NORMAL;
-    else {
+    else if (x > 0 && y > 0 && x < worldWidth && y < worldHeight) {
       if ( y < py ) goDown(ticks);
       if ( y > py ) goUp(ticks);
     }

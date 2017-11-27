@@ -25,6 +25,7 @@ private:
 	int viewWidth;
 	int viewHeight;
 	int worldWidth;
+	int worldHeight;
 	int enemyWidth;
 	int enemyRange;
 	unsigned int bulletsToDie;
