@@ -83,7 +83,7 @@ void Player::down()  {
 
 void Player::destroyIfShot( Drawable* o ) {
   if ( bullets.collided(o) ) {
-    GreenEnemy* enemy = static_cast<GreenEnemy*>(o);
+    MovingEnemy* enemy = static_cast<MovingEnemy*>(o);
     enemy->explode();
   }
 }
@@ -119,7 +119,7 @@ void Player::update(Uint32 ticks) {
     case RIGHT: setImages( RenderContext::getInstance()->getImages(getRightSprite()) ); break;
   }
 
-  std::list<GreenEnemy*>::iterator ptr = observers.begin();
+  std::list<MovingEnemy*>::iterator ptr = observers.begin();
   while ( ptr != observers.end() ) {
     (*ptr)->setPlayerPos( getPosition() );
     ++ptr;
@@ -128,8 +128,8 @@ void Player::update(Uint32 ticks) {
   stop();
 }
 
-void Player::detach( GreenEnemy* o ) {
-  std::list<GreenEnemy*>::iterator ptr = observers.begin();
+void Player::detach( MovingEnemy* o ) {
+  std::list<MovingEnemy*>::iterator ptr = observers.begin();
   while ( ptr != observers.end() ) {
     if ( *ptr == o ) {
       ptr = observers.erase(ptr);

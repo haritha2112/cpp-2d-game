@@ -1,8 +1,8 @@
-#include "greenEnemy.h"
+#include "movingEnemy.h"
 #include "gamedata.h"
 
 
-GreenEnemy::GreenEnemy( const std::string& name, const Vector2f& pos, int w, int h ) :
+MovingEnemy::MovingEnemy( const std::string& name, const Vector2f& pos, int w, int h ) :
   MultiSprite(name),
   playerPos(pos),
   playerWidth(w),
@@ -12,14 +12,14 @@ GreenEnemy::GreenEnemy( const std::string& name, const Vector2f& pos, int w, int
   viewWidth(Gamedata::getInstance().getXmlFloat("view/width")),
   viewHeight(Gamedata::getInstance().getXmlFloat("view/height")),
   worldWidth(Gamedata::getInstance().getXmlFloat("world/width")),
-  enemyWidth(Gamedata::getInstance().getXmlFloat("GreenEnemy/imageWidth")),
+  enemyWidth(Gamedata::getInstance().getXmlFloat(name+"/imageWidth")),
   enemyRange(Gamedata::getInstance().getXmlFloat("view/enemyRange"))
 {
   setX(rand()%(worldWidth-viewWidth)+viewWidth);
   setY(rand()%(viewHeight-enemyRange)+1);
 }
 
-GreenEnemy::GreenEnemy(const GreenEnemy& s) :
+MovingEnemy::MovingEnemy(const MovingEnemy& s) :
   MultiSprite(s),
   playerPos(s.playerPos),
   playerWidth(s.playerWidth),
@@ -33,7 +33,7 @@ GreenEnemy::GreenEnemy(const GreenEnemy& s) :
   enemyRange(s.enemyRange)
   { }
 
-GreenEnemy& GreenEnemy::operator=(const GreenEnemy& s) {
+MovingEnemy& MovingEnemy::operator=(const MovingEnemy& s) {
   MultiSprite::operator=(s);
   playerPos = s.playerPos;
   playerWidth = s.playerWidth;
@@ -48,17 +48,17 @@ GreenEnemy& GreenEnemy::operator=(const GreenEnemy& s) {
   return *this;
 }
 
-void GreenEnemy::goUp(Uint32 ticks) {
+void MovingEnemy::goUp(Uint32 ticks) {
   float incr = getVelocityY() * static_cast<float>(ticks) * 0.001;
   setY( getY()-incr );
 }
 
-void GreenEnemy::goDown(Uint32 ticks) {
+void MovingEnemy::goDown(Uint32 ticks) {
   float incr = getVelocityY() * static_cast<float>(ticks) * 0.001;
   setY( getY()+incr );
 }
 
-void GreenEnemy::update(Uint32 ticks) {
+void MovingEnemy::update(Uint32 ticks) {
   MultiSprite::update(ticks);
 
   advanceFrame(ticks);

@@ -5,10 +5,10 @@
 #include <list>
 #include <cmath>
 #include "twowaySprite.h"
-#include "greenEnemy.h"
+#include "movingEnemy.h"
 #include "bulletPool.h"
 
-class GreenEnemy;
+class MovingEnemy;
 
 class Player : public TwoWaySprite {
 public:
@@ -31,8 +31,8 @@ public:
   unsigned int freeCount() const { return bullets.freeCount(); }
 
   void update(Uint32 ticks);
-  void attach( GreenEnemy* o ) { observers.push_back(o); }
-  void detach( GreenEnemy* o );
+  void attach( MovingEnemy* o ) { observers.push_back(o); }
+  void detach( MovingEnemy* o );
   void destroyIfShot( Drawable* o );
 
   void stop();
@@ -40,7 +40,7 @@ private:
   bool collision;
   Facing facing;
   Vector2f initialVelocity;
-  std::list<GreenEnemy*> observers;
+  std::list<MovingEnemy*> observers;
 
   std::string bulletName;
   float bulletInterval;

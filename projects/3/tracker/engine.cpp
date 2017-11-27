@@ -8,7 +8,7 @@
 #include "multisprite.h"
 #include "twowaySprite.h"
 #include "player.h"
-#include "greenEnemy.h"
+#include "movingEnemy.h"
 #include "gamedata.h"
 #include "engine.h"
 #include "frameGenerator.h"
@@ -55,8 +55,8 @@ Engine::Engine() :
   int h = player->getScaledHeight();
   int greenEnemyCount = Gamedata::getInstance().getXmlInt("GreenEnemy/count");
   for(int index=0; index < greenEnemyCount; index++) {
-    enemies.push_back(new GreenEnemy("GreenEnemy", pos, w, h));
-    player->attach( static_cast<GreenEnemy*>(enemies[index]) );
+    enemies.push_back(new MovingEnemy("GreenEnemy", pos, w, h));
+    player->attach( static_cast<MovingEnemy*>(enemies[index]) );
   }
   strategies.push_back( new PerPixelCollisionStrategy );
 
@@ -112,7 +112,7 @@ void Engine::checkForCollisions() {
   for ( Drawable* e : enemies ) {
     if ( strategies[currentStrategy]->execute(*player, *e) ) {
       collision = true;
-      GreenEnemy* enemy = static_cast<GreenEnemy*>(e);
+      MovingEnemy* enemy = static_cast<MovingEnemy*>(e);
       // player->detach(enemy);
       // player->explode();
       enemy->explode();

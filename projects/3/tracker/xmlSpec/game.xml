@@ -105,22 +105,10 @@
   <safeDistance> 300 </safeDistance>
   <transparency>false</transparency>
   <chunk>
-    <size>9</size>
-    <distance>200</distance>
+    <size>15</size>
+    <distance>100</distance>
   </chunk>
 </GreenEnemy>
-
-<DeadGreenEnemy>
-  <file>assets/dead_green_enemy.png</file>
-  <startLoc x="220" y="240"/>
-  <frames>2</frames>
-  <imageWidth>60</imageWidth>
-  <imageHeight>45</imageHeight>
-  <frameInterval>50</frameInterval>
-  <speedX>0</speedX>
-  <speedY>0</speedY>
-  <transparency>false</transparency>
-</DeadGreenEnemy>
 
 <RedEnemy>
   <file>assets/red_enemy.png</file>
@@ -132,20 +120,13 @@
   <frameInterval>50</frameInterval>
   <speedX>-200</speedX>
   <speedY>0</speedY>
+  <safeDistance> 300 </safeDistance>
   <transparency>false</transparency>
+  <chunk>
+    <size>7</size>
+    <distance>300</distance>
+  </chunk>
 </RedEnemy>
-
-<DeadRedEnemy>
-  <file>assets/dead_red_enemy.png</file>
-  <startLoc x="320" y="240"/>
-  <frames>2</frames>
-  <imageWidth>60</imageWidth>
-  <imageHeight>50</imageHeight>
-  <frameInterval>50</frameInterval>
-  <speedX>0</speedX>
-  <speedY>0</speedY>
-  <transparency>false</transparency>
-</DeadRedEnemy>
 
 <BigEnemy>
   <file>assets/big_enemy.png</file>
@@ -166,18 +147,6 @@
   <speedY>0</speedY>
   <transparency>false</transparency>
 </Egg>
-
-<EvilFlower>
-  <file>assets/evil_flower.png</file>
-  <startLoc x="380" y="380"/>
-  <frames>2</frames>
-  <imageWidth>80</imageWidth>
-  <imageHeight>80</imageHeight>
-  <frameInterval>50</frameInterval>
-  <speedX>0</speedX>
-  <speedY>0</speedY>
-  <transparency>false</transparency>
-</EvilFlower>
 
 <BlueBullet>
   <file>assets/blue_bullet.png</file>

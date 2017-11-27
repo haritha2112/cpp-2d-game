@@ -1,15 +1,15 @@
-#ifndef GREENENEMY_H
-#define GREENENEMY_H
+#ifndef MOVINGENEMY_H
+#define MOVINGENEMY_H
 
 #include "multisprite.h"
 
-class GreenEnemy : public MultiSprite {
+class MovingEnemy : public MultiSprite {
 public:
-	GreenEnemy( const std::string& name, const Vector2f& pos, int w, int h );
-	GreenEnemy(const GreenEnemy&);
+	MovingEnemy( const std::string& name, const Vector2f& pos, int w, int h );
+	MovingEnemy(const MovingEnemy&);
+	MovingEnemy& operator=(const MovingEnemy&);
+	
 	virtual void update(Uint32 ticks);
-
-	GreenEnemy& operator=(const GreenEnemy&);
 	void setPlayerPos(const Vector2f& p) { playerPos = p; }
 private:
 	enum MODE {NORMAL, PURSUE};
