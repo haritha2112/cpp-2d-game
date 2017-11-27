@@ -5,21 +5,23 @@
 #include <stdint.h>
 #include "clock.h"
 #include "ioMod.h"
+#include "player.h"
 
 class Hud {
 public:
-  static Hud& getInstance();  
+  static Hud& getInstance(Player*);
   ~Hud();
   void displayHud() const;
 
 private:
+  Player* player;
   const int width;
   const int height;
   int hudx;
   int hudy;
   SDL_Rect hudRect;
   SDL_Renderer* renderer;
-  Hud();
+  Hud(Player*);
   Hud(const Hud&);
   Hud& operator=(const Hud&);
   const IOmod& io;

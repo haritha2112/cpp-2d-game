@@ -33,7 +33,6 @@ Engine::Engine() :
   rc( RenderContext::getInstance() ),
   io( IOmod::getInstance() ),
   clock( Clock::getInstance() ),
-  hud( Hud::getInstance() ),
   renderer( rc->getRenderer() ),
   hudTime(Gamedata::getInstance().getXmlInt("hud/time")),
   sky("sky-back", Gamedata::getInstance().getXmlInt("sky-back/factor") ),
@@ -50,6 +49,7 @@ Engine::Engine() :
   currentStrategy(0),
   collision(),
   showHud(false),
+  hud( Hud::getInstance(player) ),
   makeVideo(false)
 {
   Vector2f pos = player->getPosition();

@@ -28,7 +28,7 @@
 </world>
 
 <hud>
-  <width>200</width>
+  <width>230</width>
   <height>200</height>
   <start x="30" y="20"/>
   <color red="255" green="255" blue="0"/>

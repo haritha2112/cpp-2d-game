@@ -27,8 +27,6 @@ private:
   const IOmod& io;
   Clock& clock;
 
-  Hud& hud;
-
   SDL_Renderer * const renderer;
   unsigned int hudTime;
   World sky;
@@ -46,6 +44,8 @@ private:
   int currentStrategy;
   bool collision;
   bool showHud;
+
+  Hud& hud;
 
   bool makeVideo;
 
