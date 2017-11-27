@@ -8,6 +8,7 @@ Player::Player( const std::string& right, const std::string& left, const std::st
   facing(RIGHT),
   initialVelocity(getVelocity()),
   observers(),
+  bulletName(bullet),
   bulletInterval(Gamedata::getInstance().getXmlInt(bullet+"/bulletInterval")),
   timeSinceLastBullet(0),
   minBulletSpeed(Gamedata::getInstance().getXmlInt(bullet+"/minBulletSpeed")),
@@ -25,8 +26,10 @@ Player::Player( const std::string& right, const std::string& left, const std::st
 Player::Player(const Player& s) :
   TwoWaySprite(s),
   collision(s.collision),
+  facing(s.facing),
   initialVelocity(s.getVelocity()),
   observers( s.observers ),
+  bulletName( s.bulletName ),
   bulletInterval( s.bulletInterval ),
   timeSinceLastBullet( s.timeSinceLastBullet ),
   minBulletSpeed( s.minBulletSpeed ),
@@ -38,8 +41,10 @@ Player::Player(const Player& s) :
 Player& Player::operator=(const Player& s) {
   TwoWaySprite::operator=(s);
   collision = s.collision;
+  facing = s.facing;
   initialVelocity = s.initialVelocity;
   observers = s.observers;
+  bulletName = s.bulletName;
   bulletInterval = s.bulletInterval;
   timeSinceLastBullet = s.timeSinceLastBullet;
   minBulletSpeed = s.minBulletSpeed;
