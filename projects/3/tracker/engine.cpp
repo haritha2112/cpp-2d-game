@@ -9,6 +9,7 @@
 #include "twowaySprite.h"
 #include "player.h"
 #include "movingEnemy.h"
+#include "bossEnemy.h"
 #include "gamedata.h"
 #include "engine.h"
 #include "frameGenerator.h"
@@ -41,6 +42,7 @@ Engine::Engine() :
   ground("ground-back", Gamedata::getInstance().getXmlInt("ground-back/factor") ),
   viewport( Viewport::getInstance() ),
   player(new Player("BirdRight", "BirdLeft", "BlueBullet")),
+  bossEnemy(new BossEnemy("YellowBee")),
   sprites(),
   enemies(),
   strategies(),
@@ -85,6 +87,7 @@ void Engine::draw() const {
   }
 
   player->draw();
+  bossEnemy->draw();
 
   IOmod::getInstance().writeText(strm.str(), 500, 60);
   IOmod::getInstance().writeText("Haritha Rathinakumar",my_color, 30, 410);
@@ -116,15 +119,23 @@ void Engine::checkForCollisions() {
     }
   }
   for ( Drawable* e : enemies ) {
+    MovingEnemy* enemy = static_cast<MovingEnemy*>(e);
     if ( strategies[currentStrategy]->execute(*player, *e) ) {
       collision = true;
-      MovingEnemy* enemy = static_cast<MovingEnemy*>(e);
       enemy->explode();
       player->explode();
     }
     else {
-      player->destroyIfShot(e);
+      player->destroyIfShot(enemy);
     }
+  }
+  if ( strategies[currentStrategy]->execute(*player, *bossEnemy) ) {
+    collision = true;
+    bossEnemy->explode();
+    player->explode();
+  }
+  else {
+    player->destroyIfShot(bossEnemy);
   }
   if ( collision ) {
     player->collided();
@@ -142,6 +153,7 @@ void Engine::update(Uint32 ticks) {
   mountains.update();
   ground.update();
   player->update(ticks);
+  bossEnemy->update(ticks);
   for(Drawable* sprite : sprites) {
     sprite->update(ticks);
   }

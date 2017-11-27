@@ -138,17 +138,22 @@
   </chunk>
 </RedEnemy>
 
-<BigEnemy>
-  <file>assets/big_enemy.png</file>
-  <startLoc x="520" y="240"/>
+<YellowBee>
+  <file>assets/yellow_bee.png</file>
+  <startLoc x="4700" y="240"/>
   <frames>6</frames>
   <imageWidth>200</imageWidth>
   <imageHeight>152</imageHeight>
   <frameInterval>50</frameInterval>
   <speedX>0</speedX>
-  <speedY>0</speedY>
+  <speedY>250</speedY>
   <transparency>false</transparency>
-</BigEnemy>
+  <bulletsToDie>20</bulletsToDie>
+  <chunk>
+    <size>30</size>
+    <distance>400</distance>
+  </chunk>
+</YellowBee>
 
 <Egg>
   <file>assets/egg.png</file>
@@ -170,7 +175,7 @@
   <rightOffset x="65" y="30"/>
   <leftOffset x="0" y="30"/>
   <distance>400</distance>
-  <bulletInterval>300</bulletInterval>
+  <bulletInterval>200</bulletInterval>
   <minBulletSpeed>200</minBulletSpeed>
   <collisionStrategy>"MidPoint"</collisionStrategy>
   <transparency>false</transparency>

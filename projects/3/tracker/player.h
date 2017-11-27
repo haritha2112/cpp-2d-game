@@ -6,9 +6,8 @@
 #include <cmath>
 #include "twowaySprite.h"
 #include "movingEnemy.h"
+#include "bossEnemy.h"
 #include "bulletPool.h"
-
-class MovingEnemy;
 
 class Player : public TwoWaySprite {
 public:
@@ -34,7 +33,8 @@ public:
   void update(Uint32 ticks);
   void attach( MovingEnemy* o ) { observers.push_back(o); }
   void detach( MovingEnemy* o );
-  void destroyIfShot( Drawable* o );
+  void destroyIfShot(MovingEnemy*);
+  void destroyIfShot(BossEnemy*);
 
   void stop();
 private:

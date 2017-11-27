@@ -81,9 +81,17 @@ void Player::down()  {
   }
 }
 
-void Player::destroyIfShot( Drawable* o ) {
-  if ( bullets.collided(o) ) {
-    MovingEnemy* enemy = static_cast<MovingEnemy*>(o);
+void Player::destroyIfShot( MovingEnemy* enemy ) {
+  if ( bullets.collided(enemy) ) {
+    enemy->gotShot();
+    if (enemy->canDie()) {
+      enemy->explode();
+    }
+  }
+}
+
+void Player::destroyIfShot( BossEnemy* enemy ) {
+  if ( bullets.collided(enemy) ) {
     enemy->gotShot();
     if (enemy->canDie()) {
       enemy->explode();

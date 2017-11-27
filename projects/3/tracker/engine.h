@@ -7,6 +7,7 @@
 #include "viewport.h"
 #include "hud.h"
 #include "movingEnemy.h"
+#include "bossEnemy.h"
 #include <vector>
 
 class Player;
@@ -37,6 +38,7 @@ private:
   Viewport& viewport;
 
   Player* player;
+  BossEnemy* bossEnemy;
   std::vector<Drawable* > sprites;
   std::vector<Drawable* > enemies;
   std::vector<CollisionStrategy*> strategies;
