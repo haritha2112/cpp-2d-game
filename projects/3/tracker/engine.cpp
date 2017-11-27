@@ -54,8 +54,14 @@ Engine::Engine() :
   int w = player->getScaledWidth();
   int h = player->getScaledHeight();
   int greenEnemyCount = Gamedata::getInstance().getXmlInt("GreenEnemy/count");
+  int redEnemyCount = Gamedata::getInstance().getXmlInt("RedEnemy/count");
   for(int index=0; index < greenEnemyCount; index++) {
     enemies.push_back(new MovingEnemy("GreenEnemy", pos, w, h));
+  }
+  for(int index=0; index < redEnemyCount; index++) {
+    enemies.push_back(new MovingEnemy("RedEnemy", pos, w, h));
+  }
+  for(unsigned long index=0; index < enemies.size(); index++) {
     player->attach( static_cast<MovingEnemy*>(enemies[index]) );
   }
   strategies.push_back( new PerPixelCollisionStrategy );
