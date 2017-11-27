@@ -50,7 +50,6 @@ void BossEnemy::reset() {
   if ( explosionDone() ) {
     MultiSprite::reset();
     bulletsHit = 0;
-    setPosition(initialPosition);
   }
 }
 

@@ -75,7 +75,7 @@ void MovingEnemy::reset() {
   if ( explosionDone() ) {
     MultiSprite::reset();
     bulletsHit = 0;
-    setX(worldWidth + enemyWidth + 10);
+    setX(worldWidth + enemyWidth + rand()%(500));
     setY(rand()%(viewHeight-enemyRange+1));
   }
 }
@@ -89,7 +89,7 @@ void MovingEnemy::update(Uint32 ticks) {
   setX(currentPos[0]+incr[0]);
 
   if ( getX() < -(enemyWidth) ) {
-    setX(worldWidth + enemyWidth + 10);
+    setX(worldWidth + enemyWidth + 500);
     setY(rand()%(viewHeight-enemyRange+1));
   }
 

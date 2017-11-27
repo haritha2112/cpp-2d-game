@@ -11,7 +11,10 @@ public:
 
 	virtual void update(Uint32 ticks);
 	virtual void reset();
-	void moveToInitialPosition() { setPosition(initialPosition); }
+	void setOriginalState() {
+		setPosition(initialPosition);
+		bulletsHit = 0;
+	}
 
 	void gotShot() { ++bulletsHit; }
 	bool canDie() { return bulletsToDie == bulletsHit; }

@@ -103,7 +103,7 @@
 <GreenEnemy>
   <file>assets/green_enemy.png</file>
   <startLoc x="80" y="50"/>
-  <count>10</count>
+  <count>7</count>
   <frames>4</frames>
   <imageWidth>60</imageWidth>
   <imageHeight>47</imageHeight>
@@ -122,7 +122,7 @@
 <RedEnemy>
   <file>assets/red_enemy.png</file>
   <startLoc x="80" y="50"/>
-  <count>5</count>
+  <count>3</count>
   <frames>2</frames>
   <imageWidth>60</imageWidth>
   <imageHeight>44</imageHeight>

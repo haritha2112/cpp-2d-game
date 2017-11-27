@@ -124,6 +124,7 @@ void Engine::checkForCollisions() {
       collision = true;
       enemy->explode();
       player->explode();
+      bossEnemy->setOriginalState();
     }
     else {
       player->destroyIfShot(enemy);
@@ -133,6 +134,7 @@ void Engine::checkForCollisions() {
     collision = true;
     bossEnemy->explode();
     player->explode();
+    bossEnemy->setOriginalState();
   }
   else {
     player->destroyIfShot(bossEnemy);
