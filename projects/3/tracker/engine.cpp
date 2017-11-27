@@ -113,7 +113,7 @@ void Engine::checkForCollisions() {
     if ( strategies[currentStrategy]->execute(*player, *e) ) {
       collision = true;
       GreenEnemy* enemy = static_cast<GreenEnemy*>(e);
-      player->detach(enemy);
+      // player->detach(enemy);
       // player->explode();
       enemy->explode();
     }

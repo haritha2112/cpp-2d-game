@@ -67,7 +67,7 @@ void GreenEnemy::update(Uint32 ticks) {
   setX(currentPos[0]+incr[0]);
 
   if (explosion || (getX() < -(enemyWidth))) {
-    setX(worldWidth);
+    setX(worldWidth + enemyWidth + 10);
     setY(rand()%(viewHeight-enemyRange+1));
   }
 
