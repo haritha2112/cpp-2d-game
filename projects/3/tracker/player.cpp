@@ -100,6 +100,11 @@ void Player::destroyIfShot( BossEnemy* enemy ) {
     enemy->gotShot();
     if (enemy->canDie()) {
       enemy->explode();
+      std::list<MovingEnemy*>::iterator ptr = observers.begin();
+      while ( ptr != observers.end() ) {
+        (*ptr)->explode();
+        ++ptr;
+      }
     }
   }
 }
