@@ -73,36 +73,18 @@ Engine::Engine() :
 }
 
 void Engine::draw() const {
-  std::stringstream strm;
-  strm << "Fps: " << clock.getFps();
-  SDL_Color my_color = {102,0,102,0};
-
   sky.draw();
   clouds.draw();
   mountains.draw();
   ground.draw();
-
-  for(const Drawable* sprite : sprites) {
-    sprite->draw();
-  }
-
   player->draw();
   bossEnemy->draw();
+  for ( const Drawable* sprite : sprites ) { sprite->draw(); }
+  for ( const Drawable* enemy : enemies ) { enemy->draw(); }
 
-  IOmod::getInstance().writeText(strm.str(), 500, 60);
+  SDL_Color my_color = {102,0,102,0};
   IOmod::getInstance().writeText("Haritha Rathinakumar",my_color, 30, 410);
-
-  for ( const Drawable* sprite : sprites ) {
-    sprite->draw();
-  }
-  for ( const Drawable* enemy : enemies ) {
-    enemy->draw();
-  }
-  strategies[currentStrategy]->draw();
-  if ( collision ) {
-    IOmod::getInstance().writeText("Oops: Collision", 500, 90);
-  }
-
+  
   if(clock.getSeconds() < hudTime || showHud) {
     hud.displayHud();
   }
