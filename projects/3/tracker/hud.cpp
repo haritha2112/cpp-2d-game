@@ -47,12 +47,13 @@ void Hud::displayHud() const {
     IOmod::getInstance().writeText("Press: ", hudx+15, hudy+20,textFontColor, fSize);
     IOmod::getInstance().writeText("F1: Toggle this menu", hudx+15, hudy+50,textFontColor, fSize);
     IOmod::getInstance().writeText("WASD: Movement ", hudx+15, hudy+80,textFontColor, fSize);
-    IOmod::getInstance().writeText("-----------------------", hudx+15, hudy+110,textFontColor, fSize);
+    IOmod::getInstance().writeText("Space: Shoot ", hudx+15, hudy+110,textFontColor, fSize);
+    IOmod::getInstance().writeText("-----------------------", hudx+15, hudy+140,textFontColor, fSize);
     std::stringstream strm;
     strm << "Bullets in use: " << player->bulletCount();
-    IOmod::getInstance().writeText(strm.str(), hudx+15, hudy+140,textFontColor, fSize);
+    IOmod::getInstance().writeText(strm.str(), hudx+15, hudy+170,textFontColor, fSize);
     strm.clear();
     strm.str("");
     strm << "Bullets in pool: " << player->freeCount();
-    IOmod::getInstance().writeText(strm.str(), hudx+15, hudy+170, textFontColor, fSize);
+    IOmod::getInstance().writeText(strm.str(), hudx+15, hudy+200, textFontColor, fSize);
 }
