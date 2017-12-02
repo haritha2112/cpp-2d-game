@@ -5,7 +5,9 @@
 #include "imageFactory.h"
 #include "collisionStrategy.h"
 
-BulletPool::~BulletPool() {}
+BulletPool::~BulletPool() {
+  delete strategy;
+}
 
 BulletPool::BulletPool(const std::string& n) :
   name(n),
