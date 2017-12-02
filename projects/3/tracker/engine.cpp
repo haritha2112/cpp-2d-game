@@ -17,6 +17,7 @@
 
 Engine::~Engine() {
   delete player;
+  delete bossEnemy;
   for ( Drawable* sprite : sprites ) {
     delete sprite;
   }
@@ -84,7 +85,7 @@ void Engine::draw() const {
 
   SDL_Color my_color = {102,0,102,0};
   IOmod::getInstance().writeText("Haritha Rathinakumar",my_color, 30, 410);
-  
+
   if(clock.getSeconds() < hudTime || showHud) {
     hud.displayHud();
   }
