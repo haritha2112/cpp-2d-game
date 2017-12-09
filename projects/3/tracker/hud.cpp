@@ -80,5 +80,5 @@ void Hud::draw(const Vector2f& position) const {
     strm << player->getNumEnemiesDestroyed();
     IOmod::getInstance().writeText(strm.str(), hudx+570, hudy+15, textFontColor, 20);
 
-    IOmod::getInstance().writeText("Haritha Rathinakumar", hudx+650, hudy+15, textFontColor, 18);
+    IOmod::getInstance().writeText("HARITHA RATHINAKUMAR", hudx+650, hudy+15, textFontColor, 18);
 }
