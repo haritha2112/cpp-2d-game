@@ -43,14 +43,12 @@ private:
   std::vector<CollisionStrategy*> strategies;
   int currentSprite;
   int currentStrategy;
-  bool collision;
   bool showHelpMenu;
 
   Hud& hud;
   HelpMenu& helpMenu;
 
   bool makeVideo;
-  bool gameOver;
 
   void draw() const;
   void update(Uint32);

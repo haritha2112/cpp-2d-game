@@ -79,6 +79,10 @@ void BossEnemy::restartGame() {
   setPosition(initialPosition);
 }
 
+void BossEnemy::removeFromScreen() {
+  setPosition(Vector2f(worldWidth + enemyWidth + 1000, 1000));
+}
+
 void BossEnemy::draw() const {
 	if ( explosion ) explosion->draw();
   else images[currentFrame]->draw(getX(), getY(), getScale());
@@ -93,7 +97,7 @@ void BossEnemy::explode() {
 }
 
 void BossEnemy::reset() {
-  setPosition(Vector2f(worldWidth + enemyWidth + 1000, 1000));
+  removeFromScreen();
   if ( explosionDone() ) {
     delete explosion;
     explosion = NULL;

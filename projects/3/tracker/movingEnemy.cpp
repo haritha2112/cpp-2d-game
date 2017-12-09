@@ -34,7 +34,9 @@ MovingEnemy::MovingEnemy( const std::string& name, const Vector2f& pos, int w, i
   bulletsToDie(Gamedata::getInstance().getXmlFloat(name+"/bulletsToDie")),
   bulletsHit(0),
   initialPosition(Vector2f(rand()%(worldWidth-viewWidth)+viewWidth,
-                           rand()%(viewHeight-enemyRange)+1))
+                           rand()%(viewHeight-enemyRange)+1)),
+  initialVelocity(getVelocity()),
+  respawn(true)
 {
   setPosition(initialPosition);
 }
@@ -60,7 +62,9 @@ MovingEnemy::MovingEnemy(const MovingEnemy& s) :
   enemyRange(s.enemyRange),
   bulletsToDie(s.bulletsToDie),
   bulletsHit(s.bulletsHit),
-  initialPosition(s.initialPosition)
+  initialPosition(s.initialPosition),
+  initialVelocity(s.initialVelocity),
+  respawn(s.respawn)
 {}
 
 MovingEnemy& MovingEnemy::operator=(const MovingEnemy& s) {
@@ -85,6 +89,8 @@ MovingEnemy& MovingEnemy::operator=(const MovingEnemy& s) {
   bulletsToDie = s.bulletsToDie;
   bulletsHit = s.bulletsHit;
   initialPosition = s.initialPosition;
+  initialVelocity = s.initialVelocity;
+  respawn = s.respawn;
   return *this;
 }
 
@@ -93,6 +99,12 @@ void MovingEnemy::restartGame() {
   currentMode = NORMAL;
   bulletsHit = 0;
   setPosition(Vector2f(rand()%(worldWidth-viewWidth)+viewWidth, rand()%(viewHeight-enemyRange)+1));
+  setVelocity(initialVelocity);
+}
+
+void MovingEnemy::removeFromScreen() {
+  setPosition(Vector2f(worldWidth + enemyWidth + 1000, 1000));
+  setVelocity(Vector2f(0, 0));
 }
 
 void MovingEnemy::draw() const {
@@ -123,13 +135,16 @@ bool MovingEnemy::explosionDone() {
 }
 
 void MovingEnemy::reset() {
-  setPosition(Vector2f(worldWidth + enemyWidth + 1000, 1000));
+  removeFromScreen();
   if ( explosionDone() ) {
     delete explosion;
     explosion = NULL;
     bulletsHit = 0;
-    setX(worldWidth + enemyWidth + rand()%(500));
-    setY(rand()%(viewHeight-enemyRange+1));
+    if ( respawn ) {
+      setX(worldWidth + enemyWidth + rand()%(500));
+      setY(rand()%(viewHeight-enemyRange+1));
+      setVelocity(initialVelocity);
+    }
   }
 }
 

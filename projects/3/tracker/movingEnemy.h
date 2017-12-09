@@ -25,11 +25,13 @@ public:
 	bool explosionDone();
   void explode();
 	void reset();
+	void removeFromScreen();
 	void restartGame();
 	void setPlayerPos(const Vector2f& p) { playerPos = p; }
 	void moveToInitialPosition() { setPosition(initialPosition); }
 	void gotShot() { ++bulletsHit; }
-	bool canDie() { return bulletsToDie == bulletsHit; }
+	bool isDead() { return bulletsToDie == bulletsHit; }
+	void setRespawn(bool value) { respawn = value; }
 
 private:
 	enum MODE {NORMAL, PURSUE};
@@ -53,6 +55,8 @@ private:
 	unsigned int bulletsToDie;
 	unsigned int bulletsHit;
 	Vector2f initialPosition;
+	Vector2f initialVelocity;
+	bool respawn;
 
 	void goUp(Uint32 ticks);
 	void goDown(Uint32 ticks);

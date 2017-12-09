@@ -30,7 +30,6 @@ private:
   Hud& operator=(const Hud&);
   const IOmod& io;
   SDL_Color textFontColor;
-  int fontSize() const;
   void drawHealthBar(int x, int y, int w, int h, float percent) const;
 };
 #endif

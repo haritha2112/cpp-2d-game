@@ -26,6 +26,5 @@ private:
   HelpMenu& operator=(const HelpMenu&);
   const IOmod& io;
   SDL_Color textFontColor;
-  int fontSize()const;
 };
 #endif

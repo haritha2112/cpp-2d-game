@@ -25,16 +25,6 @@ HelpMenu::HelpMenu():
     textFontColor({255, 255, 255, 255})
 {}
 
-int HelpMenu::fontSize()const{
-	float fontWidthsize = width * 0.1;
-	float fontHeightsize = height * 0.1;
-	if(fontWidthsize < fontHeightsize) {
-		return (int)fontWidthsize;
-	}
-	return (int)fontHeightsize;
-}
-
-
 void HelpMenu::draw() const {
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
     SDL_SetRenderDrawColor( renderer, 100, 100, 100, 170 );

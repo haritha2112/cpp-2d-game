@@ -30,15 +30,6 @@ Hud::Hud(Player* player):
     textFontColor({255,255,255,255})
 {}
 
-int Hud::fontSize() const {
-	float fontWidthsize = width * 0.1;
-	float fontHeightsize = height * 0.1;
-	if(fontWidthsize < fontHeightsize) {
-		return (int)fontWidthsize;
-	}
-	return (int)fontHeightsize;
-}
-
 void Hud::drawHealthBar(int x, int y, int w, int h, float percent) const {
    SDL_Color FGColor({0, 255, 0, 200});
    SDL_Color BGColor({255, 0, 0, 255});
@@ -51,10 +42,8 @@ void Hud::drawHealthBar(int x, int y, int w, int h, float percent) const {
    SDL_RenderFillRect(renderer, &fgrect);
 }
 
-
 void Hud::draw(const Vector2f& position) const {
     std::stringstream strm;
-    int fSize = fontSize();
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
     SDL_SetRenderDrawColor( renderer, 100, 100, 100, 200 );
     SDL_RenderFillRect( renderer, &hudRect );
@@ -72,7 +61,7 @@ void Hud::draw(const Vector2f& position) const {
     strm.str("");
     strm << player->getNumEggsCollected();
     IOmod::getInstance().writeText(strm.str(), hudx+350, hudy+15, textFontColor, 20);
-    //
+
     deadGreenEnemy[0]->draw(position[0]+hudx+470, position[1]+hudy+10, 0.8);
     deadRedEnemy[0]->draw(position[0]+hudx+520, position[1]+hudy+5, 0.8);
     strm.clear();

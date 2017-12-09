@@ -27,8 +27,6 @@ public:
   virtual const SDL_Surface* getSurface() const { return images[currentFrame]->getSurface(); }
   void setImages(std::vector<Image *> newImages) { images = newImages; }
 
-  void collided() { collision = true; }
-  void missed() { collision = false; }
   void addEgg() { eggsCollected += 1; }
   unsigned int bulletCount() const { return bullets.bulletCount(); }
   unsigned int freeCount() const { return bullets.freeCount(); }
@@ -65,7 +63,6 @@ private:
   int worldHeight;
   std::vector<Image *> rightsprite;
   std::vector<Image *> leftsprite;
-  bool collision;
   Facing facing;
   Vector2f initialVelocity;
   Vector2f initialPosition;

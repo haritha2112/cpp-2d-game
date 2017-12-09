@@ -46,12 +46,10 @@ Engine::Engine() :
   strategies(),
   currentSprite(0),
   currentStrategy(0),
-  collision(),
   showHelpMenu(false),
   hud( Hud::getInstance(player) ),
   helpMenu( HelpMenu::getInstance() ),
-  makeVideo(false),
-  gameOver(false)
+  makeVideo(false)
 {
   Vector2f pos = player->getPosition();
   int w = player->getScaledWidth();
@@ -95,19 +93,16 @@ void Engine::draw() const {
 }
 
 void Engine::checkForCollisions() {
-  collision = false;
   for ( Drawable* d : eggs ) {
     if ( strategies[currentStrategy]->execute(*player, *d) ) {
       player->addEgg();
       Egg* egg = static_cast<Egg*>(d);
       egg->removeFromScreen();
-      collision = true;
     }
   }
   for ( Drawable* e : enemies ) {
     MovingEnemy* enemy = static_cast<MovingEnemy*>(e);
     if ( strategies[currentStrategy]->execute(*player, *e) ) {
-      collision = true;
       enemy->explode();
       player->explode();
       bossEnemy->setOriginalState();
@@ -117,20 +112,10 @@ void Engine::checkForCollisions() {
     }
   }
   if ( strategies[currentStrategy]->execute(*player, *bossEnemy) ) {
-    collision = true;
-    bossEnemy->explode();
     player->explode();
-    bossEnemy->setOriginalState();
   }
   else {
     player->destroyIfShot(bossEnemy);
-  }
-  if ( collision ) {
-    player->collided();
-  }
-  else {
-    player->missed();
-    collision = false;
   }
 }
 

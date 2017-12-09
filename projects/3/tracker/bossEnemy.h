@@ -23,6 +23,7 @@ public:
   int getScaledHeight()  const { return getScale()*images[currentFrame]->getHeight(); }
 
 	void reset();
+	void removeFromScreen();
 	void restartGame();
 	bool explosionDone();
   void explode();
@@ -31,7 +32,7 @@ public:
 		bulletsHit = 0;
 	}
 	void gotShot() { ++bulletsHit; }
-	bool canDie() { return bulletsToDie == bulletsHit; }
+	bool isDead() { return bulletsToDie == bulletsHit; }
 
 private:
 	std::vector<Image *> images;

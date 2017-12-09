@@ -24,7 +24,6 @@ Player::Player( const std::string& player, const std::string& bullet ) :
   worldHeight(Gamedata::getInstance().getXmlInt("world/height")),
   rightsprite( RenderContext::getInstance()->getImages(player+"/rightSprite") ),
   leftsprite( RenderContext::getInstance()->getImages(player+"/leftSprite") ),
-  collision(false),
   facing(RIGHT),
   initialVelocity(getVelocity()),
   initialPosition(getPosition()),
@@ -63,7 +62,6 @@ Player::Player(const Player& s) :
   worldHeight( s.worldHeight ),
   rightsprite(s.rightsprite),
   leftsprite(s.leftsprite),
-  collision(s.collision),
   facing(s.facing),
   initialVelocity(s.initialVelocity),
   initialPosition(s.initialPosition),
@@ -96,7 +94,6 @@ Player& Player::operator=(const Player& s) {
   worldHeight = s.worldHeight;
   rightsprite = s.rightsprite;
   leftsprite = s.leftsprite;
-  collision = s.collision;
   facing = s.facing;
   initialVelocity = s.initialVelocity;
   initialPosition = s.initialPosition;
@@ -124,7 +121,7 @@ void Player::stop() {
 
 void Player::right() {
   facing = RIGHT;
-  if ( getX() < worldWidth-getScaledWidth()) {
+  if ( getX() < worldWidth - getScaledWidth()) {
     setVelocityX(initialVelocity[0]);
   }
 }
@@ -140,14 +137,13 @@ void Player::up()    {
   }
 }
 void Player::down()  {
-  if ( getY() < worldHeight-getScaledHeight()) {
+  if ( getY() < worldHeight - getScaledHeight()) {
     setVelocityY( initialVelocity[1] );
   }
 }
 
 void Player::restartGame() {
   explosion = NULL;
-  collision = false;
   facing = RIGHT;
   eggsCollected = 0;
   enemiesDestroyed = 0;
@@ -165,7 +161,7 @@ void Player::draw() const {
 void Player::destroyIfShot( MovingEnemy* enemy ) {
   if ( bullets.collided(enemy) ) {
     enemy->gotShot();
-    if (enemy->canDie()) {
+    if (enemy->isDead()) {
       enemiesDestroyed += 1;
       enemy->explode();
     }
@@ -175,12 +171,14 @@ void Player::destroyIfShot( MovingEnemy* enemy ) {
 void Player::destroyIfShot( BossEnemy* enemy ) {
   if ( bullets.collided(enemy) ) {
     enemy->gotShot();
-    if (enemy->canDie()) {
+    if (enemy->isDead()) {
       enemiesDestroyed += 1;
       enemy->explode();
+      enemy->removeFromScreen();
       std::list<MovingEnemy*>::iterator ptr = observers.begin();
       while ( ptr != observers.end() ) {
         (*ptr)->explode();
+        (*ptr)->setRespawn(false);
         ++ptr;
       }
     }
