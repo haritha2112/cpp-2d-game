@@ -28,6 +28,8 @@ public:
   void setImages(std::vector<Image *> newImages) { images = newImages; }
 
   void addEgg() { eggsCollected += 1; }
+  void toggleGodMode() { godMode = !godMode; }
+  bool isInvincible() { return godMode; }
   unsigned int bulletCount() const { return bullets.bulletCount(); }
   unsigned int freeCount() const { return bullets.freeCount(); }
   int getRemainingLives() const { return currentLives; }
@@ -81,6 +83,7 @@ private:
   int currentLives;
   int currentHealth;
   int enemyCollisionHealthLoss;
+  bool godMode;
 
   void advanceFrame(Uint32 ticks);
 };

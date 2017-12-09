@@ -51,7 +51,11 @@ void Hud::draw(const Vector2f& position) const {
     SDL_RenderDrawRect( renderer, &hudRect );
 
     heartImage->draw(position[0]+hudx+20, position[1]+hudy+10, 0.25);
-    strm << player->getRemainingLives();
+    if (player->isInvincible()) {
+      strm << "G";
+    } else {
+      strm << player->getRemainingLives();
+    }
     IOmod::getInstance().writeText(strm.str(), hudx+60, hudy+15, textFontColor, 20);
 
     drawHealthBar(hudx+80, hudy+20, 150, 15, player->getCurrentHealth()*100/player->getTotalHealth());

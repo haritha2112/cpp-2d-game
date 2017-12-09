@@ -47,7 +47,8 @@ Player::Player( const std::string& player, const std::string& bullet ) :
   initialHealth(Gamedata::getInstance().getXmlInt(player+"/health")),
   currentLives(Gamedata::getInstance().getXmlInt(player+"/lives")),
   currentHealth(Gamedata::getInstance().getXmlInt(player+"/health")),
-  enemyCollisionHealthLoss(Gamedata::getInstance().getXmlInt(player+"/enemyCollisionHealthLoss"))
+  enemyCollisionHealthLoss(Gamedata::getInstance().getXmlInt(player+"/enemyCollisionHealthLoss")),
+  godMode(false)
 {}
 
 Player::Player(const Player& s) :
@@ -79,7 +80,8 @@ Player::Player(const Player& s) :
   initialHealth( s.initialHealth ),
   currentLives( s.currentLives ),
   currentHealth( s.currentHealth ),
-  enemyCollisionHealthLoss( s.enemyCollisionHealthLoss )
+  enemyCollisionHealthLoss( s.enemyCollisionHealthLoss ),
+  godMode( s.godMode )
 {}
 
 Player& Player::operator=(const Player& s) {
@@ -112,6 +114,7 @@ Player& Player::operator=(const Player& s) {
   currentLives = s.currentLives;
   currentHealth = s.currentHealth;
   enemyCollisionHealthLoss = s.enemyCollisionHealthLoss;
+  godMode = s.godMode;
   return *this;
 }
 
@@ -174,7 +177,6 @@ void Player::destroyIfShot( BossEnemy* enemy ) {
     if (enemy->isDead()) {
       enemiesDestroyed += 1;
       enemy->explode();
-      enemy->removeFromScreen();
       std::list<MovingEnemy*>::iterator ptr = observers.begin();
       while ( ptr != observers.end() ) {
         (*ptr)->explode();

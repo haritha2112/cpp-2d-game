@@ -104,15 +104,26 @@ void Engine::checkForCollisions() {
     MovingEnemy* enemy = static_cast<MovingEnemy*>(e);
     if ( strategies[currentStrategy]->execute(*player, *e) ) {
       enemy->explode();
-      player->explode();
-      bossEnemy->setOriginalState();
+      if (!player->isInvincible()) {
+        player->explode();
+        bossEnemy->setOriginalState();
+      }
     }
     else {
       player->destroyIfShot(enemy);
     }
   }
   if ( strategies[currentStrategy]->execute(*player, *bossEnemy) ) {
-    player->explode();
+    if (player->isInvincible()) {
+      bossEnemy->explode();
+      for ( Drawable* e : enemies ) {
+        MovingEnemy* enemy = static_cast<MovingEnemy*>(e);
+        enemy->explode();
+        enemy->setRespawn(false);
+      }
+    } else {
+      player->explode();
+    }
   }
   else {
     player->destroyIfShot(bossEnemy);
@@ -169,6 +180,9 @@ void Engine::play() {
           for(Drawable* enemy : enemies) {
             static_cast<MovingEnemy*>(enemy)->restartGame();
           }
+        }
+        if ( keystate[SDL_SCANCODE_G] ) {
+          player->toggleGodMode();
         }
         if ( keystate[SDL_SCANCODE_F1] && !showHelpMenu) {
           showHelpMenu = true;

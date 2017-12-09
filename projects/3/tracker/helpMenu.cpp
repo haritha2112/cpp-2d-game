@@ -32,8 +32,8 @@ void HelpMenu::draw() const {
     SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
     SDL_RenderDrawRect( renderer, &rect );
     IOmod::getInstance().writeText("CONTROLS", x+250, y+5, textFontColor, 18);
-    IOmod::getInstance().writeText("F1 ........ Toggle this menu   |", x+15, y+30,textFontColor, 16);
-    IOmod::getInstance().writeText("R ......... Restart Game       |   WASD ......... Movement", x+15, y+50,textFontColor, 16);
-    IOmod::getInstance().writeText("P ......... Pause Game         |   Space Bar .... Shoot", x+15, y+70,textFontColor, 16);
+    IOmod::getInstance().writeText("F1 ........ Toggle this menu   |   WASD ......... Movement", x+15, y+30,textFontColor, 16);
+    IOmod::getInstance().writeText("R ......... Restart Game       |   Space Bar .... Shoot", x+15, y+50,textFontColor, 16);
+    IOmod::getInstance().writeText("P ......... Pause Game         |   G ............ God Mode", x+15, y+70,textFontColor, 16);
     IOmod::getInstance().writeText("ESC or Q .. Quit Game          |", x+15, y+90,textFontColor, 16);
 }

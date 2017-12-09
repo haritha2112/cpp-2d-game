@@ -123,6 +123,7 @@ void MovingEnemy::goDown(Uint32 ticks) {
 }
 
 void MovingEnemy::explode() {
+  bulletsHit = bulletsToDie;
   if ( !explosion ) {
 		Vector2f velocity(100, 100);
     Sprite sprite(getName(), getPosition(), velocity, images[currentFrame]);

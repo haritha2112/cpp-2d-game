@@ -89,6 +89,7 @@ void BossEnemy::draw() const {
 }
 
 void BossEnemy::explode() {
+  bulletsHit = bulletsToDie;
   if ( !explosion ) {
 		Vector2f velocity(100, 100);
     Sprite sprite(getName(), getPosition(), velocity, images[currentFrame]);
@@ -101,7 +102,6 @@ void BossEnemy::reset() {
   if ( explosionDone() ) {
     delete explosion;
     explosion = NULL;
-    bulletsHit = 0;
   }
 }
 
