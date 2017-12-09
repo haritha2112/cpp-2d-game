@@ -10,7 +10,7 @@ Egg::Egg(const std::string& name) :
   image( RenderContext::getInstance()->getImage(name) ),
   worldWidth(Gamedata::getInstance().getXmlInt("world/width")),
   worldHeight(Gamedata::getInstance().getXmlInt("world/height")),
-  initialPosition(Vector2f(rand()%(worldWidth + 200), rand()%(worldHeight)))
+  initialPosition(Vector2f(rand()%(worldWidth-200)+200, rand()%(worldHeight)))
 {
   setPosition(initialPosition);
 }

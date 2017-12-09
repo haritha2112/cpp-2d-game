@@ -33,7 +33,7 @@ Engine::Engine() :
   io( IOmod::getInstance() ),
   clock( Clock::getInstance() ),
   renderer( rc->getRenderer() ),
-  hudTime(Gamedata::getInstance().getXmlInt("hud/time")),
+  helpMenuTime(Gamedata::getInstance().getXmlInt("helpMenu/time")),
   sky("sky-back", Gamedata::getInstance().getXmlInt("sky-back/factor") ),
   clouds("cloud-back", Gamedata::getInstance().getXmlInt("cloud-back/factor") ),
   mountains("mountain-back", Gamedata::getInstance().getXmlInt("mountain-back/factor") ),
@@ -47,9 +47,11 @@ Engine::Engine() :
   currentSprite(0),
   currentStrategy(0),
   collision(),
-  showHud(false),
+  showHelpMenu(false),
   hud( Hud::getInstance(player) ),
-  makeVideo(false)
+  helpMenu( HelpMenu::getInstance() ),
+  makeVideo(false),
+  gameOver(false)
 {
   Vector2f pos = player->getPosition();
   int w = player->getScaledWidth();
@@ -84,14 +86,10 @@ void Engine::draw() const {
   bossEnemy->draw();
   for ( const Drawable* egg : eggs ) { egg->draw(); }
   for ( const Drawable* enemy : enemies ) { enemy->draw(); }
-
-  SDL_Color my_color = {102,0,102,0};
-  IOmod::getInstance().writeText("Haritha Rathinakumar",my_color, 30, 410);
-
-  if(clock.getSeconds() < hudTime || showHud) {
-    hud.displayHud();
+  hud.draw(viewport.getPosition());
+  if(clock.getSeconds() < helpMenuTime || showHelpMenu) {
+    helpMenu.draw();
   }
-
   viewport.draw();
   SDL_RenderPresent(renderer);
 }
@@ -187,11 +185,11 @@ void Engine::play() {
             static_cast<MovingEnemy*>(enemy)->restartGame();
           }
         }
-        if ( keystate[SDL_SCANCODE_F1] && !showHud) {
-          showHud = true;
+        if ( keystate[SDL_SCANCODE_F1] && !showHelpMenu) {
+          showHelpMenu = true;
         }
-        else if ( keystate[SDL_SCANCODE_F1] && showHud) {
-          showHud = false;
+        else if ( keystate[SDL_SCANCODE_F1] && showHelpMenu) {
+          showHelpMenu = false;
         }
         if (keystate[SDL_SCANCODE_F4] && !makeVideo) {
           std::cout << "Initiating frame capture" << std::endl;

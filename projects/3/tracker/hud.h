@@ -11,10 +11,14 @@ class Hud {
 public:
   static Hud& getInstance(Player*);
   ~Hud();
-  void displayHud() const;
+  void draw(const Vector2f& pos) const;
 
 private:
   Player* player;
+  Image* heartImage;
+  Image* eggImage;
+  std::vector<Image *> deadGreenEnemy;
+  std::vector<Image *> deadRedEnemy;
   const int width;
   const int height;
   int hudx;
@@ -26,6 +30,7 @@ private:
   Hud& operator=(const Hud&);
   const IOmod& io;
   SDL_Color textFontColor;
-  int fontSize()const;
+  int fontSize() const;
+  void drawHealthBar(int x, int y, int w, int h, float percent) const;
 };
 #endif

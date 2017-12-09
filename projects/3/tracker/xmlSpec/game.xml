@@ -27,13 +27,42 @@
   <height>425</height>
 </world>
 
-<hud>
-  <width>260</width>
-  <height>230</height>
-  <start x="30" y="20"/>
+<helpMenu>
+  <width>550</width>
+  <height>120</height>
+  <start x="150" y="0"/>
   <color red="255" green="255" blue="0"/>
   <time>5</time>
+</helpMenu>
+
+<hud>
+  <width>855</width>
+  <height>50</height>
+  <start x="0" y="430"/>
+  <color red="255" green="255" blue="0"/>
 </hud>
+
+<hudHeart>
+  <file>assets/heart.png</file>
+  <transparency>false</transparency>
+</hudHeart>
+
+<hudEgg>
+  <file>assets/egg.png</file>
+  <transparency>false</transparency>
+</hudEgg>
+
+<hudDeadGreenEnemy>
+  <file>assets/dead_green_enemy.png</file>
+  <frames>2</frames>
+  <transparency>false</transparency>
+</hudDeadGreenEnemy>
+
+<hudDeadRedEnemy>
+  <file>assets/dead_red_enemy.png</file>
+  <frames>2</frames>
+  <transparency>false</transparency>
+</hudDeadRedEnemy>
 
 <sky-back>
   <file>assets/sky.png</file>
@@ -60,7 +89,7 @@
 </ground-back>
 
 <font name="font">
-  <file>fonts/arial.ttf</file>
+  <file>fonts/Anonymous_Pro.ttf</file>
   <size>24</size>
   <red>255</red>
   <green>0</green>

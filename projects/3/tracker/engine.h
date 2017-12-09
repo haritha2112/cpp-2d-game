@@ -6,6 +6,7 @@
 #include "world.h"
 #include "viewport.h"
 #include "hud.h"
+#include "helpMenu.h"
 #include "movingEnemy.h"
 #include "bossEnemy.h"
 #include <vector>
@@ -28,7 +29,7 @@ private:
   Clock& clock;
 
   SDL_Renderer * const renderer;
-  unsigned int hudTime;
+  unsigned int helpMenuTime;
   World sky;
   World clouds;
   World mountains;
@@ -43,11 +44,13 @@ private:
   int currentSprite;
   int currentStrategy;
   bool collision;
-  bool showHud;
+  bool showHelpMenu;
 
   Hud& hud;
+  HelpMenu& helpMenu;
 
   bool makeVideo;
+  bool gameOver;
 
   void draw() const;
   void update(Uint32);

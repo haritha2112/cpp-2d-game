@@ -32,6 +32,12 @@ public:
   void addEgg() { eggsCollected += 1; }
   unsigned int bulletCount() const { return bullets.bulletCount(); }
   unsigned int freeCount() const { return bullets.freeCount(); }
+  int getRemainingLives() const { return currentLives; }
+  int getTotalLives() const { return initialLives;; }
+  int getNumEggsCollected() const { return eggsCollected; }
+  int getNumEnemiesDestroyed() const { return enemiesDestroyed; }
+  int getCurrentHealth() const { return currentHealth; }
+  int getTotalHealth() const { return initialHealth; }
   void reset();
   void restartGame();
   bool explosionDone();
