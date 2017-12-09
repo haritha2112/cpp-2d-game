@@ -1,9 +1,29 @@
 #include "player.h"
 #include "gamedata.h"
 #include "renderContext.h"
+#include "explodingSprite.h"
+
+Player::~Player() {
+  if (explosion) delete explosion;
+}
 
 Player::Player( const std::string& right, const std::string& left, const std::string& bullet ) :
-  TwoWaySprite(right, left),
+  Drawable(right,
+           Vector2f(Gamedata::getInstance().getXmlInt(right+"/startLoc/x"),
+                    Gamedata::getInstance().getXmlInt(right+"/startLoc/y")),
+           Vector2f(Gamedata::getInstance().getXmlInt(right+"/speedX"),
+                    Gamedata::getInstance().getXmlInt(right+"/speedY"))
+           ),
+  images( RenderContext::getInstance()->getImages(right) ),
+  explosion(nullptr),
+  currentFrame(0),
+  numberOfFrames( Gamedata::getInstance().getXmlInt(right+"/frames") ),
+  frameInterval( Gamedata::getInstance().getXmlInt(right+"/frameInterval")),
+  timeSinceLastFrame( 0 ),
+  worldWidth(Gamedata::getInstance().getXmlInt("world/width")),
+  worldHeight(Gamedata::getInstance().getXmlInt("world/height")),
+  rightsprite(right),
+  leftsprite(left),
   collision(false),
   facing(RIGHT),
   initialVelocity(getVelocity()),
@@ -21,10 +41,20 @@ Player::Player( const std::string& right, const std::string& left, const std::st
     Gamedata::getInstance().getXmlInt(bullet+"/leftOffset/y")
   )),
   bullets(BulletPool(bullet))
-{ }
+{}
 
 Player::Player(const Player& s) :
-  TwoWaySprite(s),
+  Drawable(s),
+  images(s.images),
+  explosion(s.explosion),
+  currentFrame(s.currentFrame),
+  numberOfFrames( s.numberOfFrames ),
+  frameInterval( s.frameInterval ),
+  timeSinceLastFrame( s.timeSinceLastFrame ),
+  worldWidth( s.worldWidth ),
+  worldHeight( s.worldHeight ),
+  rightsprite(s.rightsprite),
+  leftsprite(s.leftsprite),
   collision(s.collision),
   facing(s.facing),
   initialVelocity(s.getVelocity()),
@@ -39,7 +69,17 @@ Player::Player(const Player& s) :
   { }
 
 Player& Player::operator=(const Player& s) {
-  TwoWaySprite::operator=(s);
+  Drawable::operator=(s);
+  images = s.images;
+  explosion = s.explosion;
+  currentFrame = s.currentFrame;
+  numberOfFrames = s.numberOfFrames;
+  frameInterval = s.frameInterval;
+  timeSinceLastFrame = s.timeSinceLastFrame;
+  worldWidth = s.worldWidth;
+  worldHeight = s.worldHeight;
+  rightsprite = s.rightsprite;
+  leftsprite = s.leftsprite;
   collision = s.collision;
   facing = s.facing;
   initialVelocity = s.initialVelocity;
@@ -56,11 +96,6 @@ Player& Player::operator=(const Player& s) {
 
 void Player::stop() {
   setVelocity(Vector2f(0,0));
-}
-
-void Player::draw() const {
-  TwoWaySprite::draw();
-  bullets.draw();
 }
 
 void Player::right() {
@@ -84,6 +119,12 @@ void Player::down()  {
   if ( getY() < worldHeight-getScaledHeight()) {
     setVelocityY( initialVelocity[1] );
   }
+}
+
+void Player::draw() const {
+  if ( explosion ) explosion->draw();
+  else images[currentFrame]->draw(getX(), getY(), getScale());
+  bullets.draw();
 }
 
 void Player::destroyIfShot( MovingEnemy* enemy ) {
@@ -133,7 +174,8 @@ void Player::shoot() {
 void Player::reset() {
   setPosition(Vector2f(getX(), -1000));
   if ( explosionDone() ) {
-    TwoWaySprite::reset();
+    delete explosion;
+    explosion = NULL;
     std::list<MovingEnemy*>::iterator ptr = observers.begin();
     while ( ptr != observers.end() ) {
       (*ptr)->moveToInitialPosition();
@@ -144,22 +186,46 @@ void Player::reset() {
   }
 }
 
-void Player::update(Uint32 ticks) {
-  TwoWaySprite::update(ticks);
+void Player::explode() {
+  if ( !explosion ) {
+    Vector2f velocity(100, 100);
+    Sprite sprite(getName(), getPosition(), velocity, images[currentFrame]);
+    explosion = new ExplodingSprite(sprite);
+  }
+}
 
+bool Player::explosionDone() {
+  return explosion && explosion->chunkCount() == 0;
+}
+
+void Player::advanceFrame(Uint32 ticks) {
+  timeSinceLastFrame += ticks;
+  if (timeSinceLastFrame > frameInterval) {
+    currentFrame = (currentFrame+1) % numberOfFrames;
+    timeSinceLastFrame = 0;
+  }
+}
+
+void Player::update(Uint32 ticks) {
+  if ( explosion ) {
+    explosion->update(ticks);
+    this->reset();
+    return;
+  }
+  advanceFrame(ticks);
+  Vector2f incr = getVelocity() * static_cast<float>(ticks) * 0.001;
+  setPosition(getPosition() + incr);
   bullets.update(ticks);
   timeSinceLastBullet += ticks;
   switch(facing) {
     case LEFT: setImages( RenderContext::getInstance()->getImages(getLeftSprite()) ); break;
     case RIGHT: setImages( RenderContext::getInstance()->getImages(getRightSprite()) ); break;
   }
-
   std::list<MovingEnemy*>::iterator ptr = observers.begin();
   while ( ptr != observers.end() ) {
     (*ptr)->setPlayerPos( getPosition() );
     ++ptr;
   }
-
   stop();
 }
 
