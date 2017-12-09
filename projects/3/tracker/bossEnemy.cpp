@@ -7,7 +7,7 @@ BossEnemy::~BossEnemy() {
   if (explosion) delete explosion;
 }
 
-BossEnemy::BossEnemy( const std::string& name ) :
+BossEnemy::BossEnemy( const std::string& name, const std::string& bullet ) :
   Drawable(name,
            Vector2f(Gamedata::getInstance().getXmlInt(name+"/startLoc/x"),
                     Gamedata::getInstance().getXmlInt(name+"/startLoc/y")),
@@ -29,7 +29,16 @@ BossEnemy::BossEnemy( const std::string& name ) :
   bulletsToDie(Gamedata::getInstance().getXmlFloat(name+"/bulletsToDie")),
   bulletsHit(0),
   initialPosition(Vector2f(Gamedata::getInstance().getXmlInt(name+"/startLoc/x"),
-                           Gamedata::getInstance().getXmlInt(name+"/startLoc/y")))
+                           Gamedata::getInstance().getXmlInt(name+"/startLoc/y"))),
+  bulletName(bullet),
+  bulletInterval(Gamedata::getInstance().getXmlInt(bullet+"/bulletInterval")),
+  timeSinceLastBullet(0),
+  minBulletSpeed(Gamedata::getInstance().getXmlInt(bullet+"/minBulletSpeed")),
+  leftOffset(Vector2f(
+   Gamedata::getInstance().getXmlInt(bullet+"/leftOffset/x"),
+   Gamedata::getInstance().getXmlInt(bullet+"/leftOffset/y")
+  )),
+  bullets(BulletPool(bullet))
 {
   setPosition(initialPosition);
 }
@@ -50,7 +59,13 @@ BossEnemy::BossEnemy(const BossEnemy& s) :
   enemyRange(s.enemyRange),
   bulletsToDie(s.bulletsToDie),
   bulletsHit(s.bulletsHit),
-  initialPosition(s.initialPosition)
+  initialPosition(s.initialPosition),
+  bulletName(s.bulletName),
+  bulletInterval(s.bulletInterval),
+  timeSinceLastBullet(s.timeSinceLastBullet),
+  minBulletSpeed(s.minBulletSpeed),
+  leftOffset(s.leftOffset),
+  bullets(s.bullets)
 {}
 
 BossEnemy& BossEnemy::operator=(const BossEnemy& s) {
@@ -70,6 +85,12 @@ BossEnemy& BossEnemy::operator=(const BossEnemy& s) {
   bulletsToDie = s.bulletsToDie;
   bulletsHit = s.bulletsHit;
   initialPosition = s.initialPosition;
+  bulletName = s.bulletName;
+  bulletInterval = s.bulletInterval;
+  timeSinceLastBullet = s.timeSinceLastBullet;
+  minBulletSpeed = s.minBulletSpeed;
+  leftOffset = s.leftOffset;
+  bullets = s.bullets;
   return *this;
 }
 
@@ -86,6 +107,7 @@ void BossEnemy::removeFromScreen() {
 void BossEnemy::draw() const {
 	if ( explosion ) explosion->draw();
   else images[currentFrame]->draw(getX(), getY(), getScale());
+  bullets.draw();
 }
 
 void BossEnemy::explode() {
@@ -109,6 +131,18 @@ bool BossEnemy::explosionDone() {
 	return explosion && explosion->chunkCount() == 0;
 }
 
+void BossEnemy::shoot() {
+  if (timeSinceLastBullet > bulletInterval) {
+    Vector2f bulletPosition = getPosition();
+    Vector2f bulletVelocity = Vector2f(getVelocity()[0], 0);
+    bulletPosition[0] += leftOffset[0];
+    bulletPosition[1] += leftOffset[1];
+    bulletVelocity[0] = -(minBulletSpeed + bulletVelocity[0]);
+    bullets.shoot(bulletPosition, bulletVelocity);
+    timeSinceLastBullet = 0;
+  }
+}
+
 void BossEnemy::advanceFrame(Uint32 ticks) {
 	timeSinceLastFrame += ticks;
 	if (timeSinceLastFrame > frameInterval) {
@@ -118,11 +152,14 @@ void BossEnemy::advanceFrame(Uint32 ticks) {
 }
 
 void BossEnemy::update(Uint32 ticks) {
+  bullets.update(ticks);
+  timeSinceLastBullet += ticks;
   if ( explosion ) {
     explosion->update(ticks);
 		this->reset();
     return;
   }
+  shoot();
   advanceFrame(ticks);
   Vector2f incr = getVelocity() * static_cast<float>(ticks) * 0.001;
   setPosition(getPosition() + incr);

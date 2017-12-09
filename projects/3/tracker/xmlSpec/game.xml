@@ -216,4 +216,21 @@
   <transparency>false</transparency>
 </BlueBullet>
 
+<LaserBullet>
+  <file>assets/laser_bullet.png</file>
+  <startLoc x="100" y="100"/>
+  <speedX>250</speedX>
+  <speedY>0</speedY>
+  <frames>3</frames>
+  <frameInterval>100</frameInterval>
+  <imageWidth>95</imageWidth>
+  <imageHeight>68</imageHeight>
+  <leftOffset x="0" y="30"/>
+  <distance>800</distance>
+  <bulletInterval>5000</bulletInterval>
+  <minBulletSpeed>200</minBulletSpeed>
+  <collisionStrategy>MidPoint</collisionStrategy>
+  <transparency>false</transparency>
+</LaserBullet>
+
 </GameData>

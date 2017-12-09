@@ -41,7 +41,7 @@ Engine::Engine() :
   ground("ground-back", Gamedata::getInstance().getXmlInt("ground-back/factor") ),
   viewport( Viewport::getInstance() ),
   player(new Player("BlueBird", "BlueBullet")),
-  bossEnemy(new BossEnemy("YellowBee")),
+  bossEnemy(new BossEnemy("YellowBee", "LaserBullet")),
   tree(new Tree("Tree")),
   eggs(),
   enemies(),
@@ -136,6 +136,9 @@ void Engine::checkForCollisions() {
     } else {
       player->explode();
     }
+  }
+  if ( bossEnemy->hasShot(player) && !player->isInvincible() ) {
+    player->explode();
   }
   else {
     player->destroyIfShot(bossEnemy);

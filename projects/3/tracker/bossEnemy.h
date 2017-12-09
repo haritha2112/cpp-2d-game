@@ -5,12 +5,13 @@
 #include <vector>
 #include <cmath>
 #include "drawable.h"
+#include "bulletPool.h"
 
 class ExplodingSprite;
 
 class BossEnemy : public Drawable {
 public:
-	BossEnemy(const std::string&);
+	BossEnemy(const std::string&, const std::string&);
 	BossEnemy(const BossEnemy&);
 	BossEnemy& operator=(const BossEnemy&);
   ~BossEnemy();
@@ -33,6 +34,7 @@ public:
 	}
 	void gotShot() { ++bulletsHit; }
 	bool isDead() { return bulletsToDie == bulletsHit; }
+	bool hasShot(Drawable* d) { return bullets.collided(d); };
 
 private:
 	std::vector<Image *> images;
@@ -50,7 +52,14 @@ private:
 	unsigned int bulletsToDie;
 	unsigned int bulletsHit;
 	Vector2f initialPosition;
+	std::string bulletName;
+  float bulletInterval;
+  float timeSinceLastBullet;
+  float minBulletSpeed;
+  Vector2f leftOffset;
+  BulletPool bullets;
 
 	void advanceFrame(Uint32 ticks);
+	void shoot();
 };
 #endif
