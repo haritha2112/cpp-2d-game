@@ -88,6 +88,18 @@ MovingEnemy& MovingEnemy::operator=(const MovingEnemy& s) {
   return *this;
 }
 
+void MovingEnemy::restartGame() {
+  explosion = NULL;
+  currentMode = NORMAL;
+  bulletsHit = 0;
+  setPosition(Vector2f(rand()%(worldWidth-viewWidth)+viewWidth, rand()%(viewHeight-enemyRange)+1));
+}
+
+void MovingEnemy::draw() const {
+	if ( explosion ) explosion->draw();
+  else images[currentFrame]->draw(getX(), getY(), getScale());
+}
+
 void MovingEnemy::goUp(Uint32 ticks) {
   float incr = getVelocityY() * static_cast<float>(ticks) * 0.001;
   setY( getY()-incr );
@@ -96,11 +108,6 @@ void MovingEnemy::goUp(Uint32 ticks) {
 void MovingEnemy::goDown(Uint32 ticks) {
   float incr = getVelocityY() * static_cast<float>(ticks) * 0.001;
   setY( getY()+incr );
-}
-
-void MovingEnemy::draw() const {
-	if ( explosion ) explosion->draw();
-  else images[currentFrame]->draw(getX(), getY(), getScale());
 }
 
 void MovingEnemy::explode() {

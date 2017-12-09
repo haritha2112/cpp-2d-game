@@ -25,6 +25,7 @@ public:
 	bool explosionDone();
   void explode();
 	void reset();
+	void restartGame();
 	void setPlayerPos(const Vector2f& p) { playerPos = p; }
 	void moveToInitialPosition() { setPosition(initialPosition); }
 	void gotShot() { ++bulletsHit; }

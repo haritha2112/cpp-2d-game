@@ -145,6 +145,17 @@ void Player::down()  {
   }
 }
 
+void Player::restartGame() {
+  explosion = NULL;
+  collision = false;
+  facing = RIGHT;
+  eggsCollected = 0;
+  enemiesDestroyed = 0;
+  currentLives = initialLives;
+  currentHealth = initialHealth;
+  setPosition(initialPosition);
+}
+
 void Player::draw() const {
   if ( explosion ) explosion->draw();
   else images[currentFrame]->draw(getX(), getY(), getScale());

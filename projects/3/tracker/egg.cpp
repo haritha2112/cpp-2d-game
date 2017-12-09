@@ -36,6 +36,10 @@ inline namespace{
   constexpr float SCALE_EPSILON = 2e-7;
 }
 
+void Egg::restartGame() {
+  setPosition(Vector2f(rand()%(worldWidth + 200), rand()%(worldHeight)));
+}
+
 void Egg::draw() const {
   if(getScale() < SCALE_EPSILON) return;
   image->draw(getX(), getY(), getScale());

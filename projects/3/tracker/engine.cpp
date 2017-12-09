@@ -177,6 +177,16 @@ void Engine::play() {
         if ( keystate[SDL_SCANCODE_SPACE] ) {
           player->shoot();
         }
+        if ( keystate[SDL_SCANCODE_R] ) {
+          player->restartGame();
+          bossEnemy->restartGame();
+          for(Drawable* egg : eggs) {
+            static_cast<Egg*>(egg)->restartGame();
+          }
+          for(Drawable* enemy : enemies) {
+            static_cast<MovingEnemy*>(enemy)->restartGame();
+          }
+        }
         if ( keystate[SDL_SCANCODE_F1] && !showHud) {
           showHud = true;
         }

@@ -73,6 +73,12 @@ BossEnemy& BossEnemy::operator=(const BossEnemy& s) {
   return *this;
 }
 
+void BossEnemy::restartGame() {
+  explosion = NULL;
+  bulletsHit = 0;
+  setPosition(initialPosition);
+}
+
 void BossEnemy::draw() const {
 	if ( explosion ) explosion->draw();
   else images[currentFrame]->draw(getX(), getY(), getScale());

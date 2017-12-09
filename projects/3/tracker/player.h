@@ -33,6 +33,7 @@ public:
   unsigned int bulletCount() const { return bullets.bulletCount(); }
   unsigned int freeCount() const { return bullets.freeCount(); }
   void reset();
+  void restartGame();
   bool explosionDone();
   void explode();
   void stop();

@@ -23,6 +23,7 @@ public:
   int getScaledHeight()  const { return getScale()*images[currentFrame]->getHeight(); }
 
 	void reset();
+	void restartGame();
 	bool explosionDone();
   void explode();
 	void setOriginalState() {

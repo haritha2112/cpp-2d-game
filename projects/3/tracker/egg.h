@@ -19,6 +19,7 @@ public:
   int getScaledHeight() const { return getScale()*image->getHeight(); }
 
   void removeFromScreen() { setPosition(Vector2f(-500, -500)); }
+  void restartGame();
 
 private:
   const Image * image;
