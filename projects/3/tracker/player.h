@@ -27,7 +27,8 @@ public:
   virtual const SDL_Surface* getSurface() const { return images[currentFrame]->getSurface(); }
   void setImages(std::vector<Image *> newImages) { images = newImages; }
 
-  void addEgg() { eggsCollected += 1; }
+  void addEgg() { eggsCollected++; }
+  void incrementEnemiesDestroyed() { enemiesDestroyed++; }
   void toggleGodMode() { godMode = !godMode; }
   bool isInvincible() { return godMode; }
   unsigned int bulletCount() const { return bullets.bulletCount(); }

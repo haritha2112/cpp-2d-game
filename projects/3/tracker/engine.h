@@ -9,6 +9,7 @@
 #include "helpMenu.h"
 #include "movingEnemy.h"
 #include "bossEnemy.h"
+#include "tree.h"
 #include <vector>
 
 class Player;
@@ -38,6 +39,7 @@ private:
 
   Player* player;
   BossEnemy* bossEnemy;
+  Tree* tree;
   std::vector<Drawable* > eggs;
   std::vector<Drawable* > enemies;
   std::vector<CollisionStrategy*> strategies;

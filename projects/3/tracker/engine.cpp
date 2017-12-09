@@ -16,6 +16,7 @@
 Engine::~Engine() {
   delete player;
   delete bossEnemy;
+  delete tree;
   for ( Drawable* egg : eggs ) {
     delete egg;
   }
@@ -41,6 +42,7 @@ Engine::Engine() :
   viewport( Viewport::getInstance() ),
   player(new Player("BlueBird", "BlueBullet")),
   bossEnemy(new BossEnemy("YellowBee")),
+  tree(new Tree("Tree")),
   eggs(),
   enemies(),
   strategies(),
@@ -80,6 +82,7 @@ void Engine::draw() const {
   clouds.draw();
   mountains.draw();
   ground.draw();
+  tree->draw();
   player->draw();
   bossEnemy->draw();
   for ( const Drawable* egg : eggs ) { egg->draw(); }
@@ -103,6 +106,7 @@ void Engine::checkForCollisions() {
   for ( Drawable* e : enemies ) {
     MovingEnemy* enemy = static_cast<MovingEnemy*>(e);
     if ( strategies[currentStrategy]->execute(*player, *e) ) {
+      player->incrementEnemiesDestroyed();
       enemy->explode();
       if (!player->isInvincible()) {
         player->explode();
@@ -136,6 +140,7 @@ void Engine::update(Uint32 ticks) {
   clouds.update();
   mountains.update();
   ground.update();
+  tree->update(ticks);
   player->update(ticks);
   bossEnemy->update(ticks);
   for(Drawable* egg : eggs) {

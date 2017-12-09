@@ -97,6 +97,12 @@
   <alpha>0</alpha>
 </font>
 
+<Tree>
+  <file>assets/tree.png</file>
+  <startLoc x="4700" y="0"/>
+  <transparency>false</transparency>
+</Tree>
+
 <BlueBird>
   <rightSprite>
     <file>assets/flappybird_right.png</file>
