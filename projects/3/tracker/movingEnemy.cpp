@@ -1,9 +1,25 @@
 #include "movingEnemy.h"
 #include "gamedata.h"
+#include "renderContext.h"
+#include "explodingSprite.h"
 
+MovingEnemy::~MovingEnemy() {
+  if (explosion) delete explosion;
+}
 
 MovingEnemy::MovingEnemy( const std::string& name, const Vector2f& pos, int w, int h ) :
-  MultiSprite(name),
+  Drawable(name,
+           Vector2f(Gamedata::getInstance().getXmlInt(name+"/startLoc/x"),
+                    Gamedata::getInstance().getXmlInt(name+"/startLoc/y")),
+           Vector2f(Gamedata::getInstance().getXmlInt(name+"/speedX"),
+                    Gamedata::getInstance().getXmlInt(name+"/speedY"))
+           ),
+  images( RenderContext::getInstance()->getImages(name) ),
+  explosion(nullptr),
+  currentFrame(0),
+  numberOfFrames( Gamedata::getInstance().getXmlInt(name+"/frames") ),
+  frameInterval( Gamedata::getInstance().getXmlInt(name+"/frameInterval")),
+  timeSinceLastFrame( 0 ),
   playerPos(pos),
   playerWidth(w),
   playerHeight(h),
@@ -24,7 +40,13 @@ MovingEnemy::MovingEnemy( const std::string& name, const Vector2f& pos, int w, i
 }
 
 MovingEnemy::MovingEnemy(const MovingEnemy& s) :
-  MultiSprite(s),
+  Drawable(s),
+  images(s.images),
+  explosion(s.explosion),
+  currentFrame(s.currentFrame),
+  numberOfFrames(s.numberOfFrames),
+  frameInterval(s.frameInterval),
+  timeSinceLastFrame(s.timeSinceLastFrame),
   playerPos(s.playerPos),
   playerWidth(s.playerWidth),
   playerHeight(s.playerHeight),
@@ -39,10 +61,16 @@ MovingEnemy::MovingEnemy(const MovingEnemy& s) :
   bulletsToDie(s.bulletsToDie),
   bulletsHit(s.bulletsHit),
   initialPosition(s.initialPosition)
-  { }
+{}
 
 MovingEnemy& MovingEnemy::operator=(const MovingEnemy& s) {
-  MultiSprite::operator=(s);
+  Drawable::operator=(s);
+  images = s.images;
+	explosion = s.explosion;
+  currentFrame = s.currentFrame;
+  numberOfFrames = s.numberOfFrames;
+  frameInterval = s.frameInterval;
+  timeSinceLastFrame = s.timeSinceLastFrame;
   playerPos = s.playerPos;
   playerWidth = s.playerWidth;
   playerHeight = s.playerHeight;
@@ -70,19 +98,48 @@ void MovingEnemy::goDown(Uint32 ticks) {
   setY( getY()+incr );
 }
 
+void MovingEnemy::draw() const {
+	if ( explosion ) explosion->draw();
+  else images[currentFrame]->draw(getX(), getY(), getScale());
+}
+
+void MovingEnemy::explode() {
+  if ( !explosion ) {
+		Vector2f velocity(100, 100);
+    Sprite sprite(getName(), getPosition(), velocity, images[currentFrame]);
+    explosion = new ExplodingSprite(sprite);
+  }
+}
+
+bool MovingEnemy::explosionDone() {
+	return explosion && explosion->chunkCount() == 0;
+}
+
 void MovingEnemy::reset() {
   setPosition(Vector2f(worldWidth + enemyWidth + 1000, 1000));
   if ( explosionDone() ) {
-    MultiSprite::reset();
+    delete explosion;
+    explosion = NULL;
     bulletsHit = 0;
     setX(worldWidth + enemyWidth + rand()%(500));
     setY(rand()%(viewHeight-enemyRange+1));
   }
 }
 
-void MovingEnemy::update(Uint32 ticks) {
-  MultiSprite::update(ticks);
+void MovingEnemy::advanceFrame(Uint32 ticks) {
+	timeSinceLastFrame += ticks;
+	if (timeSinceLastFrame > frameInterval) {
+    currentFrame = (currentFrame+1) % numberOfFrames;
+		timeSinceLastFrame = 0;
+	}
+}
 
+void MovingEnemy::update(Uint32 ticks) {
+  if ( explosion ) {
+    explosion->update(ticks);
+		this->reset();
+    return;
+  }
   advanceFrame(ticks);
   Vector2f incr = getVelocity() * static_cast<float>(ticks) * 0.001;
   Vector2f currentPos = getPosition();
@@ -109,5 +166,4 @@ void MovingEnemy::update(Uint32 ticks) {
       if ( y > py ) goUp(ticks);
     }
   }
-
 }

@@ -1,23 +1,43 @@
 #ifndef MOVINGENEMY_H
 #define MOVINGENEMY_H
 
-#include "multisprite.h"
+#include <string>
+#include <vector>
+#include <cmath>
+#include "drawable.h"
 
-class MovingEnemy : public MultiSprite {
+class ExplodingSprite;
+
+class MovingEnemy : public Drawable {
 public:
-	MovingEnemy( const std::string& name, const Vector2f& pos, int w, int h );
+	MovingEnemy(const std::string&, const Vector2f&, int, int);
 	MovingEnemy(const MovingEnemy&);
 	MovingEnemy& operator=(const MovingEnemy&);
+	~MovingEnemy();
 
-	virtual void update(Uint32 ticks);
-	virtual void reset();
+	virtual void draw() const;
+  virtual void update(Uint32 ticks);
+  virtual const Image* getImage() const { return images[currentFrame]; }
+  virtual const SDL_Surface* getSurface() const { return images[currentFrame]->getSurface(); }
+  int getScaledWidth()  const { return getScale()*images[currentFrame]->getWidth(); }
+  int getScaledHeight()  const { return getScale()*images[currentFrame]->getHeight(); }
+
+	bool explosionDone();
+  void explode();
+	void reset();
 	void setPlayerPos(const Vector2f& p) { playerPos = p; }
 	void moveToInitialPosition() { setPosition(initialPosition); }
-
 	void gotShot() { ++bulletsHit; }
 	bool canDie() { return bulletsToDie == bulletsHit; }
+
 private:
 	enum MODE {NORMAL, PURSUE};
+	std::vector<Image *> images;
+  ExplodingSprite* explosion;
+	unsigned currentFrame;
+  unsigned numberOfFrames;
+  unsigned frameInterval;
+  float timeSinceLastFrame;
 	Vector2f playerPos;
 	int playerWidth;
 	int playerHeight;
@@ -35,5 +55,6 @@ private:
 
 	void goUp(Uint32 ticks);
 	void goDown(Uint32 ticks);
+	void advanceFrame(Uint32 ticks);
 };
 #endif
