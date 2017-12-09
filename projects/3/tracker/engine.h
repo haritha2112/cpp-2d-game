@@ -7,6 +7,7 @@
 #include "viewport.h"
 #include "hud.h"
 #include "helpMenu.h"
+#include "gameOverBox.h"
 #include "movingEnemy.h"
 #include "bossEnemy.h"
 #include "tree.h"
@@ -49,6 +50,7 @@ private:
 
   Hud& hud;
   HelpMenu& helpMenu;
+  GameOverBox& gameOverBox;
 
   bool makeVideo;
 

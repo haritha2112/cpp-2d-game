@@ -53,6 +53,7 @@ public:
   void detach( MovingEnemy* o );
   void destroyIfShot(MovingEnemy*);
   void destroyIfShot(BossEnemy*);
+  bool hasReachedTree() { return reachedTree; }
 
 private:
   enum Facing { LEFT, RIGHT };
@@ -85,6 +86,7 @@ private:
   int currentHealth;
   int enemyCollisionHealthLoss;
   bool godMode;
+  bool reachedTree;
 
   void advanceFrame(Uint32 ticks);
 };

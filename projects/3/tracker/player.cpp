@@ -48,7 +48,8 @@ Player::Player( const std::string& player, const std::string& bullet ) :
   currentLives(Gamedata::getInstance().getXmlInt(player+"/lives")),
   currentHealth(Gamedata::getInstance().getXmlInt(player+"/health")),
   enemyCollisionHealthLoss(Gamedata::getInstance().getXmlInt(player+"/enemyCollisionHealthLoss")),
-  godMode(false)
+  godMode(false),
+  reachedTree(false)
 {}
 
 Player::Player(const Player& s) :
@@ -81,7 +82,8 @@ Player::Player(const Player& s) :
   currentLives( s.currentLives ),
   currentHealth( s.currentHealth ),
   enemyCollisionHealthLoss( s.enemyCollisionHealthLoss ),
-  godMode( s.godMode )
+  godMode( s.godMode ),
+  reachedTree( s.reachedTree )
 {}
 
 Player& Player::operator=(const Player& s) {
@@ -115,6 +117,7 @@ Player& Player::operator=(const Player& s) {
   currentHealth = s.currentHealth;
   enemyCollisionHealthLoss = s.enemyCollisionHealthLoss;
   godMode = s.godMode;
+  reachedTree = s.reachedTree;
   return *this;
 }
 
@@ -153,6 +156,7 @@ void Player::restartGame() {
   currentLives = initialLives;
   currentHealth = initialHealth;
   setPosition(initialPosition);
+  reachedTree = false;
 }
 
 void Player::draw() const {
@@ -215,11 +219,18 @@ void Player::reset() {
     explosion = NULL;
     std::list<MovingEnemy*>::iterator ptr = observers.begin();
     while ( ptr != observers.end() ) {
-      (*ptr)->moveToInitialPosition();
+      if (currentLives > 0) {
+        (*ptr)->moveToInitialPosition();
+      } else {
+        (*ptr)->explode();
+        (*ptr)->setRespawn(false);
+      }
       ++ptr;
     }
-    currentHealth = initialHealth;
-    setPosition(initialPosition);
+    if (currentLives > 0) {
+      currentHealth = initialHealth;
+      setPosition(initialPosition);
+    }
   }
 }
 
@@ -253,18 +264,23 @@ void Player::update(Uint32 ticks) {
     return;
   }
   advanceFrame(ticks);
-  Vector2f incr = getVelocity() * static_cast<float>(ticks) * 0.001;
-  setPosition(getPosition() + incr);
-  bullets.update(ticks);
-  timeSinceLastBullet += ticks;
-  switch(facing) {
-    case LEFT: setImages(leftsprite); break;
-    case RIGHT: setImages(rightsprite); break;
+  if ( getX() >= worldWidth - getScaledWidth() ) {
+    reachedTree = true;
   }
-  std::list<MovingEnemy*>::iterator ptr = observers.begin();
-  while ( ptr != observers.end() ) {
-    (*ptr)->setPlayerPos( getPosition() );
-    ++ptr;
+  if (currentLives > 0) {
+    Vector2f incr = getVelocity() * static_cast<float>(ticks) * 0.001;
+    setPosition(getPosition() + incr);
+    bullets.update(ticks);
+    timeSinceLastBullet += ticks;
+    switch(facing) {
+      case LEFT: setImages(leftsprite); break;
+      case RIGHT: setImages(rightsprite); break;
+    }
+    std::list<MovingEnemy*>::iterator ptr = observers.begin();
+    while ( ptr != observers.end() ) {
+      (*ptr)->setPlayerPos( getPosition() );
+      ++ptr;
+    }
   }
   stop();
 }

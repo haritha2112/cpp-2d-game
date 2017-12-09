@@ -51,6 +51,7 @@ Engine::Engine() :
   showHelpMenu(false),
   hud( Hud::getInstance(player) ),
   helpMenu( HelpMenu::getInstance() ),
+  gameOverBox( GameOverBox::getInstance(player) ),
   makeVideo(false)
 {
   Vector2f pos = player->getPosition();
@@ -91,6 +92,12 @@ void Engine::draw() const {
   if(clock.getSeconds() < helpMenuTime || showHelpMenu) {
     helpMenu.draw();
   }
+  if (player->hasReachedTree() && bossEnemy->isDead()) {
+    gameOverBox.draw(viewport.getPosition(), true);
+  }
+  else if (player->getRemainingLives() <= 0) {
+    gameOverBox.draw(viewport.getPosition(), false);
+  }
   viewport.draw();
   SDL_RenderPresent(renderer);
 }
@@ -106,9 +113,10 @@ void Engine::checkForCollisions() {
   for ( Drawable* e : enemies ) {
     MovingEnemy* enemy = static_cast<MovingEnemy*>(e);
     if ( strategies[currentStrategy]->execute(*player, *e) ) {
-      player->incrementEnemiesDestroyed();
       enemy->explode();
-      if (!player->isInvincible()) {
+      if (player->isInvincible()) {
+        player->incrementEnemiesDestroyed();
+      } else {
         player->explode();
         bossEnemy->setOriginalState();
       }
@@ -136,6 +144,11 @@ void Engine::checkForCollisions() {
 
 void Engine::update(Uint32 ticks) {
   checkForCollisions();
+  if (bossEnemy->isDead()) {
+    for ( Drawable* d : eggs ) {
+      static_cast<Egg*>(d)->removeFromScreen();
+    }
+  }
   sky.update();
   clouds.update();
   mountains.update();
