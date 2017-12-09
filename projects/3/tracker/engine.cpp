@@ -39,7 +39,7 @@ Engine::Engine() :
   mountains("mountain-back", Gamedata::getInstance().getXmlInt("mountain-back/factor") ),
   ground("ground-back", Gamedata::getInstance().getXmlInt("ground-back/factor") ),
   viewport( Viewport::getInstance() ),
-  player(new Player("BirdRight", "BirdLeft", "BlueBullet")),
+  player(new Player("BlueBird", "BlueBullet")),
   bossEnemy(new BossEnemy("YellowBee")),
   sprites(),
   enemies(),

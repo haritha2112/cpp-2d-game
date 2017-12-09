@@ -68,8 +68,17 @@
   <alpha>0</alpha>
 </font>
 
-<BirdRight>
-  <file>assets/flappybird_right.png</file>
+<BlueBird>
+  <rightSprite>
+    <file>assets/flappybird_right.png</file>
+    <frames>8</frames>
+    <transparency>false</transparency>
+  </rightSprite>
+  <leftSprite>
+    <file>assets/flappybird_left.png</file>
+    <frames>8</frames>
+    <transparency>false</transparency>
+  </leftSprite>
   <startLoc x="120" y="180"/>
   <frames>8</frames>
   <imageWidth>102</imageWidth>
@@ -77,28 +86,11 @@
   <frameInterval>50</frameInterval>
   <speedX>200</speedX>
   <speedY>200</speedY>
-  <transparency>false</transparency>
   <chunk>
     <size>15</size>
     <distance>300</distance>
   </chunk>
-</BirdRight>
-
-<BirdLeft>
-  <file>assets/flappybird_left.png</file>
-  <startLoc x="50" y="140"/>
-  <frames>8</frames>
-  <imageWidth>102</imageWidth>
-  <imageHeight>70</imageHeight>
-  <frameInterval>50</frameInterval>
-  <speedX>200</speedX>
-  <speedY>200</speedY>
-  <transparency>false</transparency>
-  <chunk>
-    <size>15</size>
-    <distance>300</distance>
-  </chunk>
-</BirdLeft>
+</BlueBird>
 
 <GreenEnemy>
   <file>assets/green_enemy.png</file>

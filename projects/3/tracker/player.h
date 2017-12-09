@@ -14,7 +14,7 @@ class ExplodingSprite;
 
 class Player : public Drawable {
 public:
-  Player(const std::string&, const std::string&, const std::string&);
+  Player(const std::string&, const std::string&);
   Player(const Player&);
   Player& operator=(const Player&);
   ~Player();
@@ -27,8 +27,6 @@ public:
   virtual const SDL_Surface* getSurface() const { return images[currentFrame]->getSurface(); }
   void setImages(std::vector<Image *> newImages) { images = newImages; }
 
-  std::string const getLeftSprite() const { return leftsprite; }
-  std::string const getRightSprite() const { return rightsprite; }
   void collided() { collision = true; }
   void missed() { collision = false; }
   unsigned int bulletCount() const { return bullets.bulletCount(); }
@@ -57,11 +55,12 @@ private:
   float timeSinceLastFrame;
   int worldWidth;
   int worldHeight;
-  std::string rightsprite;
-  std::string leftsprite;
+  std::vector<Image *> rightsprite;
+  std::vector<Image *> leftsprite;
   bool collision;
   Facing facing;
   Vector2f initialVelocity;
+  Vector2f initialPosition;
   std::list<MovingEnemy*> observers;
   std::string bulletName;
   float bulletInterval;

@@ -7,26 +7,27 @@ Player::~Player() {
   if (explosion) delete explosion;
 }
 
-Player::Player( const std::string& right, const std::string& left, const std::string& bullet ) :
-  Drawable(right,
-           Vector2f(Gamedata::getInstance().getXmlInt(right+"/startLoc/x"),
-                    Gamedata::getInstance().getXmlInt(right+"/startLoc/y")),
-           Vector2f(Gamedata::getInstance().getXmlInt(right+"/speedX"),
-                    Gamedata::getInstance().getXmlInt(right+"/speedY"))
+Player::Player( const std::string& player, const std::string& bullet ) :
+  Drawable(player,
+           Vector2f(Gamedata::getInstance().getXmlInt(player+"/startLoc/x"),
+                    Gamedata::getInstance().getXmlInt(player+"/startLoc/y")),
+           Vector2f(Gamedata::getInstance().getXmlInt(player+"/speedX"),
+                    Gamedata::getInstance().getXmlInt(player+"/speedY"))
            ),
-  images( RenderContext::getInstance()->getImages(right) ),
+  images( RenderContext::getInstance()->getImages(player+"/rightSprite") ),
   explosion(nullptr),
   currentFrame(0),
-  numberOfFrames( Gamedata::getInstance().getXmlInt(right+"/frames") ),
-  frameInterval( Gamedata::getInstance().getXmlInt(right+"/frameInterval")),
+  numberOfFrames( Gamedata::getInstance().getXmlInt(player+"/frames") ),
+  frameInterval( Gamedata::getInstance().getXmlInt(player+"/frameInterval")),
   timeSinceLastFrame( 0 ),
   worldWidth(Gamedata::getInstance().getXmlInt("world/width")),
   worldHeight(Gamedata::getInstance().getXmlInt("world/height")),
-  rightsprite(right),
-  leftsprite(left),
+  rightsprite( RenderContext::getInstance()->getImages(player+"/rightSprite") ),
+  leftsprite( RenderContext::getInstance()->getImages(player+"/leftSprite") ),
   collision(false),
   facing(RIGHT),
   initialVelocity(getVelocity()),
+  initialPosition(getPosition()),
   observers(),
   bulletName(bullet),
   bulletInterval(Gamedata::getInstance().getXmlInt(bullet+"/bulletInterval")),
@@ -57,7 +58,8 @@ Player::Player(const Player& s) :
   leftsprite(s.leftsprite),
   collision(s.collision),
   facing(s.facing),
-  initialVelocity(s.getVelocity()),
+  initialVelocity(s.initialVelocity),
+  initialPosition(s.initialPosition),
   observers( s.observers ),
   bulletName( s.bulletName ),
   bulletInterval( s.bulletInterval ),
@@ -66,7 +68,7 @@ Player::Player(const Player& s) :
   rightOffset( s.rightOffset ),
   leftOffset( s.leftOffset ),
   bullets( s.bullets )
-  { }
+{}
 
 Player& Player::operator=(const Player& s) {
   Drawable::operator=(s);
@@ -83,6 +85,7 @@ Player& Player::operator=(const Player& s) {
   collision = s.collision;
   facing = s.facing;
   initialVelocity = s.initialVelocity;
+  initialPosition = s.initialPosition;
   observers = s.observers;
   bulletName = s.bulletName;
   bulletInterval = s.bulletInterval;
@@ -181,8 +184,7 @@ void Player::reset() {
       (*ptr)->moveToInitialPosition();
       ++ptr;
     }
-    setPosition(Vector2f(Gamedata::getInstance().getXmlInt(rightsprite+"/startLoc/x"),
-                         Gamedata::getInstance().getXmlInt(rightsprite+"/startLoc/y")));
+    setPosition(initialPosition);
   }
 }
 
@@ -218,8 +220,8 @@ void Player::update(Uint32 ticks) {
   bullets.update(ticks);
   timeSinceLastBullet += ticks;
   switch(facing) {
-    case LEFT: setImages( RenderContext::getInstance()->getImages(getLeftSprite()) ); break;
-    case RIGHT: setImages( RenderContext::getInstance()->getImages(getRightSprite()) ); break;
+    case LEFT: setImages(leftsprite); break;
+    case RIGHT: setImages(rightsprite); break;
   }
   std::list<MovingEnemy*>::iterator ptr = observers.begin();
   while ( ptr != observers.end() ) {
