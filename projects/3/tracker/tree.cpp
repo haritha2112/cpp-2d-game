@@ -29,4 +29,7 @@ void Tree::draw() const {
   image->draw(getX(), getY(), 0.5);
 }
 
-void Tree::update(Uint32 ticks) {}
+void Tree::update(Uint32 ticks) {
+  Vector2f incr = getVelocity() * static_cast<float>(ticks) * 0.001;
+  setPosition(getPosition() + incr);
+}

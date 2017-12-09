@@ -45,4 +45,7 @@ void Egg::draw() const {
   image->draw(getX(), getY(), getScale());
 }
 
-void Egg::update(Uint32 ticks) {}
+void Egg::update(Uint32 ticks) {
+  Vector2f incr = getVelocity() * static_cast<float>(ticks) * 0.001;
+  setPosition(getPosition() + incr);
+}
