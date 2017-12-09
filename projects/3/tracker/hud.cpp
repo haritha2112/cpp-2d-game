@@ -31,15 +31,20 @@ Hud::Hud(Player* player):
 {}
 
 void Hud::drawHealthBar(int x, int y, int w, int h, float percent) const {
-   SDL_Color FGColor({0, 255, 0, 200});
-   SDL_Color BGColor({255, 0, 0, 255});
-   SDL_Rect bgrect = { x, y, w, h };
-   SDL_SetRenderDrawColor(renderer, BGColor.r, BGColor.g, BGColor.b, BGColor.a);
-   SDL_RenderFillRect(renderer, &bgrect);
-   SDL_SetRenderDrawColor(renderer, FGColor.r, FGColor.g, FGColor.b, FGColor.a);
-   int pw =  (int)((float)w * (percent/100));
-   SDL_Rect fgrect = { x, y, pw, h };
-   SDL_RenderFillRect(renderer, &fgrect);
+  if ( player->isInvincible() ) {
+    SDL_SetRenderDrawColor(renderer, 128, 0, 128, 255);
+    SDL_Rect fgrect = { x, y, w, h };
+    SDL_RenderFillRect(renderer, &fgrect);
+    IOmod::getInstance().writeText("GOD MODE", hudx+120, hudy+20, textFontColor, 14);
+  } else {
+    SDL_Rect bgrect = { x, y, w, h };
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    SDL_RenderFillRect(renderer, &bgrect);
+    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 200);
+    int pw =  (int)((float)w * (percent/100));
+    SDL_Rect fgrect = { x, y, pw, h };
+    SDL_RenderFillRect(renderer, &fgrect);
+  }
 }
 
 void Hud::draw(const Vector2f& position) const {
