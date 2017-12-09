@@ -1,3 +1,6 @@
+#ifndef IMAGEFACTORY__H
+#define IMAGEFACTORY__H
+
 #include <string>
 #include <vector>
 #include <map>
@@ -28,8 +31,8 @@ private:
   std::map<std::string, std::vector<SDL_Texture*> > multiTextures;
   std::map<std::string, std::vector<Image*> > multiImages;
 
-  ImageFactory() : 
-    gdata( Gamedata::getInstance() ), 
+  ImageFactory() :
+    gdata( Gamedata::getInstance() ),
     surfaces(),
     textures(),
     images(),
@@ -37,5 +40,5 @@ private:
     multiTextures(),
     multiImages()
   {}
-  
 };
+#endif
