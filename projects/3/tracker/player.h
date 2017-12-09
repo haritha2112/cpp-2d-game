@@ -29,6 +29,7 @@ public:
 
   void collided() { collision = true; }
   void missed() { collision = false; }
+  void addEgg() { eggsCollected += 1; }
   unsigned int bulletCount() const { return bullets.bulletCount(); }
   unsigned int freeCount() const { return bullets.freeCount(); }
   void reset();
@@ -69,6 +70,13 @@ private:
   Vector2f rightOffset;
   Vector2f leftOffset;
   BulletPool bullets;
+  int eggsCollected;
+  int enemiesDestroyed;
+  int initialLives;
+  int initialHealth;
+  int currentLives;
+  int currentHealth;
+  int enemyCollisionHealthLoss;
 
   void advanceFrame(Uint32 ticks);
 };

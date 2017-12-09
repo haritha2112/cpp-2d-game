@@ -4,7 +4,7 @@
 #include <string>
 #include <random>
 #include <iomanip>
-#include "sprite.h"
+#include "egg.h"
 #include "player.h"
 #include "movingEnemy.h"
 #include "bossEnemy.h"
@@ -16,8 +16,8 @@
 Engine::~Engine() {
   delete player;
   delete bossEnemy;
-  for ( Drawable* sprite : sprites ) {
-    delete sprite;
+  for ( Drawable* egg : eggs ) {
+    delete egg;
   }
   for ( Drawable* enemy : enemies ) {
     delete enemy;
@@ -41,7 +41,7 @@ Engine::Engine() :
   viewport( Viewport::getInstance() ),
   player(new Player("BlueBird", "BlueBullet")),
   bossEnemy(new BossEnemy("YellowBee")),
-  sprites(),
+  eggs(),
   enemies(),
   strategies(),
   currentSprite(0),
@@ -54,8 +54,12 @@ Engine::Engine() :
   Vector2f pos = player->getPosition();
   int w = player->getScaledWidth();
   int h = player->getScaledHeight();
+  int eggCount = Gamedata::getInstance().getXmlInt("Egg/count");
   int greenEnemyCount = Gamedata::getInstance().getXmlInt("GreenEnemy/count");
   int redEnemyCount = Gamedata::getInstance().getXmlInt("RedEnemy/count");
+  for(int index=0; index < eggCount; index++) {
+    eggs.push_back(new Egg("Egg"));
+  }
   for(int index=0; index < greenEnemyCount; index++) {
     enemies.push_back(new MovingEnemy("GreenEnemy", pos, w, h));
   }
@@ -78,7 +82,7 @@ void Engine::draw() const {
   ground.draw();
   player->draw();
   bossEnemy->draw();
-  for ( const Drawable* sprite : sprites ) { sprite->draw(); }
+  for ( const Drawable* egg : eggs ) { egg->draw(); }
   for ( const Drawable* enemy : enemies ) { enemy->draw(); }
 
   SDL_Color my_color = {102,0,102,0};
@@ -94,8 +98,11 @@ void Engine::draw() const {
 
 void Engine::checkForCollisions() {
   collision = false;
-  for ( const Drawable* d : sprites ) {
+  for ( Drawable* d : eggs ) {
     if ( strategies[currentStrategy]->execute(*player, *d) ) {
+      player->addEgg();
+      Egg* egg = static_cast<Egg*>(d);
+      egg->removeFromScreen();
       collision = true;
     }
   }
@@ -137,8 +144,8 @@ void Engine::update(Uint32 ticks) {
   ground.update();
   player->update(ticks);
   bossEnemy->update(ticks);
-  for(Drawable* sprite : sprites) {
-    sprite->update(ticks);
+  for(Drawable* egg : eggs) {
+    egg->update(ticks);
   }
   for(Drawable* enemy : enemies) {
     enemy->update(ticks);

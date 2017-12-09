@@ -13,13 +13,13 @@ Player::Player( const std::string& player, const std::string& bullet ) :
                     Gamedata::getInstance().getXmlInt(player+"/startLoc/y")),
            Vector2f(Gamedata::getInstance().getXmlInt(player+"/speedX"),
                     Gamedata::getInstance().getXmlInt(player+"/speedY"))
-           ),
-  images( RenderContext::getInstance()->getImages(player+"/rightSprite") ),
+          ),
+  images( RenderContext::getInstance()->getImages(player+"/rightSprite")),
   explosion(nullptr),
   currentFrame(0),
-  numberOfFrames( Gamedata::getInstance().getXmlInt(player+"/frames") ),
+  numberOfFrames( Gamedata::getInstance().getXmlInt(player+"/frames")),
   frameInterval( Gamedata::getInstance().getXmlInt(player+"/frameInterval")),
-  timeSinceLastFrame( 0 ),
+  timeSinceLastFrame(0),
   worldWidth(Gamedata::getInstance().getXmlInt("world/width")),
   worldHeight(Gamedata::getInstance().getXmlInt("world/height")),
   rightsprite( RenderContext::getInstance()->getImages(player+"/rightSprite") ),
@@ -41,7 +41,14 @@ Player::Player( const std::string& player, const std::string& bullet ) :
     Gamedata::getInstance().getXmlInt(bullet+"/leftOffset/x"),
     Gamedata::getInstance().getXmlInt(bullet+"/leftOffset/y")
   )),
-  bullets(BulletPool(bullet))
+  bullets(BulletPool(bullet)),
+  eggsCollected(0),
+  enemiesDestroyed(0),
+  initialLives(Gamedata::getInstance().getXmlInt(player+"/lives")),
+  initialHealth(Gamedata::getInstance().getXmlInt(player+"/health")),
+  currentLives(Gamedata::getInstance().getXmlInt(player+"/lives")),
+  currentHealth(Gamedata::getInstance().getXmlInt(player+"/health")),
+  enemyCollisionHealthLoss(Gamedata::getInstance().getXmlInt(player+"/enemyCollisionHealthLoss"))
 {}
 
 Player::Player(const Player& s) :
@@ -67,7 +74,14 @@ Player::Player(const Player& s) :
   minBulletSpeed( s.minBulletSpeed ),
   rightOffset( s.rightOffset ),
   leftOffset( s.leftOffset ),
-  bullets( s.bullets )
+  bullets( s.bullets ),
+  eggsCollected ( s.eggsCollected ),
+  enemiesDestroyed ( s.enemiesDestroyed ),
+  initialLives( s.initialLives ),
+  initialHealth( s.initialHealth ),
+  currentLives( s.currentLives ),
+  currentHealth( s.currentHealth ),
+  enemyCollisionHealthLoss( s.enemyCollisionHealthLoss )
 {}
 
 Player& Player::operator=(const Player& s) {
@@ -94,6 +108,13 @@ Player& Player::operator=(const Player& s) {
   rightOffset = s.rightOffset;
   leftOffset = s.leftOffset;
   bullets = s.bullets;
+  eggsCollected = s.eggsCollected;
+  enemiesDestroyed = s.enemiesDestroyed;
+  initialLives = s.initialLives;
+  initialHealth = s.initialHealth;
+  currentLives = s.currentLives;
+  currentHealth = s.currentHealth;
+  enemyCollisionHealthLoss = s.enemyCollisionHealthLoss;
   return *this;
 }
 
@@ -134,6 +155,7 @@ void Player::destroyIfShot( MovingEnemy* enemy ) {
   if ( bullets.collided(enemy) ) {
     enemy->gotShot();
     if (enemy->canDie()) {
+      enemiesDestroyed += 1;
       enemy->explode();
     }
   }
@@ -143,6 +165,7 @@ void Player::destroyIfShot( BossEnemy* enemy ) {
   if ( bullets.collided(enemy) ) {
     enemy->gotShot();
     if (enemy->canDie()) {
+      enemiesDestroyed += 1;
       enemy->explode();
       std::list<MovingEnemy*>::iterator ptr = observers.begin();
       while ( ptr != observers.end() ) {
@@ -184,12 +207,16 @@ void Player::reset() {
       (*ptr)->moveToInitialPosition();
       ++ptr;
     }
+    currentHealth = initialHealth;
     setPosition(initialPosition);
   }
 }
 
 void Player::explode() {
-  if ( !explosion ) {
+  enemiesDestroyed += 1;
+  currentHealth -= enemyCollisionHealthLoss;
+  if ( currentHealth <= 0 && !explosion ) {
+    currentLives -= 1;
     Vector2f velocity(100, 100);
     Sprite sprite(getName(), getPosition(), velocity, images[currentFrame]);
     explosion = new ExplodingSprite(sprite);

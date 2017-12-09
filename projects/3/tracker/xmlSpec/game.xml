@@ -86,6 +86,9 @@
   <frameInterval>50</frameInterval>
   <speedX>200</speedX>
   <speedY>200</speedY>
+  <lives>3</lives>
+  <health>100</health>
+  <enemyCollisionHealthLoss>50</enemyCollisionHealthLoss>
   <chunk>
     <size>15</size>
     <distance>300</distance>
@@ -149,9 +152,7 @@
 
 <Egg>
   <file>assets/egg.png</file>
-  <startLoc x="227" y="240"/>
-  <speedX>0</speedX>
-  <speedY>0</speedY>
+  <count>5</count>
   <transparency>false</transparency>
 </Egg>
 

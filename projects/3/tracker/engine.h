@@ -37,7 +37,7 @@ private:
 
   Player* player;
   BossEnemy* bossEnemy;
-  std::vector<Drawable* > sprites;
+  std::vector<Drawable* > eggs;
   std::vector<Drawable* > enemies;
   std::vector<CollisionStrategy*> strategies;
   int currentSprite;
