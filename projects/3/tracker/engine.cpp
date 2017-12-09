@@ -5,8 +5,6 @@
 #include <random>
 #include <iomanip>
 #include "sprite.h"
-#include "multisprite.h"
-#include "twowaySprite.h"
 #include "player.h"
 #include "movingEnemy.h"
 #include "bossEnemy.h"
