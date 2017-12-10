@@ -4,6 +4,7 @@
 #include <string>
 #include <random>
 #include <iomanip>
+#include "blackBird.h"
 #include "egg.h"
 #include "player.h"
 #include "movingEnemy.h"
@@ -17,15 +18,11 @@ Engine::~Engine() {
   delete player;
   delete bossEnemy;
   delete tree;
-  for ( Drawable* egg : eggs ) {
-    delete egg;
-  }
-  for ( Drawable* enemy : enemies ) {
-    delete enemy;
-  }
-  for ( CollisionStrategy* strategy : strategies ) {
-    delete strategy;
-  }
+  for ( Drawable* bird : smallBlackBirds ) delete bird;
+  for ( Drawable* bird : bigBlackBirds ) delete bird;
+  for ( Drawable* egg : eggs ) delete egg;
+  for ( Drawable* enemy : enemies ) delete enemy;
+  for ( CollisionStrategy* strategy : strategies ) delete strategy;
   std::cout << "Terminating program" << std::endl;
 }
 
@@ -38,11 +35,14 @@ Engine::Engine() :
   sky("sky-back", Gamedata::getInstance().getXmlInt("sky-back/factor") ),
   clouds("cloud-back", Gamedata::getInstance().getXmlInt("cloud-back/factor") ),
   mountains("mountain-back", Gamedata::getInstance().getXmlInt("mountain-back/factor") ),
+  mountains2("mountain2-back", Gamedata::getInstance().getXmlInt("mountain2-back/factor") ),
   ground("ground-back", Gamedata::getInstance().getXmlInt("ground-back/factor") ),
   viewport( Viewport::getInstance() ),
   player(new Player("BlueBird", "BlueBullet")),
   bossEnemy(new BossEnemy("YellowBee", "LaserBullet")),
   tree(new Tree("Tree")),
+  bigBlackBirds(),
+  smallBlackBirds(),
   eggs(),
   enemies(),
   strategies(),
@@ -57,9 +57,23 @@ Engine::Engine() :
   Vector2f pos = player->getPosition();
   int w = player->getScaledWidth();
   int h = player->getScaledHeight();
+  int bigBlackBirdsCount = Gamedata::getInstance().getXmlInt("BlackBird/bigCount");
+  int smallBlackBirdsCount = Gamedata::getInstance().getXmlInt("BlackBird/smallCount");
   int eggCount = Gamedata::getInstance().getXmlInt("Egg/count");
   int greenEnemyCount = Gamedata::getInstance().getXmlInt("GreenEnemy/count");
   int redEnemyCount = Gamedata::getInstance().getXmlInt("RedEnemy/count");
+  for(int index=0; index < bigBlackBirdsCount; index++) {
+    BlackBird* b = new BlackBird("BlackBird", 2);
+    b->setScale(0.13);
+    b->setVelocity(Vector2f(-40, 0));
+    bigBlackBirds.push_back(b);
+  }
+  for(int index=0; index < smallBlackBirdsCount; index++) {
+    BlackBird* b = new BlackBird("BlackBird", 2.3);
+    b->setScale(0.07);
+    b->setVelocity(Vector2f(-15, 0));
+    smallBlackBirds.push_back(b);
+  }
   for(int index=0; index < eggCount; index++) {
     eggs.push_back(new Egg("Egg"));
   }
@@ -82,6 +96,9 @@ void Engine::draw() const {
   sky.draw();
   clouds.draw();
   mountains.draw();
+  for ( const Drawable* bird : smallBlackBirds ) { bird->draw(); }
+  mountains2.draw();
+  for ( const Drawable* bird : bigBlackBirds ) { bird->draw(); }
   ground.draw();
   tree->draw();
   player->draw();
@@ -155,6 +172,9 @@ void Engine::update(Uint32 ticks) {
   sky.update();
   clouds.update();
   mountains.update();
+  for ( Drawable* bird : smallBlackBirds ) { bird->update(ticks); }
+  mountains2.update();
+  for ( Drawable* bird : bigBlackBirds ) { bird->update(ticks); }
   ground.update();
   tree->update(ticks);
   player->update(ticks);
@@ -195,6 +215,12 @@ void Engine::play() {
         if ( keystate[SDL_SCANCODE_R] ) {
           player->restartGame();
           bossEnemy->restartGame();
+          for(Drawable* bird : bigBlackBirds) {
+            static_cast<BlackBird*>(bird)->restartGame();
+          }
+          for(Drawable* bird : smallBlackBirds) {
+            static_cast<BlackBird*>(bird)->restartGame();
+          }
           for(Drawable* egg : eggs) {
             static_cast<Egg*>(egg)->restartGame();
           }

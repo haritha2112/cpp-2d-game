@@ -89,6 +89,12 @@
   <transparency>true</transparency>
 </mountain-back>
 
+<mountain2-back>
+  <file>assets/mountains2.png</file>
+  <factor>3</factor>
+  <transparency>true</transparency>
+</mountain2-back>
+
 <ground-back>
   <file>assets/ground.png</file>
   <factor>1</factor>
@@ -109,6 +115,20 @@
   <startLoc x="4700" y="0"/>
   <transparency>false</transparency>
 </Tree>
+
+<BlackBird>
+  <file>assets/black_bird_left.png</file>
+  <frames>3</frames>
+  <transparency>false</transparency>
+  <bigCount>20</bigCount>
+  <smallCount>50</smallCount>
+  <startLoc x="120" y="180"/>
+  <imageWidth>180</imageWidth>
+  <imageHeight>123</imageHeight>
+  <frameInterval>50</frameInterval>
+  <speedX>200</speedX>
+  <speedY>200</speedY>
+</BlackBird>
 
 <BlueBird>
   <rightSprite>

@@ -35,12 +35,15 @@ private:
   World sky;
   World clouds;
   World mountains;
+  World mountains2;
   World ground;
   Viewport& viewport;
 
   Player* player;
   BossEnemy* bossEnemy;
   Tree* tree;
+  std::vector<Drawable* > bigBlackBirds;
+  std::vector<Drawable* > smallBlackBirds;
   std::vector<Drawable* > eggs;
   std::vector<Drawable* > enemies;
   std::vector<CollisionStrategy*> strategies;
