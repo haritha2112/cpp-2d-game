@@ -2,7 +2,7 @@
 <GameData>
 <!-- screenTitle is also used to identify you and your animation.
      So make sure to include your name as part of the screenTitle -->
-<title>The Tracker Framework</title>
+<title>Bright Blue Bird Blasts Bad Birds and a Big Bee with Blue Bullets</title>
 <maxStringSize>50</maxStringSize>
 
 <frameCapOn>true</frameCapOn>
@@ -244,7 +244,7 @@
   <frames>3</frames>
   <frameInterval>100</frameInterval>
   <imageWidth>95</imageWidth>
-  <imageHeight>68</imageHeight>
+  <imageHeight>22</imageHeight>
   <leftOffset x="0" y="30"/>
   <distance>800</distance>
   <bulletInterval>5000</bulletInterval>
