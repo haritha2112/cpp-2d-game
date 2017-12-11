@@ -17,6 +17,8 @@ public:
   void playSoundEffect(const std::string&);
   void toggleSoundEffects();
   void toggleBackgroundMusic();
+  bool isBackgroundMusicOn() { return backgroundMusic; }
+  bool areSoundEffectsOn() { return soundEffects; }
 
 private:
   bool soundEffects;

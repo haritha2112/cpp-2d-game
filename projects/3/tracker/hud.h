@@ -6,6 +6,7 @@
 #include "clock.h"
 #include "ioMod.h"
 #include "player.h"
+#include "sound.h"
 
 class Hud {
 public:
@@ -15,6 +16,7 @@ public:
 
 private:
   Player* player;
+  SDLSound* sound;
   Image* heartImage;
   Image* eggImage;
   std::vector<Image *> deadGreenEnemy;
@@ -31,5 +33,7 @@ private:
   const IOmod& io;
   SDL_Color textFontColor;
   void drawHealthBar(int x, int y, int w, int h, float percent) const;
+  void drawMusicStatus(int x, int y) const;
+  void drawSFXStatus(int x, int y) const;
 };
 #endif
