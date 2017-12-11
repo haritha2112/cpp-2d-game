@@ -42,7 +42,7 @@ public:
   void reset();
   void restartGame();
   bool explosionDone();
-  void explode();
+  bool explode();
   void stop();
   void right();
   void left();
@@ -51,8 +51,8 @@ public:
   void shoot();
   void attach( MovingEnemy* o ) { observers.push_back(o); }
   void detach( MovingEnemy* o );
-  void destroyIfShot(MovingEnemy*);
-  void destroyIfShot(BossEnemy*);
+  bool destroyIfShot(MovingEnemy*);
+  bool destroyIfShot(BossEnemy*);
   bool hasReachedTree() { return reachedTree; }
 
 private:

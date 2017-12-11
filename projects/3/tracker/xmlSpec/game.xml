@@ -28,9 +28,9 @@
 </world>
 
 <helpMenu>
-  <width>550</width>
-  <height>120</height>
-  <start x="150" y="0"/>
+  <width>570</width>
+  <height>160</height>
+  <start x="130" y="0"/>
   <color red="255" green="255" blue="0"/>
   <time>5</time>
 </helpMenu>

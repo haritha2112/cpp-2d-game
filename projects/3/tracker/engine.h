@@ -11,6 +11,7 @@
 #include "movingEnemy.h"
 #include "bossEnemy.h"
 #include "tree.h"
+#include "sound.h"
 #include <vector>
 
 class Player;
@@ -55,7 +56,10 @@ private:
   HelpMenu& helpMenu;
   GameOverBox& gameOverBox;
 
+  SDLSound* sound;
+
   bool makeVideo;
+  bool gameOverSoundPlayed;
 
   void draw() const;
   void update(Uint32);

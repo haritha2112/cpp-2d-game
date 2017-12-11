@@ -13,7 +13,8 @@ Gamedata::~Gamedata( ) { }
 
 Gamedata::Gamedata(const string& fn ) :
   parser(fn),
-  gameData(parser.getXmlData())
+  gameData(parser.getXmlData()),
+  sound(nullptr)
 { }
 
 float Gamedata::getRandInRange(int min, int max) const {
@@ -62,6 +63,13 @@ float Gamedata::getXmlFloat(const string& tag) const {
     strm >> data;
     return data;
   }
+}
+
+SDLSound* Gamedata::getSoundInstance() {
+  if ( !sound ) {
+    sound = new SDLSound();
+  }
+  return sound;
 }
 
 const string& Gamedata::getXmlStr(const string& tag) const {

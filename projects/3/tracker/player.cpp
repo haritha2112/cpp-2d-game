@@ -165,17 +165,19 @@ void Player::draw() const {
   bullets.draw();
 }
 
-void Player::destroyIfShot( MovingEnemy* enemy ) {
+bool Player::destroyIfShot( MovingEnemy* enemy ) {
   if ( bullets.collided(enemy) ) {
     enemy->gotShot();
     if (enemy->isDead()) {
       enemiesDestroyed += 1;
       enemy->explode();
+      return true;
     }
   }
+  return false;
 }
 
-void Player::destroyIfShot( BossEnemy* enemy ) {
+bool Player::destroyIfShot( BossEnemy* enemy ) {
   if ( bullets.collided(enemy) ) {
     enemy->gotShot();
     if (enemy->isDead()) {
@@ -187,8 +189,10 @@ void Player::destroyIfShot( BossEnemy* enemy ) {
         (*ptr)->setRespawn(false);
         ++ptr;
       }
+      return true;
     }
   }
+  return false;
 }
 
 void Player::shoot() {
@@ -234,7 +238,7 @@ void Player::reset() {
   }
 }
 
-void Player::explode() {
+bool Player::explode() {
   enemiesDestroyed += 1;
   currentHealth -= enemyCollisionHealthLoss;
   if ( currentHealth <= 0 && !explosion ) {
@@ -242,7 +246,9 @@ void Player::explode() {
     Vector2f velocity(100, 100);
     Sprite sprite(getName(), getPosition(), velocity, images[currentFrame]);
     explosion = new ExplodingSprite(sprite);
+    return true;
   }
+  return false;
 }
 
 bool Player::explosionDone() {

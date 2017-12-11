@@ -18,6 +18,7 @@ Engine::~Engine() {
   delete player;
   delete bossEnemy;
   delete tree;
+  delete sound;
   for ( Drawable* bird : smallBlackBirds ) delete bird;
   for ( Drawable* bird : bigBlackBirds ) delete bird;
   for ( Drawable* egg : eggs ) delete egg;
@@ -52,7 +53,9 @@ Engine::Engine() :
   hud( Hud::getInstance(player) ),
   helpMenu( HelpMenu::getInstance() ),
   gameOverBox( GameOverBox::getInstance(player) ),
-  makeVideo(false)
+  sound(Gamedata::getInstance().getSoundInstance()),
+  makeVideo(false),
+  gameOverSoundPlayed(false)
 {
   Vector2f pos = player->getPosition();
   int w = player->getScaledWidth();
@@ -125,40 +128,44 @@ void Engine::checkForCollisions() {
       player->addEgg();
       Egg* egg = static_cast<Egg*>(d);
       egg->removeFromScreen();
+      sound->playSoundEffect("EGG_COLLECTED");
     }
   }
   for ( Drawable* e : enemies ) {
     MovingEnemy* enemy = static_cast<MovingEnemy*>(e);
     if ( strategies[currentStrategy]->execute(*player, *e) ) {
       enemy->explode();
+      sound->playSoundEffect("ENEMY_EXPLODE");
       if (player->isInvincible()) {
         player->incrementEnemiesDestroyed();
       } else {
-        player->explode();
+        if ( player->explode() ) sound->playSoundEffect("PLAYER_EXPLODE");
         bossEnemy->setOriginalState();
       }
     }
     else {
-      player->destroyIfShot(enemy);
+      if ( player->destroyIfShot(enemy) ) sound->playSoundEffect("ENEMY_EXPLODE");
     }
   }
   if ( strategies[currentStrategy]->execute(*player, *bossEnemy) ) {
-    if (player->isInvincible()) {
+    if ( player->isInvincible() ) {
       bossEnemy->explode();
+      sound->playSoundEffect("BOSS_ENEMY_EXPLODE");
       for ( Drawable* e : enemies ) {
         MovingEnemy* enemy = static_cast<MovingEnemy*>(e);
         enemy->explode();
+        sound->playSoundEffect("ENEMY_EXPLODE");
         enemy->setRespawn(false);
       }
     } else {
-      player->explode();
+      if ( player->explode() ) sound->playSoundEffect("PLAYER_EXPLODE");
     }
   }
   if ( bossEnemy->hasShot(player) && !player->isInvincible() ) {
-    player->explode();
+    if ( player->explode() ) sound->playSoundEffect("PLAYER_EXPLODE");
   }
   else {
-    player->destroyIfShot(bossEnemy);
+    if ( player->destroyIfShot(bossEnemy) ) sound->playSoundEffect("BOSS_ENEMY_EXPLODE");
   }
 }
 
@@ -168,6 +175,20 @@ void Engine::update(Uint32 ticks) {
     for ( Drawable* d : eggs ) {
       static_cast<Egg*>(d)->removeFromScreen();
     }
+  }
+  if (player->hasReachedTree() && bossEnemy->isDead()) {
+    if ( !gameOverSoundPlayed ) {
+      sound->playSoundEffect("GAME_WON");
+    }
+    sound->pause();
+    gameOverSoundPlayed = true;
+  }
+  else if (player->getRemainingLives() <= 0) {
+    if ( !gameOverSoundPlayed ) {
+      sound->playSoundEffect("GAME_LOST");
+    }
+    sound->pause();
+    gameOverSoundPlayed = true;
   }
   sky.update();
   clouds.update();
@@ -210,9 +231,12 @@ void Engine::play() {
           else clock.pause();
         }
         if ( keystate[SDL_SCANCODE_SPACE] ) {
+          sound->playSoundEffect("PLAYER_SHOOT");
           player->shoot();
         }
         if ( keystate[SDL_SCANCODE_R] ) {
+          sound->play();
+          gameOverSoundPlayed = false;
           player->restartGame();
           bossEnemy->restartGame();
           for(Drawable* bird : bigBlackBirds) {
@@ -230,6 +254,12 @@ void Engine::play() {
         }
         if ( keystate[SDL_SCANCODE_G] ) {
           player->toggleGodMode();
+        }
+        if ( keystate[SDL_SCANCODE_M] ) {
+          sound->toggleBackgroundMusic();
+        }
+        if ( keystate[SDL_SCANCODE_E] ) {
+          sound->toggleSoundEffects();
         }
         if ( keystate[SDL_SCANCODE_F1] && !showHelpMenu) {
           showHelpMenu = true;

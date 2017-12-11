@@ -2,6 +2,7 @@
 #include "gamedata.h"
 #include "renderContext.h"
 #include "explodingSprite.h"
+#include "viewport.h"
 
 BossEnemy::~BossEnemy() {
   if (explosion) delete explosion;
@@ -139,6 +140,9 @@ void BossEnemy::shoot() {
     bulletPosition[1] += leftOffset[1];
     bulletVelocity[0] = -(minBulletSpeed + bulletVelocity[0]);
     bullets.shoot(bulletPosition, bulletVelocity);
+    if (Viewport::getInstance().getX() + viewWidth > getX()) {
+      Gamedata::getInstance().getSoundInstance()->playSoundEffect("BOSS_ENEMY_SHOOT");
+    }
     timeSinceLastBullet = 0;
   }
 }

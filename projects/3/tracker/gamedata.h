@@ -4,6 +4,7 @@
 #include <map>
 #include "vector2f.h"
 #include "parseXML.h"
+#include "sound.h"
 
 class Gamedata {
 public:
@@ -18,10 +19,12 @@ public:
   float getRandInRange(int min, int max) const;
   float getRandFloat(float min, float max) const;
   bool  checkTag(const std::string&)const;
+  SDLSound* getSoundInstance();
 
 private:
   ParseXML parser;
   const map<std::string, std::string> gameData;
+  SDLSound* sound;
 
   Gamedata(const std::string& fn = "xmlSpec/game.xml");
   Gamedata(const Gamedata&);
