@@ -18,7 +18,6 @@ Engine::~Engine() {
   delete player;
   delete bossEnemy;
   delete tree;
-  delete sound;
   for ( Drawable* bird : smallBlackBirds ) delete bird;
   for ( Drawable* bird : bigBlackBirds ) delete bird;
   for ( Drawable* egg : eggs ) delete egg;

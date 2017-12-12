@@ -16,7 +16,6 @@ public:
 
 private:
   Player* player;
-  BossEnemy* enemy;
   Image* heartImage;
   Image* eggImage;
   std::vector<Image *> deadGreenEnemy;

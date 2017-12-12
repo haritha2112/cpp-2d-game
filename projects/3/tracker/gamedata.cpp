@@ -9,7 +9,9 @@ Gamedata& Gamedata::getInstance() {
   return gamedata;
 }
 
-Gamedata::~Gamedata( ) { }
+Gamedata::~Gamedata( ) { 
+  delete sound;
+}
 
 Gamedata::Gamedata(const string& fn ) :
   parser(fn),
