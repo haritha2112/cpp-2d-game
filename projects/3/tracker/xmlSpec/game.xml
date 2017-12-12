@@ -28,8 +28,8 @@
 </world>
 
 <helpMenu>
-  <width>570</width>
-  <height>160</height>
+  <width>640</width>
+  <height>180</height>
   <start x="130" y="0"/>
   <color red="255" green="255" blue="0"/>
   <time>5</time>
