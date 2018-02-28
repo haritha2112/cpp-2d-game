@@ -1,18 +1,27 @@
 # Aqua's Quest
 
 ## About 
-Data Driven 2-D game developed using C++ and SDL 2.0
+Data Driven 2-D game developed using C++ and SDL 2.0.
+
 The game has one level and the main theme of the game is that Aqua [the blue bird] has to collect eggs and go to it's tree. It has 3 lives. It will be facing enemies [red and green bugs] on its way. It can shoot its enemies, and it's health reduces when it comes in contact with a enemy [Dies when it comes in contact with more than 2]. Near its tree will be a huge gaint enemy[The boss], which will keep shooting at the player. Aqua has to kill the enemy and reach the tree in order to win the game. A score board will be displayed after you finish the game. 
 
 ## Controls
 WASD      - Movements
+
 Space Bar - Shoot
+
 F1        - Toggle Menu
+
 R         - Restart
+
 P         - Pause
+
 E         - Toggle Sound Effects
+
 M         - Toggle Music
+
 G         - God Mode
+
 Q or Esc  - Quit
 
 ## Gee-Whiz Factors
@@ -25,8 +34,11 @@ Q or Esc  - Quit
 ## Other details
 
 1. Number of bullets to kill the enemies [Configurable via game.xml]:
+
     1 - Green enemy
+    
     2 - Red enemy
+    
     20 - Boss enemy
 2. The player will restart from the first position after he loses a life.
 3. Points are calculated based on the number of lives left, number of eggs collected and number of enemies killed.
