@@ -5,6 +5,11 @@ Data Driven 2-D game developed using C++ and SDL 2.0.
 
 The game has one level and the main theme of the game is that Aqua [the blue bird] has to collect eggs and go to it's tree. It has 3 lives. It will be facing enemies [red and green bugs] on its way. It can shoot its enemies, and it's health reduces when it comes in contact with a enemy [Dies when it comes in contact with more than 2]. Near its tree will be a huge gaint enemy[The boss], which will keep shooting at the player. Aqua has to kill the enemy and reach the tree in order to win the game. A score board will be displayed after you finish the game. 
 
+## Demo
+
+Inline-style: 
+![alt text](https://github.com/haritha2112/cpp-2d-game/blob/myproject/Aqua's-Quest-Demo.gif "Aqua's Quest Demo")
+
 ## Controls
 WASD      - Movements
 
