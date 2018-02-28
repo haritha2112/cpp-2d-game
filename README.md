@@ -7,7 +7,6 @@ The game has one level and the main theme of the game is that Aqua [the blue bir
 
 ## Demo
 
-Inline-style: 
 ![alt text](https://github.com/haritha2112/cpp-2d-game/blob/myproject/Aqua's-Quest-Demo.gif "Aqua's Quest Demo")
 
 ## Controls
